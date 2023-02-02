@@ -1,4 +1,9 @@
 \documentclass[doctor,final,11pt]{iscs-thesis}
+
+%Includes "References" in the table of contents
+\usepackage[nottoc]{tocbibind}
+\usepackage[round]{natbib}
+
 % 論文の種類とフォントサイズをオプションに
 %-------------------
 \etitle{In-field 3D high-throughput cyber-phenotyping by cross-scale assimilation and digital clone}
@@ -14,32 +19,9 @@
 \begin{document}
 % \begin{eabstract}
 % Abstract abstract abstract, 
-% abstract abstract abstract abstract abstract abstract. 
-% Abstract abstract, abstract abstract abstract abstract abstract abstract: 
-% abstract, abstract, abstract abstract. 
-% Abstract abstract abstract abstract abstract abstract abstract 
-% abstract abstract abstract abstract abstract abstract abstract 
-% abstract abstract; 
-% abstract abstract abstract abstract abstract abstract abstract abstract
-% abstract abstract abstract abstract abstract abstract abstract. 
-% Abstract abstract abstract, 
-% abstract abstract abstract abstract abstract abstract abstract abstract
-% abstract abstract abstract abstract abstract abstract abstract, 
-% abstract abstract abstract abstract abstract abstract abstract abstract
-% abstract abstract abstract abstract abstract abstract abstract 
-% abstract abstract abstract abstract abstract abstract. 
 % \end{eabstract}
 % \begin{jabstract}
 % 概要、概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要、
-% 概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要。
-% 概要概要、概要概要概要概要概要、概要概要概要概要概要概要概要概要概要概要概要概要、
-% 概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要。
-% 概要概要概要概要概要概要概要、概要概要概要概要概要概要概要概要概要概要概要概要概要概要、
-% 概要概要概要概要概要、概要概要概要概要概要概要概要概要概要概要概要概要。
-% 概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要。
-% 概要概要概要概要概要、
-% 概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要、
-% 概要概要概要概要概要概要概要概要概要概要概要概要概要概要。
 % \end{jabstract}
 \maketitle
 
@@ -53,14 +35,12 @@
 %-------------------
 \mainmatter %% 本文
 
-\chapter{Joron}
+\include{chapter1.tex}
 
-Honbun honbun, honbun honbun
-\cite{4065825}. 
 
 %-------------------
-\bibliographystyle{plain} % 参考文献
-\bibliography{myref} %
+\bibliographystyle{plainnat} % 参考文献
+\bibliography{bibtex} %
 %-------------------
 
 \begin{acknowledge}
