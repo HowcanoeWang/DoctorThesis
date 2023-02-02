@@ -497,7 +497,7 @@
     \vskip 80\p@
     {\ist@submittedtoblock}\par
     \vskip 20\p@
-    {Thesis Supervisor: \@esupervisor \quad \@jsupervisor\\
+    {指導教員: \@esupervisor \quad \@jsupervisor\\
      \@supervisortitleline}\par
   \vskip-\footskip
   \vskip-100\p@\@plus1fill\null
@@ -540,10 +540,11 @@
   \fi
 }
 \newcommand\ist@submittedtoblock{%
-  Submitted to\\\@submittedto\\
-  \ifist@interim\else on \@date\\\fi
-  in Partial Fulfillment of the Requirements\\
-  for \@degreename
+  東京大学大学院\\\@submittedto\\
+  % \ifist@interim\else on \@date\\\fi
+  農学国際専攻\\
+  % for \@degreename
+  令和 3 年博士課程入学
 }
 \if@seniorthesis
   \newcommand\@submittedto{%
@@ -553,7 +554,7 @@
     the Degree of \thesisgrade \ of Science}
 \else
   \newcommand\@submittedto{%
-    the Graduate School of the University of Tokyo}
+    農学生命科学研究科}
   \ifist@gradiss
     \newcommand\@degreename{%
       the Degree of \thesisgrade \ of Science\\
@@ -1274,7 +1275,7 @@
  \newcommand\jthesisname{\ist@j@doctor}
  \newcommand\jinterimname{\ist@j@interim}
  \newcommand\thesisgrade{Doctor}
- \newcommand\ist@whatscience{Computer Science}
+ \newcommand\ist@whatscience{東京大学教授}
 \fi \fi \fi
 \def\etitle#1{\gdef\@etitle{#1}}
 \def\jtitle#1{\gdef\@jtitle{#1}}
@@ -1298,7 +1299,8 @@
 \newcommand\thesupervisortitle{\@supervisortitle}
 \newcommand*\supervisortitleline[1]{\gdef\@supervisortitleline{#1}}
 \newcommand\@supervisortitleline{%
-  \@supervisortitle\ of \ist@whatscience
+  % \@supervisortitle\ of \ist@whatscience
+  \ist@whatscience
 }
 \ifist@english \catcode`\.=14 \else \catcode`\.=9 \fi
 .\newcommand\ist@j@senior{卒業論文}
