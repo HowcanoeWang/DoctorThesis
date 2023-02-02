@@ -1,4 +1,4 @@
-\documentclass[doctor,final,11pt]{iscs-thesis}
+\documentclass[doctor,final,11pt]{styles/iscs-thesis}
 
 %Includes "References" in the table of contents
 \usepackage[nottoc]{tocbibind}
@@ -25,8 +25,6 @@
 % \end{jabstract}
 \maketitle
 
-
-
 \frontmatter %% 前付け
 \tableofcontents % 目次
 \listoffigures % 図目次
@@ -38,13 +36,14 @@
 \include{chapter1.tex}
 
 
+\chapter*{Acknowledgements}
+% \addcontentsline{toc}{chapter}{\numberline{}Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+Ack ack ack. 
+
 %-------------------
 \bibliographystyle{plainnat} % 参考文献
-\bibliography{bibtex} %
+\bibliography{styles/bibtex} %
 %-------------------
-
-\begin{acknowledge}
-Ack ack ack. 
-\end{acknowledge}
 
 \end{document}
