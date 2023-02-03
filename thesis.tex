@@ -1,46 +1,33 @@
 \documentclass[doctor,12pt]{styles/iscs-thesis}
 
-\usepackage{newtxtext,newtxmath}
-%Includes "References" in the table of contents
-\usepackage[nottoc]{tocbibind}
-\usepackage[
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% import necessary packages %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{newtxtext,newtxmath}      % change font to "Times New Roman"
+\usepackage[nottoc]{tocbibind}        % Includes "References" in the table of contents
+\usepackage[                          % Add clickable hyper links to references and TOC
   hidelinks,
   dvipdfmx,
   colorlinks = true,
   linkcolor = black,
-  urlcolor  = blue,
+  urlcolor  = blue,                   % turn URL link to blue color
   citecolor = black,
   anchorcolor = black]{hyperref}
-\usepackage[round]{natbib}
-\usepackage{indentfirst}
-\usepackage{graphicx}
-\usepackage[labelfont=bf,textfont=md]{caption}
+\usepackage[round]{natbib}            % author-year style references, *.bib requires BibTeX format
+\usepackage{indentfirst}              % the first paragraph also indent with 2 characters
+\usepackage{graphicx}                 % zoom the table / figure to proper size
+\usepackage[                          % Bold the Fig. and Table.
+  labelfont=bf,
+  textfont=md]{caption}
 \usepackage{chngpage}
 
-\urlstyle{same}
-% \setlength{\parskip}{5pt}
-\usepackage{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\urlstyle{same}                       % the \url{} links also use Times New Roman font
+% \setlength{\parskip}{5pt}           % if you need space before each paragraph, open it
+
+\usepackage{geometry}                 % change the page setting to standard MS Word A4
 \geometry{a4paper,left=3.17cm,right=3.17cm,top=2.54cm,bottom=2.54cm}
-
-
-\newcommand{\supplementarysection}{%
-  \section{Supplementary materials}% Set supplementary section
-
-  \setcounter{table}{0}% Reset table counter
-  \let\oldthetable\thetable% Capture table numbering scheme
-  \renewcommand{\thetable}{S\oldthetable}% Prefix table number with S
-
-  \setcounter{figure}{0}% Reset figure counter
-  \let\oldthefigure\thefigure% Capture figure numbering scheme
-  \renewcommand{\thefigure}{S\oldthefigure}% Prefix figure number with S
-
-  \let\oldchapter\chapter% Copy \chapter into \oldchapter
-  \renewcommand{\chapter}{% Update \chapter
-    \let\thefigure\oldthefigure% Copy \thefigure into \oldthefigure
-    \let\chapter\oldchapter% Restore original \chapter
-    \oldchapter% Call original \chapter
-  }
-}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 論文の種類とフォントサイズをオプションに
 %-------------------
@@ -49,18 +36,18 @@
 %
 \eauthor{Haozhou Wang}
 \jauthor{王浩舟}
-\esupervisor{}
 \jsupervisor{加藤洋一郎}
-\supervisortitle{Professor} % Professor, etc.
-\date{May 23, 2023}
+\senkou{農学国際専攻}
+\supervisortitle{東京大学教授}
+\date{令和 3 年博士課程入学}
 %-------------------
 \begin{document}
-% \begin{eabstract}
-% Abstract abstract abstract, 
-% \end{eabstract}
-% \begin{jabstract}
-% 概要、概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要、
-% \end{jabstract}
+\begin{eabstract}
+Abstract abstract abstract, 
+\end{eabstract}
+\begin{jabstract}
+概要、概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要
+\end{jabstract}
 \maketitle
 
 \frontmatter %% 前付け
@@ -69,6 +56,7 @@
 \listoftables % 表目次
 %\lstlistoflistings % ソースコード目次
 %-------------------
+
 \mainmatter %% 本文
 
 \include{chapter1.tex}
@@ -78,9 +66,10 @@
 \include{chapter5.tex}
 \include{chapter6.tex}
 
-
+% Add Acknowladgement to TOC
 \chapter*{Acknowledgements}
 \addcontentsline{toc}{chapter}{Acknowledgements}
+
 Ack ack ack. 
 
 %-------------------

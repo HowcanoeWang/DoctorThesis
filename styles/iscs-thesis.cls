@@ -497,7 +497,8 @@
     \vskip 80\p@
     {\ist@submittedtoblock}\par
     \vskip 20\p@
-    {指導教員: \@esupervisor \quad \@jsupervisor\\
+    % {指導教員: \@esupervisor \quad \@jsupervisor\\
+    {指導教員: \quad \@jsupervisor\\
      \@supervisortitleline}\par
   \vskip-\footskip
   \vskip-100\p@\@plus1fill\null
@@ -539,12 +540,31 @@
     \ist@restoreps
   \fi
 }
+% add Fig. Sx and Table Sx for supplementary section
+\newcommand{\supplementarysection}{%
+  \section{Supplementary materials}% Set supplementary section
+
+  \setcounter{table}{0}% Reset table counter
+  \let\oldthetable\thetable% Capture table numbering scheme
+  \renewcommand{\thetable}{S\oldthetable}% Prefix table number with S
+
+  \setcounter{figure}{0}% Reset figure counter
+  \let\oldthefigure\thefigure% Capture figure numbering scheme
+  \renewcommand{\thefigure}{S\oldthefigure}% Prefix figure number with S
+
+  \let\oldchapter\chapter% Copy \chapter into \oldchapter
+  \renewcommand{\chapter}{% Update \chapter
+    \let\thefigure\oldthefigure% Copy \thefigure into \oldthefigure
+    \let\chapter\oldchapter% Restore original \chapter
+    \oldchapter% Call original \chapter
+  }
+}
 \newcommand\ist@submittedtoblock{%
   東京大学大学院\\\@submittedto\\
   % \ifist@interim\else on \@date\\\fi
-  農学国際専攻\\
+  \@senkou\\
   % for \@degreename
-  令和 3 年博士課程入学
+  \@date\\
 }
 \if@seniorthesis
   \newcommand\@submittedto{%
@@ -575,7 +595,8 @@
   \global\let\@jtitle\@empty
   \global\let\@etitle\@empty
   \global\let\@jsupervisor\@empty
-  \global\let\@esupervisor\@empty
+  % \global\let\@esupervisor\@empty
+  \global\let\@senkou\@empty
   \global\let\@supervisortitle\@empty
   \global\let\@submittedto\@empty
   \global\let\@degree\@empty
@@ -590,7 +611,8 @@
   \global\let\jauthor\relax
   \global\let\eauthor\relax
   \global\let\jsupervisor\relax
-  \global\let\esupervisor\relax
+  % \global\let\esupervisor\relax
+  \global\let\senkou\relax
   \global\let\supervisortitle\relax
   \global\let\date\relax
   %
@@ -1275,7 +1297,7 @@
  \newcommand\jthesisname{\ist@j@doctor}
  \newcommand\jinterimname{\ist@j@interim}
  \newcommand\thesisgrade{Doctor}
- \newcommand\ist@whatscience{東京大学教授}
+ \newcommand\ist@whatscience{\@supervisortitle}
 \fi \fi \fi
 \def\etitle#1{\gdef\@etitle{#1}}
 \def\jtitle#1{\gdef\@jtitle{#1}}
@@ -1283,6 +1305,7 @@
 \def\jauthor#1{\gdef\@jauthor{#1}}
 \def\esupervisor#1{\gdef\@esupervisor{#1}}
 \def\jsupervisor#1{\gdef\@jsupervisor{#1}}
+\def\senkou#1{\gdef\@senkou{#1}}
 \def\supervisortitle#1{\gdef\@supervisortitle{#1}}
 \def\@etitle{\ist@err@notdefd\etitle}
 \def\@jtitle{\ist@err@notdefd\jtitle}
@@ -1290,6 +1313,7 @@
 \def\@jauthor{\ist@err@notdefd\jauthor}
 \def\@esupervisor{\ist@err@notdefd\esupervisor}
 \def\@jsupervisor{\ist@err@notdefd\jsupervisor}
+\def\@senkou{\ist@err@notdefd\senkou}
 \def\@supervisortitle{\ist@err@notdefd\supervisortitle}
 \def\@date{\ist@err@notdefd\@date}
 \def\today{\ifcase\month\or
