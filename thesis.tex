@@ -1,12 +1,46 @@
-\documentclass[a4paper,doctor,12pt]{styles/iscs-thesis}
+\documentclass[doctor,12pt]{styles/iscs-thesis}
 
+\usepackage{newtxtext,newtxmath}
 %Includes "References" in the table of contents
 \usepackage[nottoc]{tocbibind}
-\usepackage[hidelinks,dvipdfmx]{hyperref}
+\usepackage[
+  hidelinks,
+  dvipdfmx,
+  colorlinks = true,
+  linkcolor = black,
+  urlcolor  = blue,
+  citecolor = black,
+  anchorcolor = black]{hyperref}
 \usepackage[round]{natbib}
-% \usepackage{geometry}
-% \geometry{a4paper,left=3.17cm,right=3.17cm,top=2.54cm,bottom=2.54cm}
 \usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage[labelfont=bf,textfont=md]{caption}
+\usepackage{chngpage}
+
+\urlstyle{same}
+% \setlength{\parskip}{5pt}
+\usepackage{geometry}
+\geometry{a4paper,left=3.17cm,right=3.17cm,top=2.54cm,bottom=2.54cm}
+
+
+\newcommand{\supplementarysection}{%
+  \section{Supplementary materials}% Set supplementary section
+
+  \setcounter{table}{0}% Reset table counter
+  \let\oldthetable\thetable% Capture table numbering scheme
+  \renewcommand{\thetable}{S\oldthetable}% Prefix table number with S
+
+  \setcounter{figure}{0}% Reset figure counter
+  \let\oldthefigure\thefigure% Capture figure numbering scheme
+  \renewcommand{\thefigure}{S\oldthefigure}% Prefix figure number with S
+
+  \let\oldchapter\chapter% Copy \chapter into \oldchapter
+  \renewcommand{\chapter}{% Update \chapter
+    \let\thefigure\oldthefigure% Copy \thefigure into \oldthefigure
+    \let\chapter\oldchapter% Restore original \chapter
+    \oldchapter% Call original \chapter
+  }
+}
 
 % 論文の種類とフォントサイズをオプションに
 %-------------------
