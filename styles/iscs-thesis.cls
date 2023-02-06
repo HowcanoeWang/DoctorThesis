@@ -498,7 +498,8 @@
     {\ist@submittedtoblock}\par
     \vskip 20\p@
     % {指導教員: \@esupervisor \quad \@jsupervisor\\
-    {指導教員: \quad \@jsupervisor\\
+    % {指導教員: \quad \@jsupervisor\\
+    {指導教員: \\ \@jsupervisor\\
      \@supervisortitleline}\par
   \vskip-\footskip
   \vskip-100\p@\@plus1fill\null
