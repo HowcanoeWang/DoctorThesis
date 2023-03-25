@@ -62,9 +62,7 @@ The field data of the broccoli head size were measured as validation data (groun
 
 In 2020, we identified the potential of the proposed algorithm. To further validate this algorithm, we improved the measurement method and increased the number of field samples in 2021. The maximum head length was measured using the maximum value of the length in the $0^\circ$, $45^\circ$, $90^\circ$, and $135^\circ$ directions. To increase the variation in the broccoli head for each survey, there was an 8-day interval between seeding in the western and eastern parts (timeline in Fig.~\ref{fig:bro5}, yellow lunar phase). A total of 2,000 ($400 \times 5$) non-destructive and 557 destructive measurements of 3276 individual broccoli were recorded. To reduce the workload, only half of the area (east or west) was measured on a certain day (timeline in Fig.~\ref{fig:bro5}, blue lunar phase). Head length measurements ranged from 2‒25 cm.
 
-\subsubsection{UAV-based pipeline}
-
-\paragraph{Data collection and preprocessing}
+\subsubsection{Data collection and preprocessing}
 
 After transplanting, several ground control points (GCPs) boards were set at the four corners and within the field for UAV data collection. This was an important resource for later 3D reconstruction and time-series alignment. In this study, all GCPs were measured using hemisphere Real Time Kinematic (RTK) differential GNSS devices to obtain geographical coordinates. However, it is recommended but not mandatory. For developing regions without RTK services, the GCPs' coordinates can be replaced by measuring distances (as scalebar corrector) among each GCP and building a referencing map at the very beginning. The relative coordinates of those GCPs on the referencing map can function the same as the actual geographic coordinates for time-series alignment.
 
@@ -78,7 +76,7 @@ The open-source software package QGIS (\url{www.qgis.org}) was used to prepare a
 
 The LabelMe annotation tool (\url{https://github.com/wkentaro/labelme}) was used to label the training data for the deep learning models. EasyIDP \citep[\url{https://github.com/UTokyo-FieldPhenomics-Lab/EasyIDP}]{wang_easyidp_2021} was used to locate and crop the same field region imagery on the original UAV images when the DOM was not sufficiently clear for head segmentation (also known as backward projection or reverse calculation).
 
-\paragraph{Seedling position detection}
+\subsubsection{Seedling position detection}
 
 The difficulty of detection varied throughout the broccoli growth season. Detection during the seedling stage was simpler than that during the flowering stage, and the latter had complex leaf occlusion. The seedling position of the broccoli was almost the same as that of the broccoli head. Aligned by the GCPs, the positions were consistent through the time-series DOM and DSM of the full growing season. The results from the easy task of detecting the position in the early stage could be directly used for the subsequent complex flower stage (pre-position-guided). This significantly decreased the difficulty and workload of data analysis for broccoli head analysis.
 
@@ -88,7 +86,7 @@ The broccoli detection procedure is illustrated in Fig~\ref{fig:bro6}a. The full
 
 Subsequently, the YOLO v5 detection model with default settings was trained and applied to all sectors. Outliers and noise outside the broccoli field were filtered by the plot area boundary. The duplicated buffer zone detection results were merged using the non-maximum suppression (NMS) algorithm. The center point of the bounding box was then viewed as the broccoli position. Finally, we manually inspected and adjusted the results in QGIS, ensuring no missing or duplicate detections (Fig.~\ref{fig:bro6}a). The broccoli ID was given from the north to the south of each ridge and ridges from the west to the east by the ridge detection algorithm (Fig.~\ref{fig:bro6}a; please refer to the links in the data availability section for further details). 
 
-\paragraph{Broccoli head segmentation}
+\subsubsection{Broccoli head segmentation}
 
 Leaf movement and occlusion often cause DOM with double mapping, excessive pixelation, and seamline distortions \citep{lin_new_2021}. It is difficult to obtain a DOM that meets the consistent quality of the full field for head size estimation. To manage this situation, the same region on the raw UAV images (rather than that on the DOM) was used for analysis by backward projection \citep{wang_easyidp_2021}. To reduce the workload of segmentation model training, only the area around the broccoli seedling positions was used. Meanwhile, interactive annotation (also referred to as active learning-inspired annotation \citep{ghosal_weakly_2019}) was applied to decrease the workload of label annotation. The workflow is illustrated in Fig.~\ref{fig:bro6}b.
 
@@ -102,75 +100,31 @@ The verification dataset for the model performance evaluation was also prepared 
 
 The segmentation model was first trained using only the 2020 dataset for several iterations until a good performance was achieved. The model was then applied to the 2021 dataset over several iterations. When the model performed well in both years, it was applied to all dataset images, and the segmentation results after the grid boundary filter were saved for the next procedure.
 
-\paragraph{Head size calculation}
+\subsubsection{Head size calculation}
 
 The unit of the segmentation polygon in raw aerial images was a pixel, which could not represent the actual head size. However, the actual head size could be calculated using the pixel scale bar from the geo-referenced DOM. The pixel scalebar on the raw images could be derived from the ratio between the grid size in pixels on the raw image and that on the DOM. This concept was then implemented using projective transformation in scikit-image (\url{https://scikit-image.org}). On some occasions one broccoli may have had duplicated polygons; only the polygon with the largest area was retained, which was accelerated by a k-dimensional tree (KD-Tree) in SciPy (\url{https://scipy.org}). For each polygon of the segmented broccoli head, the maximum side length of the minimum area bounding box was used as the head diameter.
 
-\paragraph{Field validation for head traits}
+\subsubsection{Field validation for head traits}
 
 To test the correlation between field-measured length (dependent variable) and aerial measured length (independent variable), the coefficient of determination ($r^2$) using simple linear regression was used as the evaluator. To assess the trends in differences in broccoli size in detail, locally weighted scatterplot smoothing (LOWESS) regression and distribution comparison were also used.
 
-\subsubsection{Optimal harvest time simulation}
-
-\paragraph{Prediction model for head size}
-
-The simple nonlinear regression model \citep{grevsen_effects_1997} was used to predict the head diameter (HD) with time:
-
-$$ln(HD) = a - b \cdot e ^ {- c \cdot T}$$
-
-\noindent
-where $T$ is the sum of the daily average temperatures, with a lower limit of 0 $^\circ$C and an upper limit of 20 $^\circ$C \citep{tan_predicting_2000,cammarano_predicting_2020}. $a$, $b$, and $c$ are the parameters to be determined.
-
-First, the field-measured HD was used to build a model for UAV initialization. The time-series non-destructive measured HDs (120 from 3276 individuals in the entire field in 2020, and 400 from 7449 individuals in the entire field in 2021) were selected. For each selected broccoli, based on previous studies \citep{cammarano_predicting_2020}, the starting date (i.e., the hypothetical date on which the broccoli head became manually detectable) was set, and its head diameter was approximately 3‒3.5 cm. The sum of the daily average temperatures ($T$) was normalized based on the starting date as 0 (Supplementary Fig.~\ref{fig:bros3}a and b). The model parameters were then regressed and calculated (Supplementary Fig.~\ref{fig:bros3}c). 
-
-For the UAV measurements, limited by the image resolution, broccoli heads were indistinguishable when the head diameter was approximately 3‒3.5 cm. To obtain the proper normalized $T_0$ for the first flight (head diameter around 9.5 cm), the previous model was inverted to calculate $T_0$ from the HD (Supplementary Fig.~\ref{fig:bros3}d). Then, the sum of daily temperature ($T_i$) of later days ($i$) was calculated (Supplementary Fig.~\ref{fig:bros3}d). The UAV model was then regressed and calculated in a similar manner as the prediction model (Supplementary Fig.~\ref{fig:bros3}e). Based on this model, we calculated the head size using the time-variable T for all flights after the first UAV survey.
-
-To verify the accuracy of the prediction, the model generated for one of the study years was used to predict the head size for the other year. The results were compared between the predicted head size and that estimated using UAV imagery. The $r^2$ obtained using simple linear regression was used as the evaluator.
-
-\paragraph{Market price survey}
-
-In the Japanese market, broccoli head sizes are usually divided into three levels (M: 11–12 cm, L: 12–13 cm, and 2L: 13–15 cm), with L usually having the highest shipping price. To set the shipping price for each grade, we interviewed several local officers of the Japan Agricultural Cooperatives (i.e., the largest cooperative organization in Japan). Because the price of each grade varies depending on the season and location, we used two types of shipping prices for the experiment: one where the price difference between each grade was the largest (case 1), and one where the difference was the smallest (case 2).
-
-\paragraph{Income estimation for hypothetical harvesting}
-
-It was assumed that all individuals were harvested at the same time each day from May 18‒28, 2020 and May 12‒26, 2021. The UAV-predicted head diameter was used to calculate income (from the first day of UAV imagery to 10 d later in 2020 and 14 d later in 2021). The number of individuals of each size standard (M, L, and 2L) was counted for each date. The shipping price of size L was assumed to be \$1.00, and the prices of other sizes were calculated from market survey interviews. Non-standard-size broccoli ($< 11$ cm and $> 14$ cm) could not be sold and the income was set to zero. Finally, the total income on each harvest date was calculated by multiplying the number and shipping price of each size grade (for both cases with a shipping price difference). The date with the highest income was selected as the optimal harvest date.
-
 \subsection{Results}
 
-\subsubsection{UAV-based pipeline}
-
-\paragraph{Broccoli position detection}
+\subsubsection{Broccoli position detection}
 
 To provide a general understanding of this procedure, Supplementary Figs.~\ref{fig:bros1}a to f shows some intermediate results during broccoli position detection. As mentioned in the Materials and Methods section, the DOM of the entire broccoli plot was first divided into several small sectors with a buffer zone. For training data preparation, considering the significant differences between the broccoli plant and brown soil, only two representative sectors were chosen as training images. All broccoli were labeled using bounding box (rectangle) annotation in LabelMe (Supplementary Fig.~\ref{fig:bros1}a, example sector). The detection model performed as expected in the other sectors (Supplementary Fig.~\ref{fig:bros1}b: one example sector). The green mask in Supplementary Fig.~\ref{fig:bros1}b shows the buffer zone that overlapped with neighboring sectors, with the aim of avoiding incomplete broccoli detection on the sector boundary. When merging the detection results for all sectors, duplicate detections were removed by the NMS algorithm (black rectangles in Supplementary Fig.~\ref{fig:bros1}c). When adjusting the zoom to the full map view, the removed black duplicates were clearly distributed on the sector boundaries (grid lines). The center of the detected bounding box was viewed as the broccoli position; however, it required manual inspections to correct false detections and missing broccoli. In Supplementary Fig.~\ref{fig:bros1}d, the green dots show the manually corrected (removed) YOLO detection results, and the red dots indicate the final positions used by manual adjustment. Supplementary Figure~\ref{fig:bros1}e shows the results of ridge-line detection, and Supplementary Fig.~\ref{fig:bros1}f shows some results of the automatic broccoli ID assignment. In general, broccoli position detection and semi-automatic labeling functioned as expected.
 
-\paragraph{Broccoli head segmentation}
+\subsubsection{Broccoli head segmentation}
 
-To clearly demonstrate the interactive annotation procedure, Supplementary Figs.~\ref{fig:bros1}g to i and Supplementary Table~\ref{tbl:bros1} provide example images and a simple summary from the first to the last iteration. As startup training data, one image was randomly selected from each flight investigation in 2020, and only a few representative broccoli were annotated as simply as possible (Supplementary Fig.~\ref{fig:bros1}g). The BiSeNet model (v0) was then trained using this annotation. For each flight in 2020, one image was randomly selected and applied to the v0 model (Supplementary Fig.~\ref{fig:bros1}h, red mask). The results were manually adjusted and saved as new training data (Supplementary Fig.~\ref{fig:bros1}h, blue boundary). The previous steps were iteratively repeated until the model achieved good segmentation results, and this version (in this case, v2) was used to produce 30 validation data with low labor costs. The model performance was evaluated using validation data.
+To clearly demonstrate the interactive annotation procedure, Supplementary \linebreak Figs.~\ref{fig:bros1}g to i and Supplementary Table~\ref{tbl:bros1} provide example images and a simple summary from the first to the last iteration. As startup training data, one image was randomly selected from each flight investigation in 2020, and only a few representative broccoli were annotated as simply as possible (Supplementary Fig.~\ref{fig:bros1}g). The BiSeNet model (v0) was then trained using this annotation. For each flight in 2020, one image was randomly selected and applied to the v0 model (Supplementary Fig.~\ref{fig:bros1}h, red mask). The results were manually adjusted and saved as new training data (Supplementary Fig.~\ref{fig:bros1}h, blue boundary). The previous steps were iteratively repeated until the model achieved good segmentation results, and this version (in this case, v2) was used to produce 30 validation data with low labor costs. The model performance was evaluated using validation data.
 
 The detailed model performance for each iteration version is presented in Supplementary Table~\ref{tbl:bros1}. With the proposed guidance of the broccoli position and the buffered mask, even a startup with only a few annotations could achieve a mid-IoU of 78.15\%. The model performance improved considerably after four iterations and achieved a mid-IoU of 88.33\% after the 4th iteration (Supplementary Fig.~\ref{fig:bros1}i). Then, when the v4 model trained by 2020 data was applied to the 2021 data, the performance decreased to 79.16\%, as expected. However, it significantly improved to 91.70\% after one additional iteration with six training data points added from 2021. Meanwhile, broccoli head segmentation was more challenging at an early stage (May 18, 2020, and May 12, 2021, with the lowest mid IoU) when the head size was small. This suggested that weakly supervised annotation improved the model performance and decreased the workload in data annotation with iteration.
 
-\paragraph{HD validation}
+\subsubsection{HD validation}
 
 The full map of all calculated HDs from the UAV is shown in Supplementary Fig.~\ref{fig:bros2}. We found a high correlation between the maximum length of the broccoli head measured by the UAV image and that measured manually in the field (Fig.~\ref{fig:bro1}). The UAV method tended to underestimate broccoli growth (trend line above the reference line). However, the overall distribution of the estimated head size was almost the same between the two groups (UAV vs. manual, Figs.~\ref{fig:bro1}c and d). 
 
 \input{figures/bro.fig.1.tex}
-
-
-\subsubsection{Optimal harvest time simulation}
-
-\paragraph{Prediction model for head size and swap validation}
-
-The models initialized by field measurements in 2020 and 2021 are shown in Fig.~\ref{fig:bro2}a and e, respectively. The parameters were $a = 5.53$, $b = 2.05$, and $c = 0.00546$ for 2020, and $a = 5.57$, $b = 2.11$, and $c = 0.00558$ for 2021. This model was used to calculate T0 of the first flight (Supplementary Fig.~\ref{fig:bros3}d). $T$ values on other dates were calculated using meteorological data. Regression models for all flights in 2020 (Fig.~\ref{fig:bro2}b) and 2021 (Fig.~\ref{fig:bro2}f) were then generated and used as the broccoli HD prediction models. The parameters were $a = 5.75$, $b = 2.33$, and $c = 0.00475$ for 2020 and $a = 5.58$, $b = 1.94$, and $c = 0.00616$ for 2021.
-
-\input{figures/bro.fig.2.tex}
-
-To illustrate and validate the possibility of prediction, the initializing model and the prediction model for one year were used to predict the broccoli HD in the other year and were validated by the UAV-measured HD. The predicted sizes and those estimated from the UAV imagery taken on each date were highly correlated with the acceptable $r^2$ (Figs.~\ref{fig:bro2}c and g). This indicated that previously collected data can be used to predict growth before the harvesting period.
-
-\paragraph{Income estimation and optimal harvest date}
-
-Based on the initialization and prediction models, we calculated the size distribution of all broccoli during the harvest period (Figs.~\ref{fig:bro3}a and b). The proportion of non-standard-size broccoli and the total income for each date were then calculated (Figs.~\ref{fig:bro3}c and d). In the 2020 trial, May 23 was the optimal harvest date, i.e., the date on which the proportion of non-standard-size broccoli was minimized and total income was maximized. In the 2021 trial, May 17 was determined as the optimal harvest date. In both cases, we found that a 1-d shift in harvest from the optimal date could lead to significant income loss (3.7\%‒20.4\% reduction). The price differences among size grades did not affect the estimation of the optimal harvest date (cases 1 and 2 in Figs.~\ref{fig:bro3}c and d).
-
-\input{figures/bro.fig.3.tex}
 
 
 \subsection{Discussion}
@@ -222,8 +176,8 @@ In conclusion, this is a demonstrable application of UAV technology to assist fa
   \input{figures/bro.fig.s2.tex}
 \end{landscape}
 
-\newpage
+% \newpage
 
-\begin{landscape}
-  \input{figures/bro.fig.s3.tex}
-\end{landscape}
+% \begin{landscape}
+  % \input{figures/bro.fig.s3.tex}
+% \end{landscape}
