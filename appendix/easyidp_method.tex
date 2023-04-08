@@ -7,19 +7,57 @@ The function of this backward projection is projecting ROI from world coordinate
 
 \subsubsection*{Camera parameters loading}
 
-The relationship between field and UAV raw images is built after running SfM-MVS software. It has two main parts, external and internal parameters. The external parameters are different for each raw image, including the camera position (x, y, z) in the real-world coordinate ($O_{world}$, Fig.~\ref{fig:idps1}.a) and the camera rotation (yaw, pitch, roll). The internal parameters describe the characteristics of the sensor and are the same as each raw image, such as focal length, camera Charge-coupled Device (CCD) size, and lens distortion calibration parameters. These parameters are available under the Agisfot Metashape and Pix4D project intermediate files.
+The relationship between field and UAV raw images is built after running SfM-MVS software. It has two main parts, external and internal parameters. The external parameters are different for each raw image, including the camera position (x, y, z) in the real-world coordinate ($O_{world}$, Fig.~\ref{fig:idps1}.a) and the camera rotation (yaw, pitch, roll). The internal parameters describe the characteristics of the sensor and are the same as each raw image, such as focal length, camera Charge-coupled Device (CCD) size, and lens distortion calibration parameters (\url{https://support.pix4d.com/hc/en-us/articles/202559089-How-are-the-Internal-and-External-Camera-Parameters-defined}). These parameters are available under the Agisfot Metashape and Pix4D project intermediate files.
+
+\input{figures/idp.fig.s1.tex}
 
 \subsubsection*{Backward projection forumulars}
 
-The geometry from the real-world coordinate ($O_{world}$) to image pixel coordinate ($O_{pix}$) is shown in Fig. \ref{fig:idps1}.a-c. There are four coordinate systems, first is the $O_{world}$ whose unit is often meter (Fig. \ref{fig:idps1}.a). The second one is the camera coordinate ($O_{cam}$, Fig. \ref{fig:idps1}.b), which makes the camera position to the origin (0,0,0) of coordinates, and the camera optical axis is used as the z-axis (commonly, the point $O_{img}$ is not the center point of plane). The third is the camera CCD coordinate ($O_{img}$, Fig. \ref{fig:idps1}.c) whose unit is often mm. The last one is pixel coordinate ($O_{pix}$) whose origin is the top left corner in the $O_{img}$ and the unit is pixel.
+The geometry from the real-world coordinate ($O_{world}$) to image pixel coordinate ($O_{pix}$) is shown in Fig. \ref{fig:idps1}.a-c. There are four coordinate systems, first is the $O_{world}$ whose unit is often meter (Fig. \ref{fig:idps1}.a). The second one is the camera coordinate ($O_{cam}$, Fig. \ref{fig:idps1}.b), which makes the camera position to the origin (0,0,0) of coordinates, and the camera optical axis is used as the z-axis (commonly, the point $O_{img}$ is not the center point of plane). The third is the camera CCD coordinate ($O_{img}$, Fig.~\ref{fig:idps1}.c) whose unit is often mm. The last one is pixel coordinate ($O_{pix}$) whose origin is the top left corner in the $O_{img}$ and the unit is pixel.
 
-Let us assume a point $P_{world} (x_w,y_w,z_w)$ in $O_{world}$, to transform that point into $P_{cam} (x_c,y_c,z_c)$ in $O_{cam}$ (Fig. \ref{fig:idps1}.a), the $4\times4$ transform matrix $T$ could be derived from camera position ($t$, translational transformation) and camera rotation ($R$, rotational transformation):
+Let us assume a point $P_{world} (x_w,y_w,z_w)$ in $O_{world}$, to transform that point into $P_{cam} (x_c,y_c,z_c)$ in $O_{cam}$ (Fig.~\ref{fig:idps1}.a), the $3\times4$ transform matrix $T$ could be derived from camera position ($t$, translational transformation) and camera rotation ($R$, rotational transformation):
 
 \input{equations/idp.eq.1.tex}
 
 \noindent 
-Where, $t$ is the $3\times1$ position matrix, and $R$ is the $3\times3$ rotation matrix derived by $(\omega, \varphi, \kappa)$ from camera rotation parameters (yaw, pitch, roll): \ref{eq:idp2}
+Where, $t$ is the $3\times1$ position matrix, and $R$ is the $3\times3$ rotation matrix derived by $(\omega, \varphi, \kappa)$ from camera rotation parameters (yaw, pitch, roll) (\url{https://support.pix4d.com/hc/en-us/articles/202558969-Yaw-Pitch-Roll-and-Omega-Phi-Kappa-angles}):
 
-\input{equations/idp.eq.2.tex}
+% \input{equations/idp.eq.2.tex}
 
-\input{figures/idp.fig.s1.tex}
+The distance from the normalized plane to the origin $O_{cam}$  is 1 mm while the distance from the camera CCD plane to the origin $O_{cam}$ is focal length $f$ (Fig.~\ref{fig:idps1}.b) in mm. The transformation from $P_{cam}(x_c,y_c,z_c)$ to normalized plane $P_{norm} (x_n,y_n)$ and camera CCD plane $P_{img} (x_i,y_i)$ can be derived by triangle similarity:
+
+\input{equations/idp.eq.3.tex}
+
+To transform $P_{img} (x_i,y_i)$ in mm to the image pixel coordinate position $P_{pix} (x_p,y_p)$ in pixel (Fig.~\ref{fig:idps1}.c), the following set of equations should be applied:
+
+\input{equations/idp.eq.4.tex}
+
+\noindent 
+Where, $\alpha$ and $\beta$ are the pixel resolution whose unit is pixel/mm, and often are the same in pinhole camera models. $f_{\alpha}$ and $f_{\beta}$ is the focal length in pixel. Notably, Pix4D $(c_x,c_y)$ can be obtained directly, while for Agisoft Metashape (\url{https://www.agisoft.com/pdf/metashape-pro_1_7_en.pdf.} p. 176), $(c_x,c_y)$ in the xml file is not what is defined here, it is the offset to image center, which actually equals to $(0.5w+c_x,0.5h+c_y)$, where $w$ and $h$ are the pixel width and pixel height, respectively.
+
+Equations \eqref{eq:idp4} can be expressed in the following homogeneous coordinate form: 
+
+\input{equations/idp.eq.5.tex}
+
+Sum up equations \eqref{eq:idp1} to \eqref{eq:idp5}; to transform $P_w (x_w,y_w,z_w)$ directly to $P_{pix} (x_p,y_p)$:
+
+\input{equations/idp.eq.6.tex}
+
+\noindent
+where the $3\times4$ matrix $P_{mat}$ is often called the projection matrix, which can directly transform points in 3D world coordinates to 2D pixel coordinates.
+
+\subsubsection*{Camera distortion calibration}
+
+The equation \eqref{eq:idp5} transformation is idealized, and the distortion caused by the camera lens is neglected (Fig.~\ref{fig:idps1}.d). Several camera calibration parameters are used to correct this distortion, including three or four radial distortion coefficients ($K_i$ in MetaShape and $R_i$ in Pix4D) and two tangential distortion coefficients ($P_i$ in MetaShape and $T_i$ in Pix4D). Metashape sometimes provides affinity ($B_1$) and non-orthogonality ($B_2$) coefficients in pixels. The correction equation to distorted pixel position $(x_p^\prime,y_p^\prime)$ are as follows:
+
+\input{equations/idp.eq.7.tex}
+
+\noindent
+where:
+
+\input{equations/idp.eq.8.tex}
+
+\noindent
+and: 
+
+\input{equations/idp.eq.9.tex}

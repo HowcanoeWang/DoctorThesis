@@ -1,6 +1,6 @@
 \begin{equation}
   \begin{array}{lll}
-    R & = & R_{x}(\omega) R_{y}(\varphi) R_{z}(\kappa) \\
+    R & = & R(\omega) R(\varphi) R(\kappa) \\
     & = &
       \begin{small}
       \left[ 
@@ -25,7 +25,7 @@
           0           & 0            & 1
         \end{matrix} 
       \right] 
-      \end{small} \\
+      \end{small} \\ \\
     & = &
       \begin{small}
         \left[ 
@@ -43,7 +43,13 @@
               & cos \omega cos \varphi 
           \end{matrix} 
         \right] 
-      \end{small}
+      \end{small} \\ \\
+    & = &
+      \begin{bmatrix}
+        R_{11} & R_{12} & R_{13} \\
+        R_{11} & R_{12} & R_{13} \\
+        R_{11} & R_{12} & R_{13} \\
+      \end{bmatrix}
   \end{array}
   \label{eq:idp2}
 \end{equation}
