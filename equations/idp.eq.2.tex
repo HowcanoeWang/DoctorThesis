@@ -1,0 +1,49 @@
+\begin{equation}
+  \begin{array}{lll}
+    R & = & R_{x}(\omega) R_{y}(\varphi) R_{z}(\kappa) \\
+    & = &
+      \begin{small}
+      \left[ 
+        % amsmath package is required
+        \begin{matrix} 
+          1 & 0           & 0 \\
+          0 & cos(\omega) & -sin(\omega) \\
+          0 & sin(\omega) & cos(\omega)
+        \end{matrix} 
+      \right] 
+      \left[ 
+        \begin{matrix} 
+          cos(\varphi)  & 0 & sin(\varphi) \\
+          0             & 1 & 0 \\
+          -sin(\varphi) & 0 & cos(\varphi)
+        \end{matrix} 
+      \right] 
+      \left[ 
+        \begin{matrix} 
+          cos(\kappa) & -sin(\kappa) & 0 \\
+          sin(\kappa) & cos(\kappa)  & 0 \\
+          0           & 0            & 1
+        \end{matrix} 
+      \right] 
+      \end{small} \\
+    & = &
+      \begin{small}
+        \left[ 
+          \begin{matrix} 
+            cos \kappa cos \varphi  
+              & -sin \kappa cos \varphi  
+              & sin \varphi  \\
+        
+            cos \kappa sin \omega sin \varphi  + sin \kappa cos \omega 
+              & cos \kappa cos \omega  - sin \kappa sin \omega sin \varphi 
+              & -sin \omega cos \varphi  \\
+        
+            sin \kappa sin \omega  - cos \kappa cos \omega sin \varphi 
+              & sin \kappa cos \omega sin \varphi  + cos \kappa sin \omega  
+              & cos \omega cos \varphi 
+          \end{matrix} 
+        \right] 
+      \end{small}
+  \end{array}
+  \label{eq:idp2}
+\end{equation}

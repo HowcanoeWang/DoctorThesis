@@ -1,0 +1,38 @@
+\begin{equation}
+  \begin{array}{lll}
+    P_{cam} & = & T \cdot P_{world} \\
+    \begin{small}
+      \left[ 
+        % amsmath package is required
+        \begin{matrix} 
+          x_c \\
+          y_c \\
+          z_c \\
+          1
+        \end{matrix} 
+      \right] 
+    \end{small}
+    & = & 
+      \begin{small}
+      \left[ 
+        % amsmath package is required
+        \begin{matrix} 
+          R_{11} & R_{12} & R_{13} & t_1 \\
+          R_{11} & R_{12} & R_{13} & t_1  \\
+          R_{11} & R_{12} & R_{13} & t_1  \\
+          0      & 0      & 0      & 1
+        \end{matrix} 
+      \right] 
+      \left[ 
+        % amsmath package is required
+        \begin{matrix} 
+          x_w \\
+          y_w \\
+          z_w \\
+          1
+        \end{matrix} 
+      \right] 
+    \end{small}
+  \end{array}
+\label{eq:idp1}
+\end{equation}
