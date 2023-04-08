@@ -541,25 +541,6 @@
     \ist@restoreps
   \fi
 }
-% add Fig. Sx and Table Sx for supplementary section
-\newcommand{\supplementarysection}{%
-  \section{Supplementary materials}% Set supplementary section
-
-  \setcounter{table}{0}% Reset table counter
-  \let\oldthetable\thetable% Capture table numbering scheme
-  \renewcommand{\thetable}{S\oldthetable}% Prefix table number with S
-
-  \setcounter{figure}{0}% Reset figure counter
-  \let\oldthefigure\thefigure% Capture figure numbering scheme
-  \renewcommand{\thefigure}{S\oldthefigure}% Prefix figure number with S
-
-  \let\oldchapter\chapter% Copy \chapter into \oldchapter
-  \renewcommand{\chapter}{% Update \chapter
-    \let\thefigure\oldthefigure% Copy \thefigure into \oldthefigure
-    \let\chapter\oldchapter% Restore original \chapter
-    \oldchapter% Call original \chapter
-  }
-}
 \newcommand\ist@submittedtoblock{%
   東京大学大学院\\\@submittedto\\
   % \ifist@interim\else on \@date\\\fi

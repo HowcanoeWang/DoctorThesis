@@ -36,6 +36,26 @@
 \setcounter{secnumdepth}{3}           % add the subsubsection into contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% add Fig. Sx and Table Sx for supplementary section
+\newcommand{\appendixsection}{%
+  \section{Appendix}% Set supplementary section
+
+  \setcounter{table}{0}% Reset table counter
+  \let\oldthetable\thetable% Capture table numbering scheme
+  \renewcommand{\thetable}{S\oldthetable}% Prefix table number with S
+
+  \setcounter{figure}{0}% Reset figure counter
+  \let\oldthefigure\thefigure% Capture figure numbering scheme
+  \renewcommand{\thefigure}{S\oldthefigure}% Prefix figure number with S
+
+  \let\oldchapter\chapter% Copy \chapter into \oldchapter
+  \renewcommand{\chapter}{% Update \chapter
+    \let\thefigure\oldthefigure% Copy \thefigure into \oldthefigure
+    \let\chapter\oldchapter% Restore original \chapter
+    \oldchapter% Call original \chapter
+  }
+}
+
 % 論文の種類とフォントサイズをオプションに
 %-------------------
 \etitle{Studies on 3D-based Plant Phenotyping by Cross-Scale Sensing}
