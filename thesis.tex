@@ -24,6 +24,7 @@
 \usepackage{lscape}                   % landscape full page figures
 \usepackage{setspace}                 % set page for published paper abstract linespace
 \usepackage{ulem}                     % better view for underline
+\usepackage{amsmath}                  % package for matrix formular
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \urlstyle{same}                       % the \url{} links also use Times New Roman font
@@ -51,7 +52,7 @@
 %-------------------
 \begin{document}
 
-\include{abstract.tex}
+% \include{abstract.tex}
 
 \maketitle
 
@@ -64,27 +65,18 @@
 
 \mainmatter %% 本文
 
-\include{chapter1.tex}
-\include{chapter2.tex}
+% \include{chapter1.tex}
+% \include{chapter2.tex}
 \include{chapter3.tex}
-\include{chapter4.tex}
-\include{chapter5.tex}
+% \include{chapter4.tex}
+% \include{chapter5.tex}
 
 %-------------------
 \bibliographystyle{plainnat} % 参考文献
 \bibliography{styles/bibtex} %
 %-------------------
 
-% Add Acknowladgement to TOC
-\chapter*{Acknowledgements}
-\addcontentsline{toc}{chapter}{Acknowledgements}
-
-Ack ack ack. Nishida, Norinaga, Tang
-
-% Add Acknowladgement to TOC
-\chapter*{Publications}
-\addcontentsline{toc}{chapter}{Publications}
-\input{publication.tex}
-
+% \include{acknowledgement.tex}
+% \include{publication.tex}
 
 \end{document}
