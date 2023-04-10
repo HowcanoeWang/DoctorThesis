@@ -3,15 +3,19 @@
 
 % \input{block/easyidp.tex}
 
-The function of this backward projection is projecting ROI from world coordinate to relative UAV raw images. In this section, the external and internal camera parameters generated from SfM-MVS reconstruction projects were loaded by two internal Python packages, ``zipfile| and ``xml". Then the calculation algorithms driven by the pinhole camera model and camera distortion calibration were introduced.
+The function of this backward projection is projecting ROI from world coordinate to relative UAV raw images. In this section, using ``zipfile" and ``xml" Python packages to load the external and internal camera parameters generated from SfM-MVS reconstruction projects. Then apply the backward calculation using the pinhole camera model. Finally camera distortion calibration is conducted.
 
-\subsubsection*{Camera parameters loading}
+\subsubsection{Camera parameters loading}
 
 The relationship between field and UAV raw images is built after running SfM-MVS software. It has two main parts, external and internal parameters. The external parameters are different for each raw image, including the camera position (x, y, z) in the real-world coordinate ($O_{world}$, Fig.~\ref{fig:idps1}.a) and the camera rotation (yaw, pitch, roll). The internal parameters describe the characteristics of the sensor and are the same as each raw image, such as focal length, camera Charge-coupled Device (CCD) size, and lens distortion calibration parameters (\url{https://support.pix4d.com/hc/en-us/articles/202559089-How-are-the-Internal-and-External-Camera-Parameters-defined}). These parameters are available under the Agisfot Metashape and Pix4D project intermediate files.
 
+For Pix4D projects, all these parameters are located in the ``1\_initial/params" folder, the ``calibrated internal camera parameters.cam", ``calibrated camera paramters.txt", ``pmatrix.txt", and ``offset.xyz" are loaded as text directly and parsed in the EasyIDP package without any external packages. For more details about those files, please refer to the Pix4D official documentation (\url{https://support.pix4d.com/hc/en-us/articles/202559089-How-are-the-Internal-and-External-Camera-Parameters-defined}).
+
+For Agisoft Metashape projects, all these parameters can be obtained either by calling APIs (Professional license required) or by reading zipped xml files in the project file ``project.files/0/chunks.zip/doc.xml". The EasyIDP package chose the zipped xml way without a professional license. The ``zipfile" and ``xml" packages were used to un-zip and parse these parameters in xml files.
+
 \input{figures/idp.fig.s1.tex}
 
-\subsubsection*{Backward projection forumulars}
+\subsubsection{Backward projection forumulars}
 
 The geometry from the real-world coordinate ($O_{world}$) to image pixel coordinate ($O_{pix}$) is shown in Fig. \ref{fig:idps1}.a-c. There are four coordinate systems, first is the $O_{world}$ whose unit is often meter (Fig. \ref{fig:idps1}.a). The second one is the camera coordinate ($O_{cam}$, Fig. \ref{fig:idps1}.b), which makes the camera position to the origin (0,0,0) of coordinates, and the camera optical axis is used as the z-axis (commonly, the point $O_{img}$ is not the center point of plane). The third is the camera CCD coordinate ($O_{img}$, Fig.~\ref{fig:idps1}.c) whose unit is often mm. The last one is pixel coordinate ($O_{pix}$) whose origin is the top left corner in the $O_{img}$ and the unit is pixel.
 
@@ -46,7 +50,7 @@ Sum up equations \eqref{eq:idp1} to \eqref{eq:idp5}; to transform $P_w (x_w,y_w,
 \noindent
 where the $3\times4$ matrix $P_{mat}$ is often called the projection matrix, which can directly transform points in 3D world coordinates to 2D pixel coordinates.
 
-\subsubsection*{Camera distortion calibration}
+\subsubsection{Camera distortion calibration}
 
 The equation \eqref{eq:idp5} transformation is idealized, and the distortion caused by the camera lens is neglected (Fig.~\ref{fig:idps1}.d). Several camera calibration parameters are used to correct this distortion, including three or four radial distortion coefficients ($K_i$ in MetaShape and $R_i$ in Pix4D) and two tangential distortion coefficients ($P_i$ in MetaShape and $T_i$ in Pix4D). Metashape sometimes provides affinity ($B_1$) and non-orthogonality ($B_2$) coefficients in pixels. The correction equation to distorted pixel position $(x_p^\prime,y_p^\prime)$ are as follows:
 
