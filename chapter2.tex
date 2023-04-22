@@ -1,4 +1,4 @@
-\chapter{Destructive 3D phenotyping pipeline}
+\chapter{Destructive 3D phenotyping pipeline for harvestable organs}
 
 \section{Introduction}
 
@@ -12,7 +12,7 @@ The first challenge is image acquisition for cost-effective reconstruction. Seve
 
 The second challenge is image preprocessing for the acquired images. Compared to the approach of building the full scenario, segmenting the plant parts out \citep{ge_method_2019}, and denoising \citep{wu_mvs-pheno_2020}; some studies segmented and masked the foreground (plant) area before doing the 3D reconstruction \citep{nguyen_3d_2016,kochi_3d_2018}, to improve the model quality and eliminate the effect of background noises. Although the controlled environment can provide pure background and stable lighting, it is still challenging to develop a robust algorithm to segment the broccoli area perfectly, especially to handle the shadows caused by the irregular broccoli head shape at the different growing stages. Some outdoor studies showed the power of deep learning for plant area detection and segmentation \citep{zhou_monitoring_2020,blok_effect_2021,garcia_towards_2021}, but limited by the GPU memory, the original images often resized to smaller sizes for deep learning. For example, \citet{zhou_monitoring_2020} resized to $1440 \times 1080$, \citet{blok_effect_2021} resized to $1024 \times 1024$, and \citet{garcia_towards_2021} resized to $640 \times 480$. The plant mask produced in such a resolution can not fit well into the original images in detail (in our case, is $5184 \times 3456$), and hence also need a method to produce detailed masks with the original resolution.
 
-In this study, we applied several strategies to overcome the previously mentioned challenges and provide a labor-saving pipeline for obtaining high-quality 3D models for destructive broccoli heads. The objectives of this study were to (1) develop the dual-rotation object strategy with a fixed camera to collect images with abundant view angles for integrity 3D reconstruction; (2) implement the two-step deep learning workflow to acquire the detailed plant masks on the original images; (3) calculate the 3D morphological traits of broccoli head and crown; and (4) validate the estimated head size using the manual measurements. This pipeline also has great potential to be applied to other solid closed harvestable organs, such as potatoes, cauliflowers, and sweet potatoes, which are related to the profit directly. Meanwhile, using just a simple RGB camera and several low-cost commercial photographic equipment, makes it easier to be widely-spread use.
+In this study, we applied several strategies to overcome the previously mentioned challenges and provide a labor-saving pipeline for obtaining high-quality 3D models for destructive broccoli heads. The objectives of this study were to (1) develop the dual-rotation object strategy with a fixed camera to collect images with abundant view angles for integrity 3D reconstruction; (2) implement the two-step deep learning workflow to acquire the detailed plant masks on the original images; (3) calculate the 3D morphological traits of broccoli head and crown; and (4) validate the estimated head size using the manual measurements. This pipeline also has great potential to be applied to other solid closed harvestable organs, such as oranges, potatoes, cauliflowers, and sweet potatoes, which are related to the profit directly. Meanwhile, using just a simple RGB camera and several low-cost commercial photographic equipment, makes it easier to be widely-spread use.
 
 
 \section{Methods and Materials}
@@ -57,7 +57,7 @@ In the end, similar to our previous work \citep{feldman_easydcp_2021}, we calcul
 
 \subsection{Validation}
 
-To further validate the workflow calculated traits with manually measured traits, considering the difficulty of measuring 2D and 3D traits in reality, here we compared the size of broccoli head only. In agriculture practices, the head lengths are manually measured in the $0^\circ$, $45^\circ$, $90^\circ$, and $135^\circ$ directions (``union jack'') for validation. And then picking the longest and shortest ones as the final size. In the workflow calculated traits, the width and length of the minimum area rectangle, and the long and short axis of the fitted ellipse, have similar definitions for head size descriptions. The agreement of workflow measured and manually measured is estimated using the coefficient of determination ($r^2$, calculated as the squared Pearson's correlation coefficient) and the root mean square error (RMSE):
+To further validate the workflow calculated traits with manually measured traits, considering the difficulty of measuring 2D and 3D traits in reality, here we compared the size of broccoli head only. In agriculture practices, the head lengths are manually measured in the $0^\circ$, $45^\circ$, $90^\circ$, and $135^\circ$ directions (the ``union jack'' shape, \ding{107}) for validation. And then picking the longest and shortest ones as the final size. In the workflow calculated traits, the width and length of the minimum area rectangle, and the long and short axis of the fitted ellipse, have similar definitions for head size descriptions. The agreement of workflow measured and manually measured is estimated using the coefficient of determination ($r^2$, calculated as the squared Pearson's correlation coefficient) and the root mean square error (RMSE):
 
 \begin{equation}
   RMSE = \sqrt{\frac{1}{n} \cdot \sum_{i}^{n} (L_{i}^{W} - L_{i}^{M})^2}
@@ -86,7 +86,7 @@ As mentioned before, the crown and stem parts of the broccoli head should be seg
 
 \input{figures/des.fig.6.tex}
 
-To validate the accuracy of the proposed workflow calculated traits, we compare them with the manual measurement in agricultural practice. Figure~\ref{fig:des_compare} shows the head size comparison results. The broccoli head size can be represented by the minimum area bounding rectangle and fitted ellipse axis lengths. Both the rectangle way and the ellipse way show high correlations with the manually measured results ($r^2>0.93$), also the rectangle is closer than the ellipse. This is because the rectangle width and length are more like the minimum and maximum of the manually measured ``union jack'' lengths, respectively. And Assuming the complicated broccoli head is an ellipse inherently involves a certain degree of error, but the RMSE of the ellipse assumption ($0.7143 cm$) is still better than that of the circle assumption \citep[Table 5, RMSE$=0.97 cm$]{blok_image_2021}
+To validate the accuracy of the proposed workflow calculated traits, we compare them with the manual measurement in agricultural practice. Figure~\ref{fig:des_compare} shows the head size comparison results. The broccoli head size can be represented by the minimum area bounding rectangle and fitted ellipse axis lengths. Both the rectangle way and the ellipse way show high correlations with the manually measured results ($r^2>0.93$), also the rectangle is closer than the ellipse. This is because the rectangle width and length are more like the minimum and maximum of the manually measured ``union jack (\ding{107})'' lengths, respectively. And Assuming the complicated broccoli head is an ellipse inherently involves a certain degree of error, but the RMSE of the ellipse assumption ($0.7143 cm$) is still better than that of the circle assumption \citep[Table 5, RMSE$=0.97 cm$]{blok_image_2021}
 
 \input{figures/des.fig.7.tex}
 
@@ -94,5 +94,11 @@ To validate the accuracy of the proposed workflow calculated traits, we compare 
 
 % drawbacks: 1) only suitable for solid objects; 2) need manual flip the object, which takes over 80% of the time.
 
+% future studies: potato, sweet potato
+
+% integrete with full field measurements
+
 
 \section{Conclusion}
+
+In this study, we have implemented an almost fully automated pipeline for the 3D plant phenotyping application on the harvestable organs. The described workflow has been designed to minimize the effects of dead view on the 3D model quality and integrity. By using the dual-rotation of the object and the dual deep learning segmentation, our proposed workflow performed well on variate broccoli heads during the growing season. The feasibility of calculated head size traits was also validated by simple manual measurements in agricultural practices. Though not suitable for the soft and opened plant structure, the results suggest that our proposed pipeline offers a great opportunity for high-throughput 3D phenotyping applications on the solid and enclosed plant organs (e.g. oranges, potatoes, cauliflowers, and sweet potatoes), which are related to the profit directly.
