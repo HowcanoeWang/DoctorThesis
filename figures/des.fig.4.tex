@@ -1,0 +1,11 @@
+\begin{figure}[htbp!]
+  \begin{center}
+    \resizebox{\textwidth}{!}{
+      \includegraphics{figures/des/dl_seg.pdf}
+    }
+  \end{center}
+  \caption[Two deep learning segmentation results]{
+    Examples of two deep learning segmentation results. (a) is the original image of the broccoli head, the resolution is $5184 \times 3456$ pixel; (b) is the output of the UNet segmentation, the resolution is $256 \times 256$ pixel, which is not enough as final plant masks; and (c) the output of the refined high-resolution mask using CasadePSP based on the UNet output. The mask has the same resolution as the original image.
+  }
+  \label{fig:des_dl_seg}
+\end{figure}
