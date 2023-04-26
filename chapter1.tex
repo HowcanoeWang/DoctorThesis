@@ -8,10 +8,11 @@ Honbun honbun, honbun honbun \citep{guo_deep_2019, zhao_crop_2019}.
 \section{Objective of this study}
 
 \begin{enumerate}
-    \item To develop indoor and outdoor plant phenotyping pipelines that are feasible on various kinds of crops and fields. 
-    \item To extract canopy-level and organ-level morphological traits, and validate by field measurements.
-    \item To test the feasibility of cross-scale assimilation on broccoli head.
-    \item To develop a realistic procedural maize model whose structure is controlled by morphological traits and indoor scanned maize model.
+    \item To develop an almost-automatic 3D reconstruction workflow that can obtain the integrate and high-quality 3D models of destructively sampled broccoli heads.
+    \item To develop an unsupervised phenotyping workflow that can automatically segment the broccoli crown part from Objective 1, and calculate several 1D to 3D morphological traits.
+    \item To develop an improved workflow for UAV-based 3D reconstruction broccoli canopy using the 3D to 2D projection and labor-saving deep learning technique, which can obtain better 2D morphological traits of broccoli heads in complex outdoor conditions.
+    \item To combine the strengths of the UAV-based pipeline (high throughput but low quality) and the destructive-based pipeline (high quality but low throughput). Using the auto machine learning regression and the template matching to recover the 3D traits from UAV-based 2D traits for all broccolis in the field.
+
 \end{enumerate}
 
 
@@ -19,9 +20,9 @@ Honbun honbun, honbun honbun \citep{guo_deep_2019, zhao_crop_2019}.
 
 Chapter 1 is an overview of the study's background information, relative studies, and objectives
 
-Chapter 2 develops and validates the 3D phenotyping pipeline for destructive sampled broccoli head using photogrammetry technique, includes obtaining high quality plant 3D models and calculating the 3D traits.
+Chapter 2 develops and validates the 3D phenotyping pipeline for destructively sampled broccoli heads using the photogrammetry technique, which includes obtaining high-quality plant 3D models and calculating the 3D traits.
 
-Chapter 3 develops and validates the 3D phenotyping pipeline for UAV sensing on broccoli canopy, includes the 3D to 2D projection pipeline to improve deep-learning-based phenotyping
+Chapter 3 develops and validates the 3D phenotyping pipeline for UAV sensing on broccoli canopy, including the 3D to 2D projection pipeline to improve deep-learning-based phenotyping
 
 Chapter 4 tests the idea of cross-scale assimilation of broccoli based on the pipeline built in Chapter 2 and Chapter 3.
 
