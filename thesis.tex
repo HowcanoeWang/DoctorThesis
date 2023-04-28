@@ -27,6 +27,12 @@
 \usepackage{ulem}                     % better view for underline
 \usepackage{amsmath}                  % package for matrix formular
 \usepackage{pifont}                   % package for special symbol
+\usepackage[                          % the acronym throughput the thesis
+  toc,
+  acronym,
+  nonumberlist]{glossaries}
+\makenoidxglossaries
+\preto\chapter{\glsresetall}          % expand acronyms for first-time use within each chapter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \urlstyle{same}                       % the \url{} links also use Times New Roman font
@@ -72,6 +78,9 @@
 \supervisortitle{東京大学教授}
 \date{令和 3 年博士課程入学}
 %-------------------
+
+\include{abbreviations.tex}
+
 \begin{document}
 
 % \include{abstract.tex}
@@ -83,9 +92,13 @@
 \listoffigures % 図目次
 \listoftables % 表目次
 %\lstlistoflistings % ソースコード目次
+\glsfindwidesttoplevelname
+\setglossarystyle{alttree}
+\printnoidxglossary[type=acronym, title=List of Abbreviations, toctitle=List of Abbreviations]
 %-------------------
 
 \mainmatter %% 本文
+
 
 \include{chapter1.tex}
 % \include{chapter2.tex}
