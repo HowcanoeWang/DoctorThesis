@@ -14,7 +14,6 @@
   citecolor = black,
   anchorcolor = black]{hyperref}
 \usepackage[round]{natbib}            % author-year style references, *.bib requires BibTeX format
-\usepackage{doi}                      % add hyperlinks for doi in the references
 \usepackage{indentfirst}              % the first paragraph also indent with 2 characters
 \usepackage[dvipdfmx]{graphicx}       % zoom the table/figure to the proper size
 \usepackage{bmpsize}                  % previous dvipdfm option and this to fix pdf figure error
@@ -101,14 +100,14 @@
 \mainmatter %% 本文
 
 
-\include{chapter1.tex}
-% \include{chapter2.tex}
-% \include{chapter3.tex}
+% \include{chapter1.tex}
+\include{chapter2.tex}
+\include{chapter3.tex}
 % \include{chapter4.tex}
 % \include{chapter5.tex}
 
 %-------------------
-\bibliographystyle{styles/agsm-doi} % 参考文献
+\bibliographystyle{elsarticle-harv} % 参考文献
 \bibliography{styles/bibtex} %
 %-------------------
 
