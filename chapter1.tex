@@ -2,7 +2,61 @@
 
 \section{Research background}
 
-Honbun honbun, honbun honbun \citep{guo_deep_2019, zhao_crop_2019}. 
+% Fruits and vegetables play an important role in human nutrition, as a source of trace elements, vitamins, and minerals. As the \gls{who} suggested for the healthy diet, at least 400 grams of them should be consumed per day to protect against malnutritions (\url{https://www.who.int/news-room/fact-sheets/detail/healthy-diet}). For example, broccoli (\textit{Brassica oleracea} L.) heads, one of the most important components of the global vegetable market, several case studies have demonstrated its great potential to prevent cancer and cardiovascular disease \citep{mahn_overview_2012,latte_health_2011}. However, their supplies and quality can be easily affected by extreme weather events (\url{https://www.bbc.com/news/business-64776969}). Moreover, climate change and global warming also have negative impacts on vegetables, especially lettuce and broccoli which need a cold accumulation period to produce a harvest \citep{bisbis_potential_2018}. In addition, different field management (e.g., tillage, density, and nutrient) also affects the vegetable yield and quality \citep{jackson_onfarm_2004, satodiya_effect_2015}. Hence, to ensure the vegetable supply and quality, it is important to monitor the plants during the growth stages and to take proper management decisions in time.
+
+Fruits and vegetables are important sources of trace elements, vitamins, and minerals in human nutrition. The \gls{who} recommends consuming at least 400 grams of fruits and vegetables per day to prevent malnutrition (\url{https://www.who.int/news-room/fact-sheets/detail/healthy-diet}). Broccoli (\textit{Brassica oleracea} L.) heads are one of the most important components of the global vegetable market. Several case studies have demonstrated their great potential to prevent cancer and cardiovascular disease \citep{mahn_overview_2012,latte_health_2011}. However, their supply and quality can be easily affected by extreme weather events (\url{https://www.bbc.com/news/business-64776969}). Moreover, climate change and global warming also have negative impacts on vegetables, especially lettuce and broccoli, which need a cold accumulation period to produce a harvest \citep{bisbis_potential_2018}. In addition, different field management practices (e.g., tillage, density, and nutrients) also affect vegetable yield and quality \citep{jackson_onfarm_2004, satodiya_effect_2015}. Hence, it is important to monitor the plants during their growth stages and make proper management decisions promptly to ensure vegetable supply and quality.
+
+Conventional agriculture management activities, like disease and pest monitoring and selective harvesting, requires heavy manual operations. Such artificial activities pose several challenges. First, judging the disease at the early stage and deciding whether proper harvest often require professional knowledge and can be subject to human errors. 
+Second, the available human labor in agriculture is decreasing nowadays. It is affected by both long-term global events like urbanization and aging population; and short-term pandemics like economic recession and \gls{covid19} \citep{gallardo_adoption_2018,larue_labor_2020}. Such labor shortage raises the labor costs and the costs will be passed on to the consumer end. In this scenario, labor-saving technologies have unprecedented demand, which finally sparked the revolution in digital agriculture \citep{gallardo_adoption_2018}.
+
+% intro for phenotyping
+
+% \section{Plant phenotyping techniques}
+
+% background introduction for plant phenotyping
+%% the general workflow for plant phenotyping
+
+% \subsection{Types of plant phenotyping}
+
+%% platform types -> indoor, ground, aerial, satellite
+
+%% traits types -> contents, activtity, morphological; -> 3D
+
+% \subsection{3D phenotyping}
+
+% introduction for 3D phenotyping
+
+%% method to obtain 3D (passive, active) -> cost limit, choose RGB+SfM
+
+%% software SfM
+
+%% sfm in agricultrual applications.
+
+% \subsection{Data analysis for phenotyping}
+% for data analysis.
+
+% \subsubsection{Image analysis}
+%% image analysis
+
+%%% traditional CV method
+
+%%% deep learning based method
+
+% \subsubsection{3D analysis}
+%% 3D data analysis
+
+%%% remove background
+
+%%% segmentation
+
+%%%% individual segmentation
+
+%%%% organ segmentation
+
+%%% traits calculation
+
+% \section{Challenges in field phenotyping}
+
 
 
 \section{Objective of this study}
@@ -10,8 +64,8 @@ Honbun honbun, honbun honbun \citep{guo_deep_2019, zhao_crop_2019}.
 \begin{enumerate}
     \item To develop an almost-automatic 3D reconstruction workflow that can obtain the integrate and high-quality 3D models of destructively sampled broccoli heads.
     \item To develop an unsupervised phenotyping workflow that can automatically segment the broccoli crown part from Objective 1, and calculate several 1D to 3D morphological traits.
-    \item To develop an improved workflow for UAV-based 3D reconstruction broccoli canopy using the 3D to 2D projection and labor-saving deep learning technique, which can obtain better 2D morphological traits of broccoli heads in complex outdoor conditions.
-    \item To combine the strengths of the UAV-based pipeline (high throughput but low quality) and the destructive-based pipeline (high quality but low throughput). Using the auto machine learning regression and the template matching to recover the 3D traits from UAV-based 2D traits for all broccolis in the field.
+    \item To develop an improved workflow for \gls{uav}-based 3D reconstruction broccoli canopy using the 3D to 2D projection and labor-saving deep learning technique, which can obtain better 2D morphological traits of broccoli heads in complex outdoor conditions.
+    \item To combine the strengths of the \gls{uav}-based pipeline (high throughput but low quality) and the destructive-based pipeline (high quality but low throughput). Using the auto machine learning regression and the template matching to recover the 3D traits from \gls{uav}-based 2D traits for all broccolis in the field.
 
 \end{enumerate}
 
