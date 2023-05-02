@@ -3,11 +3,11 @@
 
 % \input{block/easyidp.tex}
 
-The function of this backward projection is projecting ROI from world coordinate to relative UAV raw images. In this section, using ``zipfile" and ``xml" Python packages to load the external and internal camera parameters generated from SfM-MVS reconstruction projects. Then apply the backward calculation using the pinhole camera model. Finally camera distortion calibration is conducted.
+The function of this backward projection is projecting \gls{roi} from world coordinate to relative \gls{uav} raw images. In this section, using ``zipfile" and ``xml" Python packages to load the external and internal camera parameters generated from \gls{sfm}-\gls{mvs} reconstruction projects. Then apply the backward calculation using the pinhole camera model. Finally camera distortion calibration is conducted.
 
 \subsubsection{Camera parameters loading}
 
-The relationship between field and UAV raw images is built after running SfM-MVS software. It has two main parts, external and internal parameters. The external parameters are different for each raw image, including the camera position (x, y, z) in the real-world coordinate ($O_{world}$, Fig.~\ref{fig:idps1}.a) and the camera rotation (yaw, pitch, roll). The internal parameters describe the characteristics of the sensor and are the same as each raw image, such as focal length, camera Charge-coupled Device (CCD) size, and lens distortion calibration parameters (\url{https://support.pix4d.com/hc/en-us/articles/202559089-How-are-the-Internal-and-External-Camera-Parameters-defined}). These parameters are available under the Agisfot Metashape and Pix4D project intermediate files.
+The relationship between field and \gls{uav} raw images is built after running \gls{sfm}-\gls{mvs} software. It has two main parts, external and internal parameters. The external parameters are different for each raw image, including the camera position (x, y, z) in the real-world coordinate ($O_{world}$, Fig.~\ref{fig:idps1}.a) and the camera rotation (yaw, pitch, roll). The internal parameters describe the characteristics of the sensor and are the same as each raw image, such as focal length, camera \gls{ccd} size, and lens distortion calibration parameters (\url{https://support.pix4d.com/hc/en-us/articles/202559089-How-are-the-Internal-and-External-Camera-Parameters-defined}). These parameters are available under the Agisfot Metashape and Pix4D project intermediate files.
 
 For Pix4D projects, all these parameters are located in the ``1\_initial/params" folder, the ``calibrated internal camera parameters.cam", ``calibrated camera paramters.txt", ``pmatrix.txt", and ``offset.xyz" are loaded as text directly and parsed in the EasyIDP package without any external packages. For more details about those files, please refer to the Pix4D official documentation (\url{https://support.pix4d.com/hc/en-us/articles/202559089-How-are-the-Internal-and-External-Camera-Parameters-defined}).
 
@@ -17,7 +17,7 @@ For Agisoft Metashape projects, all these parameters can be obtained either by c
 
 \subsubsection{Backward projection formulas}
 
-The geometry from the real-world coordinate ($O_{world}$) to image pixel coordinate ($O_{pix}$) is shown in Fig. \ref{fig:idps1}.a-c. There are four coordinate systems, first is the $O_{world}$ whose unit is often meter (Fig. \ref{fig:idps1}.a). The second one is the camera coordinate ($O_{cam}$, Fig. \ref{fig:idps1}.b), which makes the camera position to the origin (0,0,0) of coordinates, and the camera optical axis is used as the z-axis (commonly, the point $O_{img}$ is not the center point of plane). The third is the camera CCD coordinate ($O_{img}$, Fig.~\ref{fig:idps1}.c) whose unit is often mm. The last one is pixel coordinate ($O_{pix}$) whose origin is the top left corner in the $O_{img}$ and the unit is pixel.
+The geometry from the real-world coordinate ($O_{world}$) to image pixel coordinate ($O_{pix}$) is shown in Fig. \ref{fig:idps1}.a-c. There are four coordinate systems, first is the $O_{world}$ whose unit is often meter (Fig. \ref{fig:idps1}.a). The second one is the camera coordinate ($O_{cam}$, Fig. \ref{fig:idps1}.b), which makes the camera position to the origin (0,0,0) of coordinates, and the camera optical axis is used as the z-axis (commonly, the point $O_{img}$ is not the center point of plane). The third is the camera \gls{ccd} coordinate ($O_{img}$, Fig.~\ref{fig:idps1}.c) whose unit is often mm. The last one is pixel coordinate ($O_{pix}$) whose origin is the top left corner in the $O_{img}$ and the unit is pixel.
 
 Let us assume a point $P_{world} (x_w,y_w,z_w)$ in $O_{world}$, to transform that point into $P_{cam} (x_c,y_c,z_c)$ in $O_{cam}$ (Fig.~\ref{fig:idps1}.a), the $3\times4$ transform matrix $T$ could be derived from camera position ($t$, translational transformation) and camera rotation ($R$, rotational transformation):
 
@@ -28,7 +28,7 @@ Where, $t$ is the $3\times1$ position matrix, and $R$ is the $3\times3$ rotation
 
 % \input{equations/idp.eq.2.tex}
 
-The distance from the normalized plane to the origin $O_{cam}$  is 1 mm while the distance from the camera CCD plane to the origin $O_{cam}$ is focal length $f$ (Fig.~\ref{fig:idps1}.b) in mm. The transformation from $P_{cam}(x_c,y_c,z_c)$ to normalized plane $P_{norm} (x_n,y_n)$ and camera CCD plane $P_{img} (x_i,y_i)$ can be derived by triangle similarity:
+The distance from the normalized plane to the origin $O_{cam}$  is 1 mm while the distance from the camera \gls{ccd} plane to the origin $O_{cam}$ is focal length $f$ (Fig.~\ref{fig:idps1}.b) in mm. The transformation from $P_{cam}(x_c,y_c,z_c)$ to normalized plane $P_{norm} (x_n,y_n)$ and camera \gls{ccd} plane $P_{img} (x_i,y_i)$ can be derived by triangle similarity:
 
 \input{equations/idp.eq.3.tex}
 
