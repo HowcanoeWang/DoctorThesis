@@ -67,17 +67,17 @@
 
 % 論文の種類とフォントサイズをオプションに
 %-------------------
-\etitle{Studies on 3D-based Plant Phenotyping by Multi-scale Data Fusion}
-\jtitle{マルチスケールデータ融合による植物表現型の３次元計測に関する研究}
+% \etitle{Studies on 3D-based Plant Phenotyping by Multi-scale Data Fusion}
+% \jtitle{マルチスケールデータ融合による植物表現型の３次元計測に関する研究}
 %
-\eauthor{Haozhou Wang}
-\jauthor{王浩舟}
+% \eauthor{Haozhou Wang}
+% \jauthor{王浩舟}
 % \jsupervisor{加藤洋一郎　　東京大学教授}
-\jsupervisor{加藤洋一郎}
-\senkou{農学国際専攻(IPADS)}
+% \jsupervisor{加藤洋一郎}
+% \senkou{農学国際専攻(IPADS)}
 % \supervisortitle{　　郭威　　　東京大学准教授}
-\supervisortitle{東京大学教授}
-\date{令和 3 年博士課程入学}
+% \supervisortitle{東京大学教授}
+% \date{令和 3 年博士課程入学}
 %-------------------
 
 \include{abbreviations.tex}
@@ -86,7 +86,30 @@
 
 % \include{abstract.tex}
 
-\maketitle
+% \maketitle
+\begin{titlepage}
+  \begin{center}
+      \vspace*{2.5cm}
+
+      {\LARGE Doctoral Thesis (博士論文)}
+
+      \vspace*{2cm}
+
+      \begin{spacing}{4.5}
+        \textbf{\Huge Studies on 3D-based Plant Phenotyping by Multi-scale Data Fusion}
+      \end{spacing}
+
+      \vspace{0.5cm}
+      \textbf{(マルチスケールデータ融合による植物表現型の３次元計測に関する研究)}
+           
+      \vspace{7.5cm}
+
+      \textbf{\Huge Haozhou Wang}
+
+      \vfill
+          
+  \end{center}
+\end{titlepage}
 
 \frontmatter %% 前付け
 \tableofcontents % 目次
@@ -100,7 +123,7 @@
 
 \mainmatter %% 本文
 
-
+\doublespacing
 \include{chapter1.tex}
 % \include{chapter2.tex}
 % \include{chapter3.tex}
@@ -108,8 +131,10 @@
 % \include{chapter5.tex}
 
 %-------------------
-\bibliographystyle{elsarticle-harv} % 参考文献
-\bibliography{styles/bibtex} %
+\begin{singlespace}
+  \bibliographystyle{elsarticle-harv} % 参考文献
+  \bibliography{styles/bibtex} %
+\end{singlespace}
 %-------------------
 
 % \include{acknowledgement.tex}
