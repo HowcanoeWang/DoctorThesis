@@ -13,7 +13,7 @@ Conventional agricultural management activities for such purposes require signif
 
 \section{Plant phenotyping techniques}
 % background introduction for plant phenotyping
-The labor-saving and digitized plant status monitoring, also named plant phenotyping, has been developed and implemented rapidly in recent years \citep{araus_field_2014}. It is defined as ``\textit{the application of methodologies and protocols to measure a specific trait related to plant structure or function with traits ranging from cellular to whole-plant levels}'' \citep{fiorani_future_2013, ghanem_physiological_2015}. Though different workflows are required for different crops and applications, the general workflow of plant phenotyping can be summarized as 1) Data collection, to collect plant or with background data by variate sensors; 2) \gls{roi} extraction, to detect or to segment plant parts at expected levels (e.g. full canopy or single organ) from the collected data; 3) crop traits calculation; and 4) practical or advanced applications.
+The labor-saving and digitized plant status monitoring, also named plant phenotyping, has been developed and implemented rapidly in recent years \citep{araus_field_2014}. It is defined as ``\textit{the application of methodologies and protocols to measure a specific trait related to plant structure or function with traits ranging from cellular to whole-plant levels}'' \citep{fiorani_future_2013, ghanem_physiological_2015}. Though different workflows are required for different crops and applications, the general workflow of plant phenotyping can be summarized as 1) Data collection, to collect plant or with background data by variate sensors; 2) \gls{roi} extraction, to detect or to segment plant parts at expected levels (e.g. full canopy or single organ) from the collected data; 3) crop traits calculation and guide practical applications \citep{zhao_crop_2019}.
 
 \subsection{Data collection}
 %% platform types -> indoor, outdoor(ground, aerial, satellite)
@@ -33,7 +33,7 @@ However, these imaging sensors are hard to directly describe the 3D morphologica
 
 The active scanners use a light source projecting on the object and analyze the reflection results to obtain the structure. It has two main parts, triangulation and \gls{tof}. The triangulation approach uses the shape changes on the projected straight laser line(s) to obtain the object structure. For example, \citet[Figure~3]{schunck_pheno4d_2021} used a laser line (Fig.~\ref{fig:int2}a) triangulation scanner (Perceptron Scan Works V5, Perceptron Inc., USA) to build a public 3D model database for maize and tomato. The structured light improved the efficiency by projecting an array of lines, often visible or infrared light rather than laser (Fig.~\ref{fig:int2}b). The Microsoft Kinect V1 is a famous \gls{rgbd} camera based on this approach which was released in November 2010. But it was used by a few plant phenotyping studies \citep{nguyen_structured_2015}, since the second version (Kinect V2, released in July 2014) and the third version (Azure Kinect, released in March 2020) with a different \gls{tof} approach and better performance \citep{tolgyessy_evaluation_2021, lachat_assessment_2015} were available. The \acrfull{tof} measures the distance between the sensor and points on the object to obtain its structure. According to the type of light source used, it can be divided into two categories: infrared for \gls{tof} camera (Fig.~\ref{fig:int2}c) and laser for \gls{lidar} (Fig.~\ref{fig:int2}d). Since the sun is a massive source of infrared, infrared-based ToF cameras typically do not perform well in outdoor environments with intense sunlight \citep{tolgyessy_evaluation_2021}; and are therefore commonly used for indoor plant reconstruction applications \citep{martinez_low_2019, zhang_3d_2020, xu_global_2023}. In contrast, the laser is often more tolerant to sunlight due to its stronger energy density, making it widely used in outdoor environments. According to the type of \gls{lidar} sensor, the 3D plant phenotyping applications are consisted of 2D \gls{lidar} scanner \citep{garrido_3d_2015}, 3D \gls{hls} \citep{ma_calculation_2019}, 3D \gls{tls} \citep{wu_accurate_2019, su_estimation_2018, qiu_field-based_2019}, and 3D \gls{als} \citep{ten_biomass_2019, nguyen_uav_2023}.
 
-The passive scanners rely on analyzing the passively received image groups, mainly using the \gls{rgb} images. The light field camera takes a group of photos with different focal lengths, and the object structure is calculated according to different degrees of clarity caused by the different distances to the sensor (Fig.~\ref{fig:int2}e). For example, \citet{apelt_phytotyping_2015} built a light field camera system for measuring the morphological traits that are related to plant growth. A commercial low-cost light field camera (Lytro LF, Lytro Inc., USA) was used as \gls{rgbd} camera to monitor maize 3D morphological traits \citep{schima_imagine_2016}. While another commercial \gls{rgbd} camera, Intel RealSense (Intel Corporation, USA) uses a stereo vision approach (Fig.~\ref{fig:int2}f). It uses binocular vision like human eyes to obtain the object's structure. \citet{blok_image_2021} used this RealSense \gls{rgbd} camera to estimate the broccoli head size with different degrees of occlusion, which is a tough problem for common \gls{rgb} cameras. The photogrammetry approach is based on \gls{rgb} images obtained from different perspectives (view angles) using common imaging sensors (Fig.~\ref{fig:int2}g). It first uses the overlapped area among images to estimate the camera poses and object rough 3D structure (tie points), called \acrfull{sfm}. Then the \gls{mvs} is applied to densify the 3D point cloud of the tie points, and surface reconstruction and texture rendering are applied to obtain 3D mesh model of objects. For more details, please refer to this book \citep{hartley_multiple_2000} and this review \citep{snavely_scene_2010}. 
+The passive scanners rely on analyzing the passively received image groups, mainly using the \gls{rgb} images. The light field camera takes a group of photos with different focal lengths, and the object structure is calculated according to different degrees of clarity caused by the different distances to the sensor (Fig.~\ref{fig:int2}e). For example, \citet{apelt_phytotyping_2015} built a light field camera system for measuring the morphological traits that are related to plant growth. A commercial low-cost light field camera (Lytro LF, Lytro Inc., USA) was used as \gls{rgbd} camera to monitor maize 3D morphological traits \citep{schima_imagine_2016}. While another commercial \gls{rgbd} camera, Intel RealSense (Intel Corporation, USA) uses a stereo vision approach (Fig.~\ref{fig:int2}f). It uses binocular vision like human eyes to obtain the object's structure. \citet{blok_image_2021} used this RealSense \gls{rgbd} camera to estimate the broccoli head size with different degrees of occlusion, which is a tough problem for common \gls{rgb} cameras. The photogrammetry approach is based on \gls{rgb} images obtained from different perspectives (view angles) using common imaging sensors (Fig.~\ref{fig:int2}g). It first uses the overlapped area among images to estimate the camera poses and object rough 3D structure (tie points), called \acrfull{sfm}. Then the \gls{mvs} is applied to densify the 3D point cloud of the tie points, and surface reconstruction and texture rendering are applied to obtain 3D mesh model of objects. For more details, please refer to \citep{hartley_multiple_2000,snavely_scene_2010}. 
 
 % The structure from motion
 %% software SfM
@@ -53,58 +53,96 @@ Recently, for the \gls{cg} industry which often needs to scan objects to 3D mode
 
 After collecting the data, the following step is extracting the \acrfull{roi} for further analysis. The \gls{roi} can have different meanings for different research purposes. For canopy-level studies or breeding studies, the \gls{roi} is the regions within each plot boundary \citep{trevisan_htp_2020, han_drone_2021}; For individual-level studies, the \gls{roi} is the plant parts without involving any background like soils or weeds \citep{ge_method_2019,guo_fieldbased_2020}; For organ-level studies, the \gls{roi} is the part of each organ without the other parts of the plant, for example, the broccoli head \citep{zhou_monitoring_2020} and sorghum tassel \citep{ghosal_weakly_2019} without leaves. In this section, different image analysis and 3D data analysis methods and algorithms are summarized for the 2D image collected from imaging sensors and 3D models (e.g. 3D point cloud) from 3D photogrammetry or \gls{lidar} scanner, respectively.
 
-\subsubsection{Preprocessing for full field}
+\subsubsection{Full field data preprocessing}
 
 % plot region extraction (canopy level)
 % easympe, other plot segments
-For canopy-level or full-field phenotyping applications, the \gls{dom} is often used as the field plot map (by \gls{uav} photogrammetry); the 3D point cloud is often used as 3D canopy models (by photogrammetry or \gls{lidar} scanner). However, processing the whole file image or 3D data directly is often impossible, since the file size of these whole canopy data is very large (often over 0.5GB and can reach 10GB+). One common data preprocessing of plant phenotyping applications is splitting the whole field into smaller parts \citep{wang_easyidp_2021}. It can be split by either equal-size grids (e.g. full \gls{dom} image to several 1000$\times$1000 pixel grids) or the boundary of each (micro)plot, the latter one is more meaningful and often used.
+For canopy-level or full-field phenotyping applications, the \gls{dom} is often used as the field plot map (by \gls{uav} photogrammetry); the 3D point cloud is often used as 3D canopy models (by photogrammetry or \gls{lidar} scanner). However, processing the whole file image or 3D data directly is often impossible, since the file size of these whole canopy data is very large (often over 0.5GB and can reach 10GB+). One common data preprocessing of plant phenotyping applications is splitting the whole field into smaller parts \citep{wang_easyidp_2021}. It can be split by either equal-size grids (e.g. \citet{bauer_combining_2019} split full \gls{dom} image to several 250$\times$250 pixel grids) or the boundary of each (micro)plot \citep{tresch_easympe_2019}, the latter one is more meaningful and often used.
 
 To place plot boundaries and their labels on the \gls{dom} map manually, the \gls{gis} software like ArcGIS Desktop (Esri, Redlands, USA) and QGIS (open source, \url{https://qgis.org}) are often used. The (micro)plot results are often saved in shapefile format (*.shp) for better compatibility with other software. However, manually editing and operating software \gls{gui} is time-consuming for large fields, hence several studies tried to solve the automatic \gls{roi} detection and generation by computer vision. \citep{tresch_easympe_2019} developed an open-source python package EasyMPE to generate and crop \gls{roi} semi-automatically. This tool was then later re-built using C++ by \gls{naro}, named PREPs (\url{http://cse.naro.affrc.go.jp/aitoh/PREPs}), for higher performance on the Windows platform. \citet{chen_grid_2020} also developed a similar tool using python name GRID (\url{https://zzlab.net/GRID}); \citet{mortensen_drone_2019} developed the using the Matlab; and \citep{sara_automatic_2021} extended them by supporting slightly adjusting the \gls{roi} location to fit better with the canopy. All these tools also support cropping the full \gls{dom} to small parts within the \gls{roi} for postprocessing.
 
 For the 3D canopy point cloud, the point cloud processing software like MeshLab (open source, \url{https://www.meshlab.net}) or CloudCompare (open source, \url{https://www.cloudcompare.org}) are often used for similar \gls{roi} cropping tasks but not very convenient. Instead, it is more often to use the \gls{roi} shapefiles made in the previous step and write batch scripts for processing. For example, \citet{sun_field_2018} cropped the \gls{roi} on \gls{lidar} point cloud using the Matlab script but not they did not publish their code. Thus, we developed the EasyIDP python package for processing the \gls{dom} and point cloud more easily \citep{wang_easyidp_2021}. After preprocessing the full field into smaller parts, the following ``2D image analysis'' and ``3D data analysis'' can be applied for each part.
 
-\subsubsection{2D image analysis}
+\subsubsection{2D-based approaches}
 
-Most of the image analysis tasks for plant phenotyping can be summarized into three categories: classification, detection and segmentation. The classification task is to determine which objects are in a given image. For example, decide whether a broccoli head in the image is healthy, immature or disease \citep{garcia_towards_2021}. The detection task combines the classification and localization, it can tell what kind of object and where are they in the given image. For example, detect how many maize buds \citep{liu_estimating_2022} or sorghum tassel \citep{ghosal_weakly_2019} and their bounding box in the image. The segmentation task separates a given image into several regions with particular shapes and borders. It consists of semantic segmentation and instance segmentation. Semantic segmentation shares the same label with all the objects that belong to the same class, while the instance segmentation produces unique labels for each object. For example, telling where the region of plants or broccoli heads is a semantic segmentation task, but telling where the region of each plant or each broccoli head is an instance segmentation task.
+Most of the image analysis tasks for plant phenotyping can be summarized into three categories: classification, detection and segmentation. The classification task is to determine what class of objects are in a given image. For example, decide whether a broccoli head image is healthy or diseased \citep{garcia_towards_2021}. The detection task combines classification and localization, it can tell what kind of object and where are they in the given image. For example, detect how many maize buds \citep{liu_estimating_2022} or sorghum tassel \citep{ghosal_weakly_2019} and their locations in the image. The segmentation task separates a given image into several regions with particular shapes and borders. It consists of semantic segmentation and instance segmentation. Semantic segmentation shares the same label with all the objects that belong to the same class (e.g. where is the region of plants or broccoli heads in an image), while instance segmentation produces unique labels for each object (where are the regions of each broccoli head in an image). These tasks are not isolated from each other. For example, for semantic segmentation, the conventional computer vision method is to classify each pixel to obtain the segmentation result of the entire image \citep{guo_easypcc_2017}; while instance segmentation usually requires the combination of the results of semantic segmentation and detection to achieve the identification of each individual's region \citep[Fig.~2]{luling_using_2021}.
 
-% a figure about broccoli detection, sematic segmentation, and instance segmentation.
-
-% task kine: detection, segmentation
+% [todo] a figure about broccoli detection, sematic segmentation, and instance segmentation.
 
 %%% traditional CV method
+The most conventional attempts are trying to use computer vision algorithms on common \gls{rgb} images. In some simple cases, a manually defined color threshold can be used for separating plants from backgrounds. For example, \citet{choudhury_holistic_2018} converted the maize plant image from \gls{rgb} to \gls{hsv} and used ``\textit{hue (range 0.051-0.503), saturation (range: 0.102-0.804) and value (range 0.000-0.786)}'' to separating plant regions from the background. However, in most outdoor images with complex lighting and background conditions, the manual thresholding does not have good performance. Thus, \citet{meyer_verification_2008} proposed the color vegetation indices (NDI, ExG and ExR) and combined with \citet{otsu_threshold_1979} thresholding algorithms for automated crop imaging application. For better compatibility with more complex scenarios without being limited to green plants, \citet{guo_easypcc_2017} manually annotated the training data to train machine learning classifiers based on extended color information. Further, \citet{zou_broccoli_2019} and \citet{blok_machine_2016} segmented the broccoli buds and heads, respectively, using the texture and color information with the trained support vector machine (SVM) classifier.
 
 %%% deep learning based method
 %% -> 深度学习2D图像检测算法 siyuan
+In the same way, deep learning techniques show great potential for better RGB image processing results. The \gls{cnn} is a famous deep learning framework for color imagery used by many phenotyping studies. \citet{ghosal_weakly_2019} used a pre-trained \gls{cnn} model for sorghum head detection and counting; \citet{liu_estimating_2022} applied the Fast \gls{rcnn} for counting the maize seedling number; \citet{bender_high_2020} applied the FastRCNN for detecting and segmenting the entire broccoli on the RGB images and shared them as public datasets; \citet{blok_effect_2021} simplified the MaskRCNN with data augmentation for broccoli head segmentation on RGB images. However, its accuracy is affected by the leaf occlusion; \citet{blok_image_2021} fixed this issue by using the \gls{orcnn} to recover the hidden head area; and \citet{garcia_towards_2021} also applied the FasterRCNN for distinguishing the immature and diseased broccoli. 
+ 
+% convetional cv solution, but algriculutre also has many alternatives. (depth info, time-series info, hyperspectal)
 
-\subsubsection{3D data analysis}
+\subsubsection{3D-based approaches}
+
+Although 2D-based machine learning and deep learning approaches show the feasibility of extracting \gls{roi}s, for very complex scenes it often requires labeling a considerable number of training sets to ensure a better performance. The 3D-based approaches can not only provide more morphological information but also can greatly simplify complex tasks.
+
+The depth information is often used as a common and simple 3D-based approach. The depth image is a common file format for that information, which uses pixels to record depth values. It can be obtained from either depth cameras (often for close-range, the depth value is the distance from the object to the camera) or photogrammetry (often for aerial, the depth value is the height or altitude). Such information has been widely used for better plant segmentation for phenotyping studies. For close-range applications, \citep{luling_using_2021} used the depth image generated by photogrammetry and the color information to segment cabbage instances. For the aerial photogrammetry applications, \citet{guo_fieldbased_2020} segmented the plant area inside each \gls{roi} using the color and the depth information from \gls{dom} and \gls{dsm} respectively. 
+
+Another format for recording the depth information is the 3D point cloud, and the 3D point cloud analysis is also of great importance for the 3D-based approach. Before processing, due to the disorderliness of the data structure of the point cloud, point downsampling and noise removal are required to decrease the data size and processing difficulties \citep{ma_calculation_2019}. 
+
+Then, a semantic segmentation between plants and background (e.g., soil) is required. Color thresholding mentioned in the 2D-based approach also works for 3D point clouds with colors. \citet[Fig.~3]{xiao_image-based_2020} manually defined \gls{rgb} threshold ($R-G\geq7$) for separating plant points from backgrounds like shadow and soil points. The geometry relationship among points can also be used for segmentation. \citet{ge_method_2019} applied the \gls{gmm} clustering to recognize the points of broccoli buds and remove the discrete points (noises) by \gls{knn} algorithm. While instead of extracting plant parts, \citet{garrido_3d_2015} used the \gls{ransac} plane regression to find out the flat ground points and removed them.
+
+After semantic segmenting the plant part, the instance segmentation to split each plant should proceed for the individual-level studies. \citet{hofle_radiometric_2014} developed a region-growth method based on the local maxima in elevation to split each maize bud from semantic segmented points. It shared a similar idea of \gls{dbscan} clustering method which is used by several studies later for maize \citep{lin_segmentation_2022} and cotton balls \citep{sun_3d_2020}. \citet{kusumam_3d_2017} detected two broccoli varieties' heads by Euclidean clustering method and the SVM classifier on the 3D features and \citet{montes_real-time_2020} further expanded it to almost real-time detection for the actual applications.
+
+Finally, the organ-level studies require segmentation on each organ, especially for crops with complex morphological structures (e.g. maize, tomato). According to morphological characters of different crops or cultivars, different studies proposed different solutions. For the tasks of maize leaf segmentation, \citet{jin_stemleaf_2019} proposed a \gls{mnvg} algorithm; \citet{liu_canopy_2021} used skeletonize and region growth; \citet{wang_dfsp_2023} proposed a distance field-based segmentation pipeline; and \citet{miao_label3dmaize_2021} used the optimal transportation distance and published an interactive segmentation tool (Label3Dmaize, \url{https://github.com/syau-miao/Label3DMaize}). For the tomato stem and leaf segmentation, \citet{rossi_implementation_2022} proposed a complex but automatic workflow using the Matlab, including radius detection, sphere climbing, and phyllotaxy retrieving. \citet{helin_using_2023} proposed a t-distributed stochastic neighbor embedding segmentation method and proved its feasibility on five different plants (hibiscus, maple, tomato, tobacco and rosebush). \citet{dutagaci_rose-x_2020} and \citet{schunck_pheno4d_2021} even published an annotated dataset for evaluating 3D plant organ segmentation methods.
+
+
+
+%  or deep learning method \citep{jin_deep_2018}.
+
+
+%% 棉花点云
+
 %% 3D data analysis
 
 %%% remove background
 
-%%% segmentation
+% combine with depth info
+
+
 
 %%%% individual segmentation
 
 %%%% organ segmentation
 
-\subsection{Traits calculation}
+%%% how to do 3D deep learning: (思源笔记，三维深度学习的种类)
+
+\subsection{Traits calculation and applications}
 % du_greenhouse_2021 -> 100多个参数
 
 %% 1D 参数
 
 %% 2D 参数
+% Hundreds of static and dynamic traits related to geometry, structure, texture, and colors on lettuce were measured by a self-designed high-throughput phenotyping platform [2\citep{du_greenhouse_2021}]. 
 
 %% 3D 参数
+% After segmenting point cloud to part of interest, the simple traits such as maize height [4,13]\citep{hammerle_mobile_2018,qiu_field-based_2019}, row spacing \citep{qiu_field-based_2019}, plant skeleton \citep{wu_accurate_2019} and biomass \citep{jin_non-destructive_2020} could be calculated, and also some advanced application for drought stress \citep{su_evaluating_2019}, intercropping \citep{liu_field-based_2021} and light competition \citep{zhu_quantification_2020} analysis.
+
+% skeleton extraction.
+
+
+
+% \subsection{Advanced applications}
 
 %% 时间序列分析的文献(使用时间序列追踪参数的变化) 思源笔记
+% they were used for discovering the loci regulating flower opening [11\citep{han_drone_2021}].
 
-\subsection{Advanced application}
+%% 收期预测、光照模拟, 辅助QTL
 
-%% 收期预测、光照模拟
+% The lettuce growth and photosynthetic performance reaction to drought stress were also assessed [\citet{sorrentino_lettuce_2020}]. 
 
 \section{Challenges in plant phenotyping}
 
 %% 上述的三维分析方法，仅限于高质量的点云？对于大部分来说，质量不够很难进行3D的分析
+
+%% 数据集标注的工作量问题
+Besides, the model selection and parameter adjustment of machine learning as well as the training data preparation of machine learning, are still highly dependent on expert experiences and intensive labor. The auto machine learning framework and weakly supervised learning have merged as the interesting candidate to solve such dilemma.
 
 \section{Objective of this study}
 
