@@ -100,35 +100,21 @@ One limitation of the conventional 3D-based analysis method, like the 2D-based i
 
 Currently, there are four solutions for applying deep learning on the 3D point cloud. 
 The first solution is 3D convolution, which converts the disordered point cloud (Fig.~\ref{fig:int3}d) to the ordered voxel model (Fig.~\ref{fig:int3}e). One famous deep learning network based on this idea is the VoxNet \citep{Maturana_VoxNet_2015}, but it is easily affected by the resolution (sidelength of the voxel) selection and it is also limited with small data sizes (maximum $32 \times 32 \times 32$ voxel numbers). \citet{jin_separating_2020} developed a \gls{vcnn} for maize stem and leaf classification and segmentation. 
-The second solution is graph convolution, which converts the disordered point cloud to the ordered graph (Fig.~\ref{fig:int3}c\&f) and applies the \gls{gcn} \citep{wu_comprehensive_2021,zhou_graph_2020} or \gls{dgcnn} \citep{phan_dgcnn_2018} on the graph data. \citet{du_pst_2023} tested the feasibility of \gls{dgcnn} on the instance segmentation on rapeseed leaves.
+The second solution is graph convolution, which converts the disordered point cloud to the ordered graph (Fig.~\ref{fig:int3}c\&f). The graph relationship already supports distinguishing different shape features like leave (flat plane) and stem (long cylinder) by the self-defined rule \citep{mirande_graph-based_2022}. But it is also possible to apply the \gls{gcn} \citep{wu_comprehensive_2021,zhou_graph_2020} or \gls{dgcnn} \citep{phan_dgcnn_2018} on the graph data. \citet{du_pst_2023} tested the feasibility of \gls{dgcnn} on the instance segmentation on rapeseed leaves.
 The third solution is converting multi-view projection onto 2D images for 2D-based detection or segmentation, and re-projecting the results back to 3D point cloud. One famous network for this idea is the \gls{mvcnn} proposed by \citet{su_mvcnn_2015}. \citet{jin_deep_2018} applied this idea for segmenting individual maize from canopy 3D point cloud. While \citet{van_plant_2019} used the geometry relationship between 3D models and the raw images from photogrammetry, to project the 2D deep learning results on the raw images back to the tomato 3D point cloud models.
-The last solution is applying deep learning on the point cloud directly. \citet{qi_pointnet_2016} first trained a deep learning network called PointNet by randomly shuffling the order to avoid the impact of the order of points in point clouds. However, the algorithm complexity is factorial N, which becomes unacceptable for cloud sizes above 1000 points. Thus, an updated version PointNet++ with significantly better performance was proposed to solve the lack of hierarchical feature aggregation in the previous version \citep{qi_pointnet_2017}. \citet{boogaard_boosting_2021} tested its feasibility on the cucumber segmentation. And the PointNet++ is also acting as a comparison standard by several newly proposed networks for plants \citep{jin_separating_2020,zhou_automated_2022,du_pst_2023,li_psegnet_2022}. To be more specific, \citet{zhou_automated_2022} and \citet{du_pst_2023} proposed a \gls{pct}-based network for broccoli head segmentation and rapeseed leaves segmentation, respectively. \citet{li_plantnet_2022} proposed a PlantNet and its updated version PSegNet \citep{li_psegnet_2022} for the organ segmentation of sorghum, tomato, and tobacco.
+The last solution is applying deep learning on the point cloud directly. \citet{qi_pointnet_2016} first trained a deep learning network called PointNet by randomly shuffling the order to avoid the impact of the order of points in point clouds. However, the algorithm complexity is factorial N, which becomes unacceptable for cloud sizes above 1000 points. Thus, an updated version PointNet++ with significantly better performance was proposed to solve the lack of hierarchical feature aggregation in the previous version \citep{qi_pointnet_2017}. \citet{boogaard_boosting_2021} tested its feasibility on the cucumber segmentation. And the PointNet++ is also acting as a comparison standard by several newly proposed networks for plants \citep{jin_separating_2020,zhou_automated_2022,du_pst_2023,li_psegnet_2022}. To be more specific, \citet{zhou_automated_2022} and \citet{du_pst_2023} proposed \gls{pct}-based networks for broccoli head segmentation and rapeseed leaves segmentation, respectively. \citet{li_plantnet_2022} proposed a PlantNet and its updated version PSegNet \citep{li_psegnet_2022} for the organ segmentation of sorghum, tomato, and tobacco.
 
-\subsection{Morphological traits calculation}
-% du_greenhouse_2021 -> 100多个参数
+\subsection{Traits calculation}
 
-%% 1D 参数
+After segmenting the \gls{roi}, several different kinds of traits calculation can be applied to the 2D-based and 3D-based results. \citet[Table 1]{du_greenhouse_2021} summarized the 2D-based traits on common RGB images to six categories: 1) geometric (morphological) traits like projected area, projected perimeter, convex area, convex perimeter, circumcircle diameter, the angle of main axis, the length of long and short axis; 2) structure traits like the length or proportion of intersection line segments in concentric circles; 3) color space traits like mean and variance of Red in RGB; 4) color index traits like \gls{exg}, \gls{vdvi}, \gls{rgri}; 5) color component traits like 1st order color moment of B component; 6) texture traits like contrast, dissimilarity, and homogeneity. Among them, geometric (morphological) traits, color index traits, and texture traits are often used in other studies. For example, \citet{stansell_use_2017} extracted the texture traits like head color, head smoothness, head size, head uniformity as broccoli head quality indices; \citet{bauer_combining_2019} applied the color index traits, \gls{ndvi}, as an indicator for lettuce maturity. 
 
-%% 2D 参数
-% Hundreds of static and dynamic traits related to geometry, structure, texture, and colors on lettuce were measured by a self-designed high-throughput phenotyping platform [2\citep{du_greenhouse_2021}]. 
+When it comes to 3D-based approaches, except the aforementioned 2D morphological traits like projected canopy area, convex and concave hull area, the canopy volume and canopy height is also available for the cotton canopy \citep{jiang_quantitative_2018}. For the maize canopy applications, other canopy traits like maize height \citep{hammerle_mobile_2018,qiu_field-based_2019} and row spacing \citep{qiu_field-based_2019} can also be calculated. \citet[Table 3]{jin_non-destructive_2020} calculated the morphological traits of maize from canopy-level to leaf organ-level, including the height, canopy cover, plant area index, projected leaf area, volume, stem diameter, leaf length and width. \citet{itakura_automatic_2018} obtained the leaf inclination angle and \citet{liu_canopy_2021} analyzed its effect on the canopy light use efficiency. And the 3D-based traits can also support some advanced applications for drought stress \citep{su_evaluating_2019, sorrentino_lettuce_2020}, intercropping \citep{liu_field-based_2021} and light competition \citep{zhu_quantification_2020} analysis.
 
-%% 3D 参数
-% After segmenting point cloud to part of interest, the simple traits such as maize height [4,13]\citep{hammerle_mobile_2018,qiu_field-based_2019}, row spacing \citep{qiu_field-based_2019}, plant skeleton \citep{wu_accurate_2019} and biomass \citep{jin_non-destructive_2020} could be calculated, and also some advanced application for drought stress \citep{su_evaluating_2019}, intercropping \citep{liu_field-based_2021} and light competition \citep{zhu_quantification_2020} analysis.
-
-leaf lincination angle.
-
-% skeleton extraction.
-
-
-
+% [todo] skeleton extraction.
 % \subsection{Advanced applications}
-
 %% 时间序列分析的文献(使用时间序列追踪参数的变化) 思源笔记
 % they were used for discovering the loci regulating flower opening [11\citep{han_drone_2021}].
-
 %% 收期预测、光照模拟, 辅助QTL
-
-% The lettuce growth and photosynthetic performance reaction to drought stress were also assessed [\citet{sorrentino_lettuce_2020}]. 
 
 \section{Challenges in plant phenotyping}
 
