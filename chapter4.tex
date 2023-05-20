@@ -4,6 +4,12 @@
 
 Honbun honbun, honbun honbun \citep{zhao_crop_2019}. 
 
+% convert 3D geo-coordinate to 2D pixel coordinate (backward projection); convert 2D pixel coorinate to 3D geo- is not possible, 1) information loss -> using the camera position + roatation + points on the image plane, can only get a ray, rather than a speicify 3D points. reflect to the equation in suppleate (eq.xx) need to solve xxx which is hard. The solution 1. one object from different view, and calculate the intersection points (sfm method), easy to match the polygon for each broccoli, but hard to identify the polygon vertex matches. Plus, different view may have different shapes, can not perfectly match; 2. Find the point at which the ray intersects the surface of the model. difficulties: 对于每一条射线，都要去判断和所有的三角面是否相交，有可能遇到多个相交的三角面（如穿过叶片部分而不是花头）还需要仔细判断到底想交到了哪个面，计算量非常恐怖。一个点需要去和数十万的三角面判断关系，然后一个西兰花头就有几十个点，然后地里面有一万多的西兰花头，使得快速得到结果不太可能。
+
+% 所以在第三章中，使用的规则是，根据grid定点在两个坐标中的位置，直接使用projective transfomration, 进行变换，这样计算比较迅速，而且基于西兰花田地的特点（一个起伏变化不是很大的平地），能大体上保证变换后尺寸比例的正确性，并不影响head traits的计算；但是由于视角等细微的变化，导致位置上的正确性不是很好（Fig.1.1); 为了能更准确的实现可视化，把西兰花头更精准的放回到地里面，需要对这个位置变幻进行进一步的优化
+
+the possible solutions 
+
 % challenges:
 % 1. ground low quality
 % 2. forward to DOM, information loss, unable to find the specific results.
@@ -12,11 +18,20 @@ Honbun honbun, honbun honbun \citep{zhao_crop_2019}.
 
 % note: 西兰花 模型自动选择的必要性
 
+\input{figures/xrs.fig.1.tex}
+
 
 \section{Methods and Materials}
 
+\input{figures/xrs.fig.2.tex}
+
+Fast Normalized cross-correlation \citet{yoo_fast_2009}
+
 
 \section{Results}
+
+
+
 
 \section{Discussion}
 
