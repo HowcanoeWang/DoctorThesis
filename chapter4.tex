@@ -1,27 +1,24 @@
-\chapter{Cross indoor and outdoor scale data assimilation}
+\chapter{Data fusion for virtual visualization}
 
 \section{Introduction}
 
+The previous two chapters developed two pipelines that can obtain broccoli head parts using close-range and aerial approaches. The aerial approach can obtain low-quality broccoli canopy models of the full field while the close-range approach can obtain high-quality broccoli head 3D models. As the next step, we targeted transforming and placing the high-quality head 3D models into the low-quality full field canopy models, targeted for 3D virtual visualization and explanation for a more intuitive feeling of growth status compare to numeric statistical values. It is also a fundamental and critical technique for virtual farmland and digital twin \citep{pylianidis_introducing_2021, slob_virtual_2023}. Until now, to the best of our knowledge, no published research has addressed this problem in the actual broccoli farmland. However, there are also several challenges to be solved before achieving that point. 
+
 % what is backward project , what is forward projection
+The first challenge is a more precise geographical location. Due to the low quality of the aerial model, in Chapter 3, we segmented the broccoli head on the raw images without geo-coordinate. However, during the backward projection from 3D geographical coordinates (3D canopy model) to the 2D pixel coordinate (2D raw image), one dimension is lost and not reversible. So, when forward projecting the broccoli head segmentation 2D coordinates back to the 3D geographical coordinate; for each vertex (point) of broccoli head polygons, instead of getting precise 3D geographical points, only a ray ($Z_{cam}$) connecting the camera position ($O_{cam}$) and that point on the camera \gls{ccd} plane could be produced (Supplementary Fig.~\ref{fig:idps1}a). 
 
 % convert 3D geo-coordinate to 2D pixel coordinate (backward projection); convert 2D pixel coorinate to 3D geo- is not possible, 1) information loss -> using the camera position + roatation + points on the image plane, can only get a ray, rather than a speicify 3D points. reflect to the equation in suppleate (eq.xx) need to solve xxx which is hard. The solution 1. one object from different view, and calculate the intersection points (sfm method), easy to match the polygon for each broccoli, but hard to identify the polygon vertex matches. Plus, different view may have different shapes, can not perfectly match; 2. Find the point at which the ray intersects the surface of the model. difficulties: 对于每一条射线，都要去判断和所有的三角面是否相交，有可能遇到多个相交的三角面（如穿过叶片部分而不是花头）还需要仔细判断到底想交到了哪个面，计算量非常恐怖。一个点需要去和数十万的三角面判断关系，然后一个西兰花头就有几十个点，然后地里面有一万多的西兰花头，使得快速得到结果不太可能。
+To solve the precise 3D position, there currently has two solutions: 1) intersecting two or more rays from different perspectives to determine the 3D intersection point, which is almost the same as \gls{sfm} process; and 2) computing the intersection points between the ray and the 3D surface of the broccoli canopy model. For the first solution, it is not difficult to match the segmentation polygons from different perspectives for the same broccoli, but it is difficult to match each vertex. Since the shapes in different perspectives have slight differences, even the vertex count may not match, let alone the vertex with ``random'' orders. For the second solution, it is necessary to check whether that ray intersects with all the triangular faces and calculate the intersection point if it does. On one hand, this approach requires immense computation, as a 3D broccoli canopy model typically contains millions of triangular faces, and each broccoli head polygon has dozens of vertices while there may be several thousand of them. On the other hand, a ray may intersect with multiple triangular faces, such as both the leaf and head triangular faces, so it is necessary to determine which is the actual triangular face of the broccoli head. \citet{shao_cattle_2020} optimized this approach by projecting the 3D triangular faces onto the raw image to generate a depth image, to resolve the dimension loss, which is still computation-intensive for each pixel on the raw images and code is not available. 
 
 % 所以在第三章中，使用的规则是，根据grid定点在两个坐标中的位置，直接使用projective transfomration, 进行变换，这样计算比较迅速，而且基于西兰花田地的特点（一个起伏变化不是很大的平地），能大体上保证变换后尺寸比例的正确性，并不影响head traits的计算；但是由于视角等细微的变化，导致位置上的正确性不是很好（Fig.1.1); 为了能更准确的实现可视化，把西兰花头更精准的放回到地里面，需要对这个位置变幻进行进一步的优化
-
-% 另外，由于地里面的尺寸和我们破坏性采样的西兰花，尺寸并不能完美的匹配，因此还需要针对尺寸进行适当的变幻，比较常用的方法是建立一个样地尺寸-db尺寸的线性回归模型，但是由于细小的差距，在我们预实验中，效果并不理想。而选择不同回归模型需要大量的时间去尝试来找到表现最好的，因此采用Auto-ml来节省时间。
-
-the possible solutions 
-
-% challenges:
-% 1. ground low quality
-% 2. forward to DOM, information loss, unable to find the specific results.
-%    -> due to the infomation loss; one possible solution is solve the spot line with meshes (game engine), but very time costy to calculate whether interaction with each vectex,
-% 3. model selection -> auto-ml
-
-% note: 西兰花 模型自动选择的必要性
+In Chapter 3, we proposed a more simplified solution. Since only the actual size is required rather than precise positions for that chapter, so we assumed that the relative sizes of the broccoli polygon and the grid boundary remain unchanged in the two perspectives (Fig.~\ref{fig:xrs1}a and b). In practice, we applied the projective transformation which directly stretches the image according to the \gls{roi} vertices (blue broken lines in Fig.~\ref{fig:xrs1}). Therefore, although the positions may not fit perfectly due to slight variations in angles between the original image (Fig.~\ref{fig:xrs1}a, with a slight slant) and the standard overhead view in the \gls{dom} (Fig.~\ref{fig:xrs1}b), the actual geographical sizes rather than precise locations of broccoli heads are obtained, which is enough for the objective of Chapter 3. But it is not so acceptable for the 3D visualization objective for this chapter and needs further optimization.
 
 \input{figures/xrs.fig.1.tex}
 
+% 另外，由于地里面的尺寸和我们破坏性采样的西兰花，尺寸并不能完美的匹配，因此还需要针对尺寸进行适当的变幻，比较常用的方法是建立一个样地尺寸-db尺寸的线性回归模型，但是由于细小的差距，在我们预实验中，效果并不理想。而选择不同回归模型需要大量的时间去尝试来找到表现最好的，因此采用Auto-ml来节省时间。
+The second challenge is how to properly match and adjust the close-range broccoli models to the aerial results. Since we only destructively sampled around 200 broccoli heads to get the close-range high-quality models, it still can not cover all broccoli heads growing in the full field. Therefore, a method is needed to: 1) automatically calibrate the parameters of a broccoli in the field, making it closer to the ``ground truth''; 2) quickly find the template in the broccoli database that has the smallest difference to a broccoli in the field; 3) perform simple geometric transformations on the template to reduce the size difference with the calibrated size of the broccoli in the sample area. For the model calibration of complex cases, compared to linear regression, the machine learning models such as \gls{svm} and \gls{rf} were often used by several studies \citep{nguyen_uav_2023, lu_assessment_2022}. However, the model selection and tuning come also pose a challenge. \citet{wang_landscape_2019} reported that \gls{cart} outperformed \gls{svm}, \gls{rf}, and \gls{gbdt} on plant classification tasks. However, \citet{han_drone_2021} found that \gls{svm} performed best on flower classification tasks compared to \gls{rf}, \gls{cart}, \gls{lda}, and \gls{knn}. Furthermore, \citet{han_modeling_2019} reported that \gls{rf} yielded better results on biomass prediction than \gls{mlr}, \gls{svm}, and \gls{ann}. These studies indicate that the performance of different machine learning algorithms varies depending on the task at hand. From our experience, model selection is an empirical process that may require extra time to compare mainstream algorithms. To be effective in practice, an optimized machine learning system that can automatically choose the algorithm and set their hyperparameters for new datasetat hand by non-experts is at increasing demand \citep{feurer_efficient_2015}.
+
+In this chapter, we aimed to develop a 3D virtual visualization technique that can [...]. The objectives were to: 1) develop an optimized method to obtain more precise geographical locations of broccoli head segmented from raw images; 2) apply the latest \gls{automl} technique to the destructively harvested broccoli head data to generate a calibration model for the aerial measured head traits; 3) develop a template matching method that can quickly find the template broccoli model in the database with the smallest difference to the calibrated traits; 4) apply the geometric transformations on the template to reduce the size difference with the calibrated size of the broccoli in the sample area; and 5) develop a visualization tool that can [...]
 
 \section{Methods and Materials}
 
@@ -36,7 +33,10 @@ Fast Normalized cross-correlation \citet{yoo_fast_2009}
 
 \input{figures/xrs.fig.4.tex}
 
+
 \input{figures/xrs.fig.5.tex}
+
+\input{figures/xrs.fig.6.tex}
 
 
 \section{Discussion}
