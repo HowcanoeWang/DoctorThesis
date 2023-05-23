@@ -36,7 +36,7 @@ The general workflow of the broccoli head size measurement pipeline is shown in 
 
 \subsection{Plot conditions and field data collection}
 
-Field trials were conducted at the experimental farm of the \gls{isas}, Nishi-tokyo, Tokyo, Japan ($35^\circ 43'$N, $139^\circ 32'$E) in 2020 and 2021 (Fig.~\ref{fig:bro5}). Detailed meteorological data during the growth period were collected by a local weather station and are shown in Supplementary Table ~\ref{fig:bros2}. The plot sizes were approximately 0.2 and 0.1 $ha$ for 2020 and 2021, respectively. During the 2-year experiment, the same broccoli cultivar (Jet dome) was planted under the same field management. Machine planting of seedlings at 35 $cm$ intervals in rows 70 $cm$ apart is consistent with local commercial broccoli cultivation regimes. 
+Field trials were conducted at the experimental farm of the \gls{isas}, Nishi-tokyo, Tokyo, Japan ($35^\circ 43'$N, $139^\circ 32'$E) in 2020 and 2021 (Fig.~\ref{fig:bro5}). Detailed meteorological data during the growth period were collected by a local weather station and are shown in Supplementary Table ~\ref{tbl:bros2}. The plot sizes were approximately 0.2 and 0.1 $ha$ for 2020 and 2021, respectively. During the 2-year experiment, the same broccoli cultivar (Jet dome) was planted under the same field management. Machine planting of seedlings at 35 $cm$ intervals in rows 70 $cm$ apart is consistent with local commercial broccoli cultivation regimes. 
 
 \input{figures/bro.fig.5.tex}
 
@@ -44,7 +44,7 @@ The field data of the broccoli head size were measured as validation data (groun
 
 In 2020, we identified the potential of the proposed algorithm. To further validate this algorithm, we improved the measurement method and increased the number of field samples in 2021. The maximum head length (as head diameter) was measured using the maximum value of the length in the $0^\circ$, $45^\circ$, $90^\circ$, and $135^\circ$ directions. To increase the variation in the broccoli head for each survey, there was an 8-day interval between seeding in the western and eastern parts (timeline in Fig.~\ref{fig:bro5}, yellow half circle). A total of 2,000 ($400 \times 5$) non-destructive and 557 destructive measurements of 3276 individual broccoli were recorded. To reduce the workload, only half of the area (east or west) was measured on a certain day (timeline in Fig.~\ref{fig:bro5}, blue half circle). Head diameter measurements ranged from 2‒25 cm.
 
-\subsection{Data collection and preprocessing}
+\subsection{Data collection and preprocessing} \label{sec:cp3data}
 
 After transplanting, several \gls{gcp} boards (8 for 2020 and 9 for 2021) were set at the four corners and within the field for \gls{uav} data collection. This was an important resource for later 3D reconstruction and time-series alignment. All \gls{gcp}s were measured using hemisphere \gls{rtk} differential \gls{gnss} devices to obtain geographical coordinates. For developing regions without \gls{rtk} services, the \gls{gcp}s' coordinates can be replaced by measuring distances (as scalebar corrector) among each \gls{gcp} and building a referencing map at the very beginning. The relative coordinates of those \gls{gcp}s on the referencing map can function the same as the actual geographic coordinates for time-series alignment.
 
@@ -58,7 +58,7 @@ The open-source software package QGIS (\url{www.qgis.org}) was used to prepare a
 
 The LabelMe annotation tool (\url{https://github.com/wkentaro/labelme}) was used to label the training data for the deep learning models. EasyIDP \citep[\url{https://github.com/UTokyo-FieldPhenomics-Lab/EasyIDP}]{wang_easyidp_2021} was used to locate and crop the same field region imagery on the original \gls{uav} images when the \gls{dom} was not sufficiently clear for head segmentation (also known as backward projection or reverse calculation, see the Supplementary material \ref{spp:backward} for details about the methodology).
 
-\subsection{Seedling position detection}
+\subsection{Seedling position detection} \label{sec:detect}
 
 The difficulty in detection varied throughout the broccoli growth season. Detection during the seedling stage was simpler than that during the flowering stage, and the latter had complex leaf occlusion. The seedling position of the broccoli was almost the same as that of the broccoli head. Aligned by the \gls{gcp}s, the positions were consistent through the time-series \gls{dom} and \gls{dsm} of the full growing season. Information of the positions detected during the early stage was directly used for the image analysis during the flowering stage (pre-position-guided), in order to reduce the difficulty in data analysis of each broccoli head.
 
@@ -68,7 +68,7 @@ The broccoli detection procedure is illustrated in Fig~\ref{fig:bro6}a. The full
 
 Subsequently, the YOLO v5 detection model with default settings was trained and applied to all sectors. Outliers and noise outside the broccoli field were filtered by the plot area boundary. The duplicated buffer zone detection results were merged using the \gls{nms} algorithm. The center point of the bounding box was then viewed as the broccoli position. Finally, we manually inspected and adjusted the results in QGIS, ensuring no missing or duplicate detections (Fig.~\ref{fig:bro6}a). The broccoli ID was given from the north to the south of each ridge and ridges from the west to the east by the ridge detection algorithm (Fig.~\ref{fig:bro6}a; please refer to the links in the data availability section for further details). 
 
-\subsection{Broccoli head segmentation}
+\subsection{Broccoli head segmentation} \label{sec:seg}
 
 Leaf movement and occlusion often cause \gls{dom} with double mapping, excessive pixelation, and seamline distortions \citep{lin_new_2021}. It is difficult to obtain a \gls{dom} that meets the consistent quality of the full field for head size estimation. To manage this situation, the same region on the raw \gls{uav} images (rather than that on the DOM) was used for analysis by backward projection \citep{wang_easyidp_2021} (Supplementary material \ref{spp:backward}). To reduce the workload of segmentation model training, only the area around the broccoli seedling positions was used. Meanwhile, interactive annotation \citep{ghosal_weakly_2019} was applied to decrease the workload of label annotation. 
 
@@ -82,7 +82,7 @@ The verification dataset for the model performance evaluation was also prepared 
 
 The segmentation model was first trained using only the 2020 dataset for several iterations until a good performance was achieved (no manual modification was required for the model segmentation results). The model was then applied to the 2021 dataset over several iterations. When the model performed well in both years, it was applied to all dataset images, and the segmentation results after the grid boundary filter were saved for the next procedure.
 
-\subsection{Phenotyping of head traits}
+\subsection{Phenotyping of head traits}\label{sec:pheno}
 
 The unit of the segmentation polygon in raw aerial images was a pixel, which could not represent the actual head size. However, the actual head size could be calculated using the pixel scale bar from the geo-referenced DOM. The pixel scalebar on the raw images could be derived from the ratio between the grid size in pixels on the raw image and that on the DOM. This concept was then implemented using projective transformation in scikit-image (\url{https://scikit-image.org}). On some locations, one broccoli may have had duplicated polygons; only the polygon with the largest area was retained, which was accelerated by a \gls{kdtree} in SciPy (\url{https://scipy.org}).
 

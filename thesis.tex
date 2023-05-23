@@ -60,6 +60,7 @@
   \let\oldchapter\chapter% Copy \chapter into \oldchapter
   \renewcommand{\chapter}{% Update \chapter
     \let\thefigure\oldthefigure% Copy \thefigure into \oldthefigure
+    \let\thetable\oldthetable
     \let\chapter\oldchapter% Restore original \chapter
     \oldchapter% Call original \chapter
   }
@@ -124,11 +125,13 @@
 \mainmatter %% 本文
 
 \doublespacing
-% \include{chapter1.tex}
-% \include{chapter2.tex}
-% \include{chapter3.tex}
+\include{chapter1.tex}
+\include{chapter2.tex}
+\include{chapter3.tex}
 \include{chapter4.tex}
-% \include{chapter5.tex}
+\include{chapter5.tex}
+
+\include{acknowledgement.tex}
 
 %-------------------
 \begin{singlespace}
@@ -137,7 +140,6 @@
 \end{singlespace}
 %-------------------
 
-\include{acknowledgement.tex}
-% \include{publication.tex}
+\include{publication.tex}
 
 \end{document}
