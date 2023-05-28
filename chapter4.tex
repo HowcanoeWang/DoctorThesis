@@ -42,7 +42,7 @@ After converting the broccoli head segmentation results to the graphical coordin
 % calibration by auto ML
 Before performing template matching and transformation, a calibration model is required to improve the performance of the system. This model should be trained by relating the aerial morphological traits to the close-range morphological traits. Since we sampled the close-range broccoli heads destructively after the aerial survey, we were able to obtain such data pairs. These data pairs were divided into training data and validation data with a 4:1 ratio. The training data was used to train an \gls{automl} multi-output regression model \citep{feurer_auto-sklearn_2020} to calibrate the morphological traits from aerial surveys, while the validation data was used to assess the calibration model's performance.
 
-The next step is to find the template broccoli head from the close-range database. We used the modified normalized cross-correlation \citep{yoo_fast_2009} from image template matching, which helped us to find the closest 3D head template with the smallest differences:
+The next step is to find the template broccoli head from the close-range database. We inspired and modified from the normalized cross-correlation of image template matching \citep{yoo_fast_2009}, which helped us to find the closest 3D head template with the smallest differences:
 
 \input{equations/xrs.eq.1.tex}
 
