@@ -1,4 +1,4 @@
-\chapter{Aerial 3D phenotyping pipeline}
+\chapter{Aerial 3D-based phenotyping pipeline}
 
 % \input{block/broccoli_profit.tex}
 
@@ -56,7 +56,7 @@ The open-source software package QGIS (\url{www.qgis.org}) was used to prepare a
 
 \input{figures/bro.fig.6.tex}
 
-The LabelMe annotation tool (\url{https://github.com/wkentaro/labelme}) was used to label the training data for the deep learning models. EasyIDP \citep[\url{https://github.com/UTokyo-FieldPhenomics-Lab/EasyIDP}]{wang_easyidp_2021} was used to locate and crop the same field region imagery on the original \gls{uav} images when the \gls{dom} was not sufficiently clear for head segmentation (also known as backward projection or reverse calculation, see the Supplementary material \ref{spp:backward} for details about the methodology).
+The LabelMe annotation tool (\url{https://github.com/wkentaro/labelme}) was used to label the training data for the deep learning models. EasyIDP (\url{https://github.com/UTokyo-FieldPhenomics-Lab/EasyIDP}) was developed and used to locate and crop the same field region imagery on the original \gls{uav} images when the \gls{dom} was not sufficiently clear for head segmentation (also known as backward projection or reverse calculation, see the Supplementary material \ref{spp:backward} for details about the methodology).
 
 \subsection{Seedling position detection} \label{sec:detect}
 
@@ -70,7 +70,7 @@ Subsequently, the YOLO v5 detection model with default settings was trained and 
 
 \subsection{Broccoli head segmentation} \label{sec:seg}
 
-Leaf movement and occlusion often cause \gls{dom} with double mapping, excessive pixelation, and seamline distortions \citep{lin_new_2021}. It is difficult to obtain a \gls{dom} that meets the consistent quality of the full field for head size estimation. To manage this situation, the same region on the raw \gls{uav} images (rather than that on the DOM) was used for analysis by backward projection \citep{wang_easyidp_2021} (Supplementary material \ref{spp:backward}). To reduce the workload of segmentation model training, only the area around the broccoli seedling positions was used. Meanwhile, interactive annotation \citep{ghosal_weakly_2019} was applied to decrease the workload of label annotation. 
+Leaf movement and occlusion often cause \gls{dom} with double mapping, excessive pixelation, and seamline distortions \citep{lin_new_2021}. It is difficult to obtain a \gls{dom} that meets the consistent quality of the full field for head size estimation. To manage this situation, the same region on the raw \gls{uav} images (rather than that on the DOM) was used for analysis by backward projection (Supplementary material \ref{spp:backward}). To reduce the workload of segmentation model training, only the area around the broccoli seedling positions was used. Meanwhile, interactive annotation \citep{ghosal_weakly_2019} was applied to decrease the workload of label annotation. 
 
 The general workflow for this section is illustrated in Fig.~\ref{fig:bro6}b. For image data preparation, only flights with visible broccoli heads were chosen for all 12 flight investigations over both years (Fig.~\ref{fig:bro5}, dark green circles in Mays). The plot area was divided into grids {fig:bro6}b1). For each grid, the grid boundary and broccoli positions were backward-projected onto the closest raw aerial image (Fig.~\ref{fig:bro6}b2). Each raw aerial image was cropped into small sectors (1500 $\times$ 1500 px) which were located in the center and contained broccoli seedling positions (Fig.~\ref{fig:bro6}b3). Only the square area (approximately 100 px side length) buffered from the seedling positions was used for broccoli head segmentation (Fig.~\ref{fig:bro6}b4) to eliminate the effects of soil and weeds.
 
@@ -92,7 +92,7 @@ The source code used in this manuscript can be accessed at \url{https://github.c
 
 \subsection{Field validation for head traits}
 
-To test the correlation between field-measured length (dependent variable) and aerial measured length (independent variable), the coefficient of determination ($r^2$) using simple linear regression was used as the evaluator. To assess the trends in differences in broccoli size in detail, \gls{lowess} regression and distribution comparison were also used.
+To test the correlation between field-measured length (dependent variable) and aerial measured length (independent variable), the coefficient of determination ($R^2$) using simple linear regression was used as the evaluator. To assess the trends in differences in broccoli size in detail, \gls{lowess} regression and distribution comparison were also used.
 
 \section{Results}
 

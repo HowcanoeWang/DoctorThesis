@@ -1,4 +1,4 @@
-\chapter{Close-range 3D phenotyping pipeline}
+\chapter{Close-range 3D-based phenotyping pipeline}
 
 \section{Introduction}
 
@@ -65,7 +65,7 @@ In the end, we calculated the traits for the broccoli crown (Fig.~\ref{fig:des_s
 
 \subsection{Validation}
 
-To further validate the workflow calculated traits with manually measured traits, and considering the difficulty of measuring 2D and 3D traits in reality, here we compared the size of broccoli head only. In agriculture practices, the head lengths are manually measured in the $0^\circ$, $45^\circ$, $90^\circ$, and $135^\circ$ directions (the ``union jack'' shape) for validation. And then we picked up the longest and shortest ones as the final size. The workflow calculated trait values, such as the width and length of the minimum area rectangle, and the long and short axis of the fitted ellipse. The agreement of workflow measured and manually measured was estimated using the coefficient of determination ($r^2$, calculated as the squared Pearson's correlation coefficient) and the \gls{rmse}:
+To further validate the workflow calculated traits with manually measured traits, and considering the difficulty of measuring 2D and 3D traits in reality, here we compared the size of broccoli head only. In agriculture practices, the head lengths are manually measured in the $0^\circ$, $45^\circ$, $90^\circ$, and $135^\circ$ directions (the ``union jack'' shape) for validation. And then we picked up the longest and shortest ones as the final size. The workflow calculated trait values, such as the width and length of the minimum area rectangle, and the long and short axis of the fitted ellipse. The agreement of workflow measured and manually measured was estimated using the coefficient of determination ($R^2$, calculated as the squared Pearson's correlation coefficient) and the \gls{rmse}:
 
 \begin{equation}
   RMSE = \sqrt{\frac{1}{n} \cdot \sum_{i}^{n} (W_{i} - M_{i})^2}
@@ -94,7 +94,7 @@ As mentioned above (see Subsection \ref{sec:mte}), the crown and stem parts of t
 
 \input{figures/des.fig.6.tex}
 
-To validate the accuracy of the proposed workflow calculated traits, they were compared with manual measurement using standard agricultural practices. Figure~\ref{fig:des_compare} shows the head size comparison results. The broccoli head size can be represented by the minimum area bounding rectangle and fitted ellipse axis lengths. Both the rectangle and the ellipse methods showed high correlations with the manually measured results ($r^2 \geq 0.97$), but the rectangle has higher correlation than the ellipse. This is because the rectangle width and length are more like the minimum and maximum of the manually measured ``union jack'' lengths, respectively. Assuming the complicated broccoli head is an ellipse inherently involves a certain degree of error, but the \gls{rmse}s of the ellipse assumption (0.553 $cm$ and 0.448 $cm$) were still better than that of the circular assumption \citep[Table 5, \gls{rmse}=0.97 $cm$]{blok_image_2021}
+To validate the accuracy of the proposed workflow calculated traits, they were compared with manual measurement using standard agricultural practices. Figure~\ref{fig:des_compare} shows the head size comparison results. The broccoli head size can be represented by the minimum area bounding rectangle and fitted ellipse axis lengths. Both the rectangle and the ellipse methods showed high correlations with the manually measured results ($R^2 \geq 0.97$), but the rectangle has higher correlation than the ellipse. This is because the rectangle width and length are more like the minimum and maximum of the manually measured ``union jack'' lengths, respectively. Assuming the complicated broccoli head is an ellipse inherently involves a certain degree of error, but the \gls{rmse}s of the ellipse assumption (0.553 $cm$ and 0.448 $cm$) were still better than that of the circular assumption \citep[Table 5, \gls{rmse}=0.97 $cm$]{blok_image_2021}
 
 \input{figures/des.fig.7.tex}
 

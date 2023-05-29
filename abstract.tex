@@ -1,38 +1,50 @@
-\begin{eabstract}
-  \paragraph{Chapter 1: Background and objectives}
+% \begin{eabstract}
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
 
-  Climate change affects agriculture and food production. It is essential to improve the efficiency of crop breeding and management to ensure a sustainable increase in crop productivity for global food security. High throughput plant phenotyping plays an important role in crop management to quantitatively evaluate crop growth and its interaction with the environment. Recently, many methodologies have been developed to improve the efficiency and accuracy of plant phenotyping using remote and proximal sensing and image processing techniques. Those methods now can measure most of the phenotypic traits that can be measured in two-dimensional, such as canopy cover and organ number. However, those traits that needed to be measured in three-dimensional, such as structure and volume, remain difficult, especially in field conditions. When it is conducted in a controlled indoor environment, obtained plant 3D structure models are proven to have high quality but low throughput. However, drones for obtaining outdoor field-grown crop models are often low quality but high throughput. The low quality is often unavoidable by wind-caused blurring and canopy occlusion caused structure loss. Conducting 3D plant phenotyping for outdoor agricultural applications with both high quality and high throughput has proved to be a difficult problem.
+\begin{doublespace}
+% \paragraph{Chapter 1: Background and objectives}
+% Climate change affects agriculture and food production. It is essential to improve the efficiency of crop breeding and management to ensure a sustainable increase in crop productivity for global food security. High throughput plant phenotyping plays an important role in crop management to quantitatively evaluate crop growth and its interaction with the environment. Recently, many methodologies have been developed to improve the efficiency and accuracy of plant phenotyping using remote and proximal sensing and image processing techniques. Those methods now can measure most of the phenotypic traits that can be measured in two-dimensional, such as canopy cover and organ number. However, those traits that needed to be measured in three-dimensional, such as structure and volume, remain difficult, especially in field conditions. When it is conducted in a controlled indoor environment, obtained plant 3D structure models are proven to have high quality but low throughput. However, drones for obtaining outdoor field-grown crop models are often low quality but high throughput. The low quality is often unavoidable by wind-caused blurring and canopy occlusion caused structure loss. Conducting 3D plant phenotyping for outdoor agricultural applications with both high quality and high throughput has proved to be a difficult problem.
+
+Climate change affects agriculture and food production. It is essential to improve the efficiency of crop breeding and management to ensure a sustainable increase in crop productivity for global food security. High throughput plant phenotyping plays an important role in crop management to quantitatively evaluate crop growth and its interaction with the environment. Recently, many methodologies have been developed to improve the efficiency and accuracy of plant phenotyping using remote and proximal sensing and image processing techniques. Those methods now can measure most of the phenotypic traits that can be measured in two-dimensional, such as canopy cover and organ number. However, those traits that needed to be measured in three-dimensional (3D), such as structure and volume, remain difficult, especially in field conditions. Although the aerial survey can obtain the canopy 3D structural model of the entire field efficiently, its quality is often not enough for 3D analysis, which is unavoidable by wind-caused blurring and canopy occlusion caused structure loss. One solution to improve the quality of plant 3D structural models is destructively sampling and close-range 3D scanning. But the efficiency and throughput of current close-range approaches can not satisfy the demand of thousands of plants in the full field. Thus, conducting 3D plant phenotyping for outdoor agricultural applications with both high quality and high throughput has proved to be a difficult problem.
+
+To address the challenges mentioned above, we presented a multi-scale data fusion method that combines the strengths of close-range (high quality) and aerial (high throughput) surveys. Taking field-grown broccoli as a representative of row-planted crops having harvestable organs on the top of the canopy, the thesis consisted of three parts: 
+
+\begin{enumerate}
+  \item Develop the close-range 3D-based phenotyping pipeline, which can obtain high-quality 3D plant structural models and calculate morphological traits from 1D to 3D.
+  \item Develop the aerial 3D-based phenotyping pipeline, which can obtain the 3D canopy model of full field and improve the accuracy of 2D morphological traits by fusing with raw aerial images.
+  \item Fuse the 3D structural models from the close-range and aerial survey abovementioned, which can calibrate the aerial-mentioned 2D morphological traits and provide a better 3D visualization for the actual field.
+\end{enumerate}
+
+\noindent
+\textbf{1. Close-range 3D-based phenotyping pipeline}
+
+The objective was to develop and validate the close-range 3D phenotyping pipeline, which obtains high-quality 3D models of destructively sampled plants and calculates morphological traits. Although lots of software (photogrammetry-based) could generate the 3D model from images, users still need to conduct the process from image acquisition to parameter tuning to traits measurement one plant by one plant manually, which is not suited for large population sizes. This chapter first presents an almost-automatic workflow that captures and saves the image of the target crop in multiple view angles. Then, \gls{roi}s on the broccoli heads in the images are extracted by two pre-trained deep learning models. The preprocessed images are then fed into photogrammetry-based software (Agisoft Metashape) to generate 3D models using automatic processing scripts. Finally, the broccoli crown part is automatically segmented, the 3D model coordinates are corrected, and the phenotypic traits are calculated automatically. To evaluate the performance of the proposed pipeline, we compared some of the pipeline-measured traits with manually measured traits. Statistically high correlations were observed between manual measurements and pipeline calculated traits ($R^2>0.96$) with \gls{rmse} $< 0.55$ $cm$. These findings indicate the proposed pipeline has high feasibility and accuracy to achieve the final targets of the study.
+
+\vspace{5mm}
+\noindent
+\textbf{2. Aerial 3D-based phenotyping pipeline}
+
+The objective was to develop and validate the large-scale aerial 3D phenotyping pipeline using drones equipped with commercial-level \gls{rgb} cameras. To overcome the challenges of distinguishing small broccoli heads on low-quality 3D canopy models from photogrammetry, we proposed a novel data-fusion method. This method allows for the segmentation of the broccoli head region on the original drone images (pixel coordinates without actual scale) and projective transformation of the results back to \gls{gps} coordinates to calculate actual size. We have used active learning and shoot-position-guided regions to decrease the workload of deep learning data annotation. Good correlations (0.57 $<R^2<$ 0.74) between field-measured traits and pipeline-calculated traits were observed.
+
+\vspace{5mm}
+\noindent
+\textbf{3. Data fusion for virtual visualization}
+
+The objective was to test the idea of data fusion on the pipelines built in the previous chapters. The piecewise affine transformation is used to better locate the plant positions in the \gls{gps} coordinates. Then, automatic machine learning is used to calibrate the 2D morphological traits from the aerial pipeline. Later, a modified normalized cross-correlation template matching method is used to find the closest template in the close-range 3D model database and transform it back to the aerial 3D canopy model for virtual visualization.
+
+
+\vspace{5mm}
+\noindent
+\textbf{General discussion and conclusions}
+
+% This study showed that (1) the proposed indoor and outdoor plant phenotyping pipelines were feasible for crops with both simple and complex structure  , (2) The accuracy of calculated morphological traits  was valided by field measurement with high pairwise correlations, (3) the cross-scale assimilation on broccoli showed the ability to fix missing model parts and obtain more accurate traits than single outdoor scale.
+
+Overall, the results of three research chapters showed that the proposed 3D-based phenotyping pipelines for close-range, aerial, and their data fusion, led to improved performance in the tested fields from 2020 to 2022. The results and statistical analysis concluded that the research objectives have been achieved, and we can conclude that the research has made a positive contribution to 3D-based plant phenotyping and precision agriculture. Lastly, there is currently no strong evidence that the proposed methods can achieve similar performance in different farmland or vegetables, which is suggested for further studies.
+
+\end{doublespace}
   
-  To address the challenges mentioned above, we present a cross-scale method that combines the strengths of indoor and outdoor plant 3D phenotyping. The thesis consists of three parts: 
-
-  \begin{enumerate}
-    \item Development of indoor 3D plant phenotyping pipeline for a single crop or organ.
-    \item Development of outdoor 3D plant phenotyping pipeline for all plants in a canopy.
-    \item Improvement of plant 3D structural model and the calculated traits using the combination of indoor and outdoor pipelines.
-  \end{enumerate}
-  
-  \paragraph{Chapter 2: Destructive 3D plant phenotyping pipeline}
-
-  Although lots of software (photogrammetry-based) could generate the 3D model from images, users still need to conduct the process from image acquisition to parameter tuning to traits measurement one plant by one plant manually, which is not suited for large population sizes. This study presents the pipeline implementation for obtaining individual plant high-quality 3D structural models and calculating phenotypic traits. We made a full pipeline that can capture and save the image of the target crop in multiple view angles, then feed them to photogrammetry-based software and generate the 3D models, and finally calculate the phenotypic traits automatically. To evaluate the performance of the proposed pipeline, we conducted the experiments using the simple structure target (broccoli head) and complex structure target (container weeds). Statistically high correlations were observed between ground-truth measurements and pipeline calculated traits, including broccoli head size ($r^2>0.7$), weeds height ($r^2>0.95$) and projected leaf area ($r^2>0.95$). These findings indicate the proposed pipeline has high feasibility and accuracy to achieve the final targets of the study.
-
- \paragraph{Chapter 3: UAV-sensing 3D plant phenotyping pipeline}
-
-  The objective was to develop and validate the large-scale outdoor 3D phenotyping pipeline using drones equipped with commercial-level \gls{rgb} cameras. To overcome challenges in distinguishing the small broccoli heads on low-quality canopy 3D models, we proposed a novel method to segment broccoli head region on the original drone images, then trace results back on the canopy 3D model to calculate actual size traits. Good correlations (0.57<r2<0.74) between field-measured traits and pipeline-calculated traits were observed.
-  This pipeline was then extended to estimate the optimal harvest date with the highest profit and maize canopy advanced traits by other lab members.
-  
-
-  \paragraph{Chapter 4: Cross indoor and outdoor scale data assimilation}
-
-  The objective was to test the idea of cross-scale assimilation of broccoli based on the pipelines built in the previous chapters. We first destructively sampled around 200 broccoli heads shortly after the drone imaging throughout the flowering season. Then we paired both indoor 3D head model and outdoor 3D head model for the sampled broccoli. Afterward, we trained a machine learning model to estimate indoor 3D size traits (Chapter 2) from outdoor 2D size traits (Chapter 3). Finally, we transformed the closest size indoor head model to fit with each low-quality outdoor head models. The statistical pairwise comparison with field measurements showed the machine learning estimated size had a higher correlation than outdoor size. This indicates the feasibility of the cross-scale assimilation idea for simple plant structure.
-
-  The previous method can not be applied directly to the complex structure like maize canopy, here we explored an adjustable virtual maize model. Based on it, we will try to recover the complex maize canopy in the near future.
- 
-
-  \paragraph{Chapter 5: General conclusion}
-  
-  This study showed that (1) the proposed indoor and outdoor plant phenotyping pipelines were feasible for crops with both simple and complex structure  , (2) The accuracy of calculated morphological traits  was valided by field measurement with high pairwise correlations, (3) the cross-scale assimilation on broccoli showed the ability to fix missing model parts and obtain more accurate traits than single outdoor scale.
-  
-\end{eabstract}
+% \end{eabstract}
 
 % \begin{jabstract}
 %   概要、概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要概要

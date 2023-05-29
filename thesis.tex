@@ -28,6 +28,7 @@
 \usepackage[normalem]{ulem}           % better view for underline
 \usepackage{amsmath}                  % package for matrix formular
 \usepackage{pifont}                   % package for special symbol
+\usepackage[left,pagewise]{lineno}          % the line numbers for each page
 \usepackage[                          % the acronym throughput the thesis
   toc,
   acronym,
@@ -85,8 +86,7 @@
 
 \begin{document}
 
-% \include{abstract.tex}
-
+% replace the following command in the original template
 % \maketitle
 \begin{titlepage}
   \begin{center}
@@ -111,6 +111,11 @@
           
   \end{center}
 \end{titlepage}
+
+\pagenumbering{roman}
+\linenumbers
+
+\include{abstract.tex}
 
 \frontmatter %% 前付け
 \tableofcontents % 目次
