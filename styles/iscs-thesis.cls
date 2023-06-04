@@ -804,7 +804,7 @@
     \vskip 40\p@
   }}
 \newcommand*\chapterfont[2]{%
-   \gdef\chapn@font{#1}\gdef\chapt@font{#2}}
+  \gdef\chapn@font{#1}\gdef\chapt@font{#2}}
 \chapterfont{\LARGE\bfseries}{\LARGE\bfseries}
 \newcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1ex \@minus -.2ex}%

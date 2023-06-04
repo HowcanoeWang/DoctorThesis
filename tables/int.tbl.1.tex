@@ -1,36 +1,39 @@
 \begin{table}[htb]
-  \caption[Softwares for photogrammetry 3D reconstruction]{Softwares for photogrammetry 3D reconstruction. ``Close-range'' is mainly used for building 3D models for individual plants or organs without \gls{gps} coordinates; ``Aerial'' is mainly used for building geo-referenced canopy 3D models using the UAV imagery with \gls{gps} coordinates.}
+  \caption[Softwares for 3D reconstruction using photogrammetry]{Softwares for 3D reconstruction using photogrammetry; ``Close-range'' is mainly used for building 3D models of individual plants or organs at the local coordinate; ``Aerial'' is mainly used for building geo-referenced canopy 3D models using \gls{uav} imagery with geographical coordinates.}
   \label{tbl:int1}
   % \begin{adjustwidth}{-0.05\textwidth}{-0.05\textwidth}
     \begin{center}
-    \resizebox{0.9\textwidth}{!}{
+    % \resizebox{0.9\textwidth}{!}{
       \begin{threeparttable}
-      \begin{tabular}{llcc}
+      \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} clcc}
         \hline
-        \multicolumn{1}{c}{\textbf{Types}} & \multicolumn{1}{c}{\textbf{Software name}}                                                                  & \textbf{close-range} & \textbf{aerial} \\ \hline
-        Open Source                        & AliceVision Meshrooms                                                                                       & $\checkmark$         & $\checkmark$    \\
-                                           & COLMAP                                                                                                      & $\checkmark$         & $\checkmark$    \\
-                                           & Multi-View Environment (MVE)                                                                                & $\checkmark$         & $\times$        \\
-                                           & OpenDroneMap\tnote{1}                                                                                       & $\times$             & $\checkmark$    \\
-                                           & OpenMVG $\rightarrow \begin{cases}\text{OpenMVS} \\ \text{MVE} \end{cases}$                                 & $\checkmark$         & $\checkmark$    \\
-                                           & VisualSFM\tnote{2} $ \rightarrow \begin{cases}\text{MeshRecon}\\ \text{PMVS} \\ \text{OpenMVS} \end{cases}$ & $\checkmark$         & $?$\tnote{2}      \\
-        Commercial                         & 3DF Zephyr                                                                                                  & $\checkmark$         & $\checkmark$    \\
-                                           & Agisoft Metashape                                                                                           & $\checkmark$         & $\checkmark$    \\
-                                           & ContextCapture                                                                                              & $\checkmark$         & $\checkmark$    \\
-                                           & Correlator3D                                                                                                & $\times$             & $\checkmark$    \\
-                                           & DroneDeploy                                                                                                 & $\times$             & $\checkmark$    \\
-                                           & Elcocision 10                                                                                               & $\checkmark$         & $\checkmark$    \\
-                                           & Pix4Dmapper                                                                                                 & $\times$             & $\checkmark$    \\
-                                           & Reality Capture                                                                                             & $\checkmark$         & $\checkmark$    \\
-                                           & Autodesk Recap Photo                                                                                        & $\checkmark$         & $\checkmark$    \\ \hline
-      \end{tabular}
+        \multicolumn{1}{c}{\textbf{Types}} & \multicolumn{1}{c}{\textbf{Software name}}                                                                      & \textbf{close-range} & \textbf{aerial}     \\ \hline
+        Open source                        & AliceVision Meshrooms                                                                                           & $\checkmark$         & $\checkmark$        \\
+                                           & COLMAP                                                                                                          & $\checkmark$         & $\checkmark$        \\
+                                           & Multi-View Environment (MVE)                                                                                    & $\checkmark$         & $\times$            \\
+                                           & OpenDroneMap\tnote{1}                                                                                           & $\times$             & $\checkmark$        \\
+                                           & OpenMVG $\stackrel{2}{\rightarrow} \begin{cases} \text{MVE} \\ \text{OpenMVS} \end{cases}$                      & $\checkmark$         & $\checkmark$        \\
+                                           & VisualSFM $\stackrel{2}{\rightarrow} \begin{cases}\text{MeshRecon}\\ \text{OpenMVS} \\ \text{PMVS} \end{cases}$ & $\checkmark$         & $\bigcirc$\tnote{3} \\
+        Commercial                         & 3DF Zephyr                                                                                                      & $\checkmark$         & $\checkmark$        \\
+                                           & Agisoft Metashape                                                                                               & $\checkmark$         & $\checkmark$        \\
+                                           & Autodesk Recap Photo                                                                                            & $\checkmark$         & $\checkmark$        \\ 
+                                           & ContextCapture                                                                                                  & $\checkmark$         & $\checkmark$        \\
+                                           & Correlator3D                                                                                                    & $\times$             & $\checkmark$        \\
+                                           & DJI Terra \tnote{4}                                                                                             & $\times$             & $\checkmark$        \\
+                                           & DroneDeploy                                                                                                     & $\times$             & $\checkmark$        \\
+                                           & Elcocision 10                                                                                                   & $\checkmark$         & $\checkmark$        \\
+                                           & Pix4Dmapper                                                                                                     & $\times$             & $\checkmark$        \\
+                                           & Reality Capture                                                                                                 & $\checkmark$         & $\checkmark$        \\ \hline
+      \end{tabular*}
       \begin{tablenotes}
         \footnotesize
-        \item[1] charges for a complied installer for whom is difficult to install from source code
-        \item[2] does not provide official documentation about making a geo-referenced GeoTiff file for common aerial products like \gls{dom} and \gls{dsm}
+        \item[1] charges for a complied installer for whom is difficult to install from source code;
+        \item[2] some software only provide \gls{sfm} pipeline, need to integrate them with \gls{mvs} software as a complete photogrammetry pipeline;
+        \item[3] has video tutorials for processing UAV images, but no official documentation about making geo-referenced GeoTiff for common aerial products like \gls{dom} and \gls{dsm};
+        \item[4] is optimized for DJI (Shenzhen DJI Technology Co., Ltd. China) drones only.
       \end{tablenotes}
       \end{threeparttable}
-    }
+    % }
     \end{center}
   % \end{adjustwidth}
 \end{table}
