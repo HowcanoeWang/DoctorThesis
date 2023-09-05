@@ -1,10 +1,12 @@
 \chapter{General discussion}
 
-\added{The general discussion first summarizes the research limitations (Section~\ref{sec:reslim}). 
-Subsequently, the discussion focuses on the existing challenges faced while attempting to implement smart agriculture technologies in actual field production (Section~\ref{sec:appclg}). 
-This is followed by an overview of potential solutions for future research prospects (Section~\ref{sec:respros}).}
+\added{
+  The general discussion begins by summarizing the limitations of the research (Section~\ref{sec:reslim}). 
+  Following that, the discussion focuses on the challenges encountered while implementing smart agriculture technologies in real-field production (Section~\ref{sec:appclg}). 
+  Subsequently, potential solutions for future research opportunities are outlined (Section~\ref{sec:respros}).
+  }
 
-\section{\replaced{Reseach limitations}{Conclusions and reflections}} \label{sec:reslim}
+\section{\replaced{Reseach limitations}{ Conclusions and reflections}} \label{sec:reslim}
 
 \deleted{This is the first study that combined the advances of aerial (high throughput) and close-range (high quality) surveys in plant phenotyping applications to field-grown crops. This Ph.D. thesis aimed to improve the performance of 3D-based plant phenotyping on field-grown broccoli as a representative of row-planted crops having harvestable organs on the top of canopy, using only low-cost \gls{rgb} cameras. Using \gls{uav} for aerial surveys and photogrammetry allows for the efficient acquisition of 2D field maps and 3D models of the crop canopy for the entire farmland. However, due to limitations in survey efficiency and wind blurring caused by propellers, the \gls{uav} cannot fly too close to plants, resulting in inadequate resolution and quality for directly analyzing the broccoli heads at the organ level. This thesis attempted to fuse the close-range and aerial 3D phenotype data, as well as some latest machine learning and deep learning techniques, to accurately and efficiently obtain the position and size of broccoli heads in the field. Furthermore, this thesis also provided a better 3D virtual visualization for those broccoli heads in the field and builds a foundation for digital twins and virtual farmland for smart agriculture.}
 
@@ -20,19 +22,62 @@ This is followed by an overview of potential solutions for future research prosp
 % limitations -> combine all chapters, and new points can be found?
 \deleted{Despite the promising results of the experiment in the broccoli field over three years, there is currently no strong evidence that the proposed methods can achieve similar performance in different farmland or vegetables. Since several assumptions of the methods were based on the characteristics of broccoli heads, such as the solid shape of broccoli head when vertically rotating on the rotation platform, small position variation from seeding to heading, the circular shape of the broccoli head, the clear color differences between the crown and stem for broccoli heads, and the flatten mushroom-shaped broccoli crown shape. Hence, the proposed full pipelines cannot be applied directly to vegetables with variate shapes. The full pipelines may still work on the cauliflowers (just change the color from greenish to whitish); For vegetables like sweet potatoes and cabbages with very different shapes, some modules like close-range reconstruction or 3D-based morphological traits calculation may still work, but some kinds of modifications for other parts are expected. Another limitation of the proposed close-range and aerial data fusion is the visibility of targets in both pipelines, at least for the current stage, not directly applicable for sweet potatoes and potatoes whose targets are beneath the soil, which deserve further studies.}
 
-\added{Despite the promising outcomes obtained from the three-year experiment conducted in the broccoli field, certain limitations were encountered throughout this study. This section conducted a summary of three types of limitations:  excessive reliance on algorithms specifically for broccoli (Subsection~\ref{sec:lackuni}), the inadequacy of testing in an actual field (Subsection~\ref{sec:lackvlid}), and insufficient contribution in fieldwork and data collection (Subsection~\ref{sec:lackdata}).}
-
+\added{
+  Although the three-year experiment conducted in the broccoli field yielded promising outcomes, the study was also subject to certain limitations.
+  This section provides a summary of three specific limitations encountered: 
+  the overreliance on broccoli-specific algorithms (Subsection~\ref{sec:lackuni}), 
+  the lack of real farmland testing (Subsection~\ref{sec:lackvlid}), 
+  and inadequate contributions in fieldwork and data collection (Subsection~\ref{sec:lackdata}).
+}
 
 \subsection{\added{Lacking universality}} \label{sec:lackuni}
 
-\subsection{\added{Lacking actual field validation}} \label{sec:lackvlid}
+\added{
+  This study relied on certain assumptions about the characteristics of broccoli heads when developing the methods and algorithms.
+  However, at present, there is insufficient evidence to support the claim that the proposed methods can achieve comparable results across various farmland or plant species.
+}
+
+\added{
+  In Chapter 2, an important assumption for the high-quality 3D reconstruction pipeline is that the broccoli head remains rigid and does not change when vertically rotated on the rotation platform. 
+  This assumption allows for the alignment and production of good quality 3D models through \gls{sfm}-\gls{mvs} algorithms using images captured from different view angles. 
+  While this assumption holds for cauliflowers, sweet potatoes, and fruits like apples and oranges, whose bodies are almost rigid, it does not hold for plants with soft stems, leaves and even roots.
+  In such cases, the study proposed pipeline is not suitable, and a better solution is to utilize fixed-object methods (Figures \ref{fig:des1}a and \ref{fig:des1}b) to achieve improved results.
+}
+
+\added{
+  The postprocessing algorithms for broccoli crown segmentation and rotation in this study were also developed based on the characteristics of the broccoli head.
+  Specifically, the algorithm combines the distinct color differences between the crown (dark green) and stem (light green) with a 2-class clustering algorithm to separate the two parts.
+  Additionally, the flattened, mushroom-shaped form of the broccoli crown is utilized to determine the normal vector in the upward direction.
+  These algorithms are specifically designed for broccoli head cases and may not apply to other vegetables and fruits.
+}
+
+\added{
+  In Chapter 3, the assumption of minimal positional variation in broccoli from seeding to heading is crucial. 
+  In our study, we employed the results of seeding position detection to refine the image processing region during the challenging heading stage. 
+  The concept of simplifying complex detection or segmentation tasks by incorporating data collected from an earlier period has also proven effective in other application scenarios. 
+  For instance, \mbox{\citet{mu_characterization_2018}} successfully obtained the convex hulls of peach tree crowns during the winter season, which were then utilized to guide the demanding crown segmentation task in summer. 
+  Similarly, \mbox{\citet{li_multi-source_2023}} accurately located maize positions during the seeding stage, and these positions served as a guide for the challenging segmentation tasks when the maize canopy has severe leaf overlapping. 
+  However, this assumption does not apply to targets that frequently change due to wind, such as wheat and sorghum tassels. 
+  it is necessary and valuable to develop different processing algorithms to address such cases in the future.
+}
+
+\added{
+  We utilized EasyIDP as another valuable tool in this chapter, but it is reported to have a potential performance bottleneck. 
+  EasyIDP enables the linking of the same broccoli from low-quality geo-referenced map images to high-quality non-geo-referenced raw images, thereby greatly enhancing the accuracy of head segmentation. 
+  In our experiment field, which spanned just one to two hectares, no significant performance bottlenecks were observed during the data processing. 
+  However, Dr. Wei Guo reported that when processing a large forest area of over 58 hectares with file sizes exceeding 23GB using EasyIDP, the process took over 3 hours. 
+  This performance bottleneck needs to be solved to facilitate the widespread application of this approach in large farmlands.
+}
+
+\subsection{\added{Lacking real farmland testing}} \label{sec:lackvlid}
 
 \subsection{\added{Lacking full participation}} \label{sec:lackdata}
 
 \added{
+  This is a personal limitation rather than the study itself.
   One thing that needs to be pointed out is I did not contribute entirely to the entire process of the broccoli project. 
   The main focus of my doctoral research lies in the development of algorithms and engineering aspects. 
-  Many field-side contributions were made by several collaborators.
+  Many in-field contributions were made by several collaborators.
   For example, the plant materials used in this study were provided by another student, \mbox{\citet{nishida_estimation_2023}}, in the laboratory. To be more specific, the experimental design of obtaining variate broccoli sizes by different fertilizations and the measurement of field data were primarily carried out by Nishida. 
   Meanwhile, the transplanting and daily field management of broccoli were conducted by technicians from ISAS.
   While the operation of the unmanned aerial vehicle (UAV) and data collection were mainly completed by Dr. Wei Guo.
@@ -45,7 +90,7 @@ This is followed by an overview of potential solutions for future research prosp
 }
 
 \added{
-  However, this is not beneficial to my overall academic development. 
+  However, this may not be beneficial to my overall academic development in some content. 
   Due to not being involved throughout the experimental process and data collection, it limits my understanding of the physiological and structural aspects of broccoli in the study. 
   It has made me aware of my shortcomings in research and motivated me to address them. 
   For example, during the period of broccoli transplanting, I visited the site several times to observe and inquire about the relevant details of plot settings. 
