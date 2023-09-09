@@ -1,26 +1,27 @@
-\chapter{General discussion}
+\chapter{\added{General discussion}}
 
 \added{
-  The general discussion begins by summarizing the limitations of the research (Section~\ref{sec:reslim}). 
+  The general discussion begins by summarizing the limitations of this doctoral study (Section~\ref{sec:reslim}). 
   Following that, the discussion focuses on the challenges encountered while implementing smart agriculture technologies in real-field production (Section~\ref{sec:appclg}). 
   Subsequently, potential solutions for future research opportunities are outlined (Section~\ref{sec:respros}).
   }
 
-\section{\replaced{Reseach limitations}{ Conclusions and reflections}} \label{sec:reslim}
+% \section{\replaced{Reseach limitations}{ Conclusions and reflections}} \label{sec:reslim}
+\section{\added{Reseach limitations}} \label{sec:reslim}
 
-\deleted{This is the first study that combined the advances of aerial (high throughput) and close-range (high quality) surveys in plant phenotyping applications to field-grown crops. This Ph.D. thesis aimed to improve the performance of 3D-based plant phenotyping on field-grown broccoli as a representative of row-planted crops having harvestable organs on the top of canopy, using only low-cost \gls{rgb} cameras. Using \gls{uav} for aerial surveys and photogrammetry allows for the efficient acquisition of 2D field maps and 3D models of the crop canopy for the entire farmland. However, due to limitations in survey efficiency and wind blurring caused by propellers, the \gls{uav} cannot fly too close to plants, resulting in inadequate resolution and quality for directly analyzing the broccoli heads at the organ level. This thesis attempted to fuse the close-range and aerial 3D phenotype data, as well as some latest machine learning and deep learning techniques, to accurately and efficiently obtain the position and size of broccoli heads in the field. Furthermore, this thesis also provided a better 3D virtual visualization for those broccoli heads in the field and builds a foundation for digital twins and virtual farmland for smart agriculture.}
+% \deleted{This is the first study that combined the advances of aerial (high throughput) and close-range (high quality) surveys in plant phenotyping applications to field-grown crops. This Ph.D. thesis aimed to improve the performance of 3D-based plant phenotyping on field-grown broccoli as a representative of row-planted crops having harvestable organs on the top of canopy, using only low-cost \gls{rgb} cameras. Using \gls{uav} for aerial surveys and photogrammetry allows for the efficient acquisition of 2D field maps and 3D models of the crop canopy for the entire farmland. However, due to limitations in survey efficiency and wind blurring caused by propellers, the \gls{uav} cannot fly too close to plants, resulting in inadequate resolution and quality for directly analyzing the broccoli heads at the organ level. This thesis attempted to fuse the close-range and aerial 3D phenotype data, as well as some latest machine learning and deep learning techniques, to accurately and efficiently obtain the position and size of broccoli heads in the field. Furthermore, this thesis also provided a better 3D virtual visualization for those broccoli heads in the field and builds a foundation for digital twins and virtual farmland for smart agriculture.}
 
 % cp 2-4
-\deleted{We first developed an almost automated close-range pipeline to obtain the high-quality 3D models of destructively sampled broccoli heads, as a template database. By using the dual-rotation methods and the automated rotation platform, images from different perspectives of broccoli heads for 3D reconstruction were collected without heavy labor. Two pre-trained deep learning networks were used to preprocess these images without paying too much attention to algorithm developing and training data annotation. Afterward, we developed an automated workflow to calculate the 3D-based morphological traits and correct the top direction, which ensured the 3D models of the broccoli head can be used directly for the next step.}
+% \deleted{We first developed an almost automated close-range pipeline to obtain the high-quality 3D models of destructively sampled broccoli heads, as a template database. By using the dual-rotation methods and the automated rotation platform, images from different perspectives of broccoli heads for 3D reconstruction were collected without heavy labor. Two pre-trained deep learning networks were used to preprocess these images without paying too much attention to algorithm developing and training data annotation. Afterward, we developed an automated workflow to calculate the 3D-based morphological traits and correct the top direction, which ensured the 3D models of the broccoli head can be used directly for the next step.}
 
-\deleted{Parallel to the close-range pipeline, we also developed the aerial pipeline to obtain the 3D models of the entire field by \gls{uav} photogrammetry. The key idea is to obtain the shape and position of each broccoli head in the field. But the resolution of photogrammetry-produced field maps or 3D models is not enough for accurate head segmentation. To improve the quality and labor for head segmentation, we first fused the raw \gls{uav} images, which have better resolution and quality, and the field map, which has unique geographical coordinates. Then, we fused the time-series data from different growing stages; the seedling stage was used to obtain the position and IDs of each broccoli, which is a very simple detection task; and these positions were used to narrow the image processing area for head segmentation. Lastly, labor-saving active learning was used to interactively annotate the training data for the segmentation deep learning model. The morphological traits of segmented broccoli heads were also calculated, which is fundamental for the final step.}
+% \deleted{Parallel to the close-range pipeline, we also developed the aerial pipeline to obtain the 3D models of the entire field by \gls{uav} photogrammetry. The key idea is to obtain the shape and position of each broccoli head in the field. But the resolution of photogrammetry-produced field maps or 3D models is not enough for accurate head segmentation. To improve the quality and labor for head segmentation, we first fused the raw \gls{uav} images, which have better resolution and quality, and the field map, which has unique geographical coordinates. Then, we fused the time-series data from different growing stages; the seedling stage was used to obtain the position and IDs of each broccoli, which is a very simple detection task; and these positions were used to narrow the image processing area for head segmentation. Lastly, labor-saving active learning was used to interactively annotate the training data for the segmentation deep learning model. The morphological traits of segmented broccoli heads were also calculated, which is fundamental for the final step.}
 
-\deleted{Finally, we fused the close-range and aerial pipelines. By using the paired morphological traits data from those destructively sampled broccoli heads, we trained an \gls{automl} calibration model to further improve the accuracy of aerial head segmentation. Then, the accuracy of head center positions was also calibrated by the piecewise affine transformation. Finally, for each broccoli head from the aerial survey, the closest 3D model was matched and transformed from the close-range high-quality database. After placing those transformed 3D models back into the aerial model, a script was developed for 3D virtual visualization and a better understanding of the head growth status in the field.}
+% \deleted{Finally, we fused the close-range and aerial pipelines. By using the paired morphological traits data from those destructively sampled broccoli heads, we trained an \gls{automl} calibration model to further improve the accuracy of aerial head segmentation. Then, the accuracy of head center positions was also calibrated by the piecewise affine transformation. Finally, for each broccoli head from the aerial survey, the closest 3D model was matched and transformed from the close-range high-quality database. After placing those transformed 3D models back into the aerial model, a script was developed for 3D virtual visualization and a better understanding of the head growth status in the field.}
 
-\deleted{Overall, the results of these three research chapters showed that the proposed pipelines including active learning, deep learning, backward projection, auto machine learning, template matching, and data fusion, led to improved performance in the tested broccoli fields from 2020 to 2022. The results and statistical analysis concluded that the research objectives have been achieved and all the source codes are published on GitHub for replication and any usage purposes, we can conclude that the research has made a positive contribution to the 3D-based plant phenotyping and precision agriculture for broccoli farmlands.}
+% \deleted{Overall, the results of these three research chapters showed that the proposed pipelines including active learning, deep learning, backward projection, auto machine learning, template matching, and data fusion, led to improved performance in the tested broccoli fields from 2020 to 2022. The results and statistical analysis concluded that the research objectives have been achieved and all the source codes are published on GitHub for replication and any usage purposes, we can conclude that the research has made a positive contribution to the 3D-based plant phenotyping and precision agriculture for broccoli farmlands.}
 
 % limitations -> combine all chapters, and new points can be found?
-\deleted{Despite the promising results of the experiment in the broccoli field over three years, there is currently no strong evidence that the proposed methods can achieve similar performance in different farmland or vegetables. Since several assumptions of the methods were based on the characteristics of broccoli heads, such as the solid shape of broccoli head when vertically rotating on the rotation platform, small position variation from seeding to heading, the circular shape of the broccoli head, the clear color differences between the crown and stem for broccoli heads, and the flatten mushroom-shaped broccoli crown shape. Hence, the proposed full pipelines cannot be applied directly to vegetables with variate shapes. The full pipelines may still work on the cauliflowers (just change the color from greenish to whitish); For vegetables like sweet potatoes and cabbages with very different shapes, some modules like close-range reconstruction or 3D-based morphological traits calculation may still work, but some kinds of modifications for other parts are expected. Another limitation of the proposed close-range and aerial data fusion is the visibility of targets in both pipelines, at least for the current stage, not directly applicable for sweet potatoes and potatoes whose targets are beneath the soil, which deserve further studies.}
+% \deleted{Despite the promising results of the experiment in the broccoli field over three years, there is currently no strong evidence that the proposed methods can achieve similar performance in different farmland or vegetables. Since several assumptions of the methods were based on the characteristics of broccoli heads, such as the solid shape of broccoli head when vertically rotating on the rotation platform, small position variation from seeding to heading, the circular shape of the broccoli head, the clear color differences between the crown and stem for broccoli heads, and the flatten mushroom-shaped broccoli crown shape. Hence, the proposed full pipelines cannot be applied directly to vegetables with variate shapes. The full pipelines may still work on the cauliflowers (just change the color from greenish to whitish); For vegetables like sweet potatoes and cabbages with very different shapes, some modules like close-range reconstruction or 3D-based morphological traits calculation may still work, but some kinds of modifications for other parts are expected. Another limitation of the proposed close-range and aerial data fusion is the visibility of targets in both pipelines, at least for the current stage, not directly applicable for sweet potatoes and potatoes whose targets are beneath the soil, which deserve further studies.}
 
 \added{
   Although the three-year experiment conducted in the broccoli field yielded promising outcomes, the study was also subject to certain limitations.
@@ -69,13 +70,74 @@
   This performance bottleneck needs to be solved to facilitate the widespread application of this approach in large farmlands.
 }
 
+\added{
+  In Chapter 4, to fuse the high-quality head 3D model with the low-quality aerial canopy model, we assume that all broccoli heads share similar structures for the same cultivar in the same field condition. 
+  This allows us to create a representative template database through proper sampling. 
+  Each head can then be approximated after a simple template transformation, which involves scaling along the short and long axes and rotating to overlap. 
+  Regarding the specific data fusion operation of putting the transformed template back into the field canopy, we make further simplifying assumptions: 
+  1) The shape of the broccoli head is approximately circular. 
+  Therefore, even if some heads are occluded by leaves in the aerial images, we can obtain the location of the center by fitting the exposed portion. 
+  This allows us to determine the X and Y coordinates for placing the transformed template back. 
+  2) The broccoli heads tend to grow upright. 
+  As a result, the center obtained in assumption (1) represents the highest point of the broccoli crown in the vertical direction. 
+  This allows us to determine the Z coordinate for placing the template back. 
+  While our results demonstrate significant quality improvement for the broccoli heads after this data fusion process (refer to Figure~\ref{fig:xrs6}), it is important to note that this is merely an approximation of size and better visualization of the calibrated morphological traits. 
+  It does not capture the details present in the actual field. 
+  Firstly, the shape of a broccoli head is a more complex fractal shape. Additionally, when the planting density is too high, some heads may be "squeezed" and grow at a skewed angle, which contradicts the simplifying assumptions mentioned earlier. 
+  Furthermore, this approach is only applicable to visible broccoli heads in the aerial images and does not work for heavily occluded or completely invisible heads. 
+  Especially, this method is not suitable for other challenging crops, such as potato and sweet potato, where the harvestable parts are underground. 
+  Exploring how to deal with such complex and invisible conditions, like maize canopies and potato canopies, is a valuable avenue for future research.
+}
+
 \subsection{\added{Lacking real farmland testing}} \label{sec:lackvlid}
+
+\added{
+  One unavoidable limitation of this study is that it has not been tested in actual farmlands, which are much larger and more complex than the current experimental field. 
+  One noticeable difference is the variation in canopy patterns caused by different plant densities.
+  For instance, our experimental field strictly maintained a spacing of 35 cm in rows and 70 cm apart, with a smaller deviation of less than 3 cm (Fig.~\ref{fig:dis_pattern}.a).
+  In contrast, in the broccoli farmland we collaborated with in another project in Fukushima, the plants were spaced approximately 35 cm apart in rows, with a considerable variation greater than 7 cm (Fig.~\ref{fig:dis_pattern}.b). 
+  This difference in density and deviation not only leads to distinct canopy patterns but also affects the direction and straightness of the ridges.
+  The challenges posed by this difference in our proposed pipeline can be summarized in the following three points.
+}
+
+\input{figures/dis.fig.1.tex}
+
+\added{
+  Firstly, in Fukushima, the broccoli tends to have smaller leaf angles compared to the experimental fields. 
+  This leads to the broccoli heads being heavily covered by the shadows of leaves. 
+  These shadows create dark areas, making it challenging to visually identify the flower heads or leaves in the aerial images and also complicating the segmentation process. 
+  To effectively address this issue, the utilization of advanced sensors such as multispectral or \gls{lidar} is warranted, but at a much higher cost as compared to the conventional RGB camera. Therefore, there is a need to develop a more cost-effective \gls{lidar} solution to cater to the future demands of farmland applications.
+}
+
+\added{
+  Secondly, the closer row spacing and higher deviation make it infeasible to use our previous linear-based ridge detection algorithm. 
+  Without it, assigning regular ID numbers to individual broccoli based on the order of the ridge becomes impractical.
+  One potential approach is to abandon the use of sequential numbers for identification purposes along the ridges. 
+  Instead, numbering can be determined based on the sorted XY coordinate positions. This alternative not only reduces the computational burden for ridge detection but also guarantees the uniqueness of the identification numbers. 
+  However, this solution suffers from a disadvantage: 
+  it becomes challenging to conveniently associate the numbers with the plants in the field. 
+  Given that the actual measurements typically occur along the ridges, during recording, it becomes necessary to repeatedly verify the ID instead of simply incrementing it by 1 as in the previous solution.
+  However, it is important to note that in the Fukushima farmland, conducting field measurements along ridges is not feasible. This issue will be discussed further in the upcoming point.
+}
+
+\added{
+  Thirdly, the high planting density poses difficulties in sampling and field measurement.
+  In Figure~\ref{fig:dis_pattern}.b, it is evident that the density of the actual farmland makes it difficult for people to enter without causing damage to the broccoli and soil. 
+  However, the farmland owner does not allow such damage, leaving only the broccolis along the plot boundaries available for measuring and sampling. 
+  Unfortunately, these boundary broccolis do not represent the same growing conditions as those in the plot center. 
+  This poses a critical problem for the current pipeline since it leads to a lack of accurate ground truth data for model calibration.
+  To address this issue in the future, a closer collaboration with more farmland owners is necessary. 
+  For one thing, a carefully designed sampling strategy needs to be implemented before transplanting the broccoli. 
+  For another, we can enlarge our broccoli database through such collaborations.
+  We can potentially provide prediction services for farmlands where ground truth data is unavailable. 
+  This can be achieved by identifying similar environmental and cultivar patterns already present in our database.
+}
 
 \subsection{\added{Lacking full participation}} \label{sec:lackdata}
 
 \added{
   This is a personal limitation rather than the study itself.
-  One thing that needs to be pointed out is I did not contribute entirely to the entire process of the broccoli project. 
+  One thing that needs to be pointed out is I did not contribute entirely to the full process of the broccoli project. 
   The main focus of my doctoral research lies in the development of algorithms and engineering aspects. 
   Many in-field contributions were made by several collaborators.
   For example, the plant materials used in this study were provided by another student, \mbox{\citet{nishida_estimation_2023}}, in the laboratory. To be more specific, the experimental design of obtaining variate broccoli sizes by different fertilizations and the measurement of field data were primarily carried out by Nishida. 
