@@ -1,10 +1,8 @@
 \chapter{\added{General discussion}}
 
 \added{
-  The general discussion begins by summarizing the limitations of this doctoral study (Section~\ref{sec:reslim}). 
-  Following that, the discussion focuses on the challenges encountered while implementing smart agriculture technologies in real-field production (Section~\ref{sec:appclg}). 
-  Subsequently, potential solutions for future research opportunities are outlined (Section~\ref{sec:respros}).
-  }
+  The general discussion begins by summarizing the limitations of this doctoral study (Section~\ref{sec:reslim}). Following that, discussing the potential solutions for future research opportunities are outlined (Section~\ref{sec:respros}).
+}
 
 % \section{\replaced{Reseach limitations}{ Conclusions and reflections}} \label{sec:reslim}
 \section{\added{Reseach limitations}} \label{sec:reslim}
@@ -161,17 +159,98 @@
   After this collaboration experience of my doctoral study, I have come to recognize the importance of actively participating in experiments and data collection for future research.
 }
 
-\section{\added{Application challenges}} \label{sec:appclg}
+% \section{\added{Industry–Academia collaboration challenges}} \label{sec:appclg}
 
+% \added{
+%   In addition to the challenges and limitations inherent in this study, the practical application of similar smart agriculture research also presents its own set of limitations and challenges. 
+% }
 
 
 \section{Future research prospects} \label{sec:respros}
 
-% automation rotation platform problem
-In this thesis, several new approaches or pipelines were proposed to improve the performance of 3D-based plant phenotyping. It was suggested to extend each of them in the future. As mentioned in Chapter 2, the dual-rotation approach for data collection still needs manually change and vertically flip plants, and only applicable to solid plants. A more automated instrument should be developed to further reduce manual operations. For example, by using a track controlled by a stepper motor or robotic arms to achieve automated plant replacement and rotation. For softer plant organs like leaves and flowers, the dual-rotation method may not work due to the structure changing, so the approach needs to be changed by setting up camera arrays at different angles to achieve similar results.
+In this thesis, several new approaches or pipelines were proposed to \replaced{enhance the performance of 3D-based plant phenotyping. 
+While our experimental field exhibits promising results, as discussed previously, this study still faces unresolved limitations at its current stage. 
+In this section, I will explore the future research prospects that not only benefit this study but also inspire further advancements in smart agriculture.}
+{improve the performance of 3D-based plant phenotyping. It was suggested to extend each of them in the future. As mentioned in Chapter 2, the dual-rotation approach for data collection still needs manually change and vertically flip plants, and only applicable to solid plants. A more automated instrument should be developed to further reduce manual operations. For example, by using a track controlled by a stepper motor or robotic arms to achieve automated plant replacement and rotation. For softer plant organs like leaves and flowers, the dual-rotation method may not work due to the structure changing, so the approach needs to be changed by setting up camera arrays at different angles to achieve similar results.
+}
 
-% nerf app
-In addition, besides image-based photogrammetry, the latest \gls{nerf} technology is also worth exploring. There is now an application of \gls{nerf} based on the latest iPad's \gls{lidar} sensor for camera position estimation. In our preliminary experiments in early May 2023, especially for landscape plants with complex structures, better 3D models can be obtained than with photogrammetry. However, currently, the iPad needs to be manually moved to match the path guidance in the software. If this process can be interactively realized with a robotic arm, it also has broad potential applications.
+\subsection{\added{Probabilistic of this study}}
+
+% easyidp
+
+\subsection{\added{Probabilistic of 3D reconstruction}}
+
+\added{
+  The study primarily utilizes photo-based 3D reconstruction (\mbox{\gls{sfm}-\gls{mvs}}) to acquire 3D data for both close-range and aerial plants. 
+  In comparison to other reconstruction methods (Figure~\ref{fig:int2}), \mbox{\gls{sfm}-\gls{mvs}} offers the key advantage of relatively low sensor costs. 
+  Only common RGB cameras are necessary to yield satisfactory results for close-range or aerial reconstructions.
+  However, the workflow of photo-based 3D reconstruction also presents several challenges for data management and processing algorithms that deserve to be considered for future research.
+}
+
+\added{
+  The first point is about data storage and management. 
+  Typically, modeling a scene requires a large number of images, which can occupy a minimum of 1GB of storage space. 
+  In our 3-year study, for both close-range broccoli head modeling (Chapter 2) and aerial survey (Chapter 3), the raw image data reached over 350GB 
+  (135GB in 2020, 30.3GB in 2021, and 101.7GB in 2022 for aerial survey; 87GB for close-range modeling). 
+  Furthermore, the data size from data preprocessing, reconstruction process, and the resulting model is essentially the same as the raw image data. 
+  This amount of data is only applicable to a 1-hectare experimental field, and the volume of data increases proportionally with the area. 
+  While it is theoretically possible to delete the original data and intermediate processes after obtaining the final modeling results to free up space, this is not feasible for our pipeline. 
+  We need to merge the final results with the raw images to achieve more accurate segmentation results. 
+  Additionally, these raw data hold significant value as digital resources for smart agriculture research. 
+  When properly preserved, they can serve multiple research groups in answering complementary research questions over the years \mbox{\citep{guo_uas_2021}}. 
+  Therefore, compared to using local hard drives for data storage and archiving, the use of centralized cloud storage not only ensures better data security but also enables fast data sharing across institutions. 
+  This is a crucial aspect that smart agriculture must consider for future data storage and management \mbox{\citep{guo_uas_2021}}. 
+  Simultaneously, it is imperative to collaborate with various research institutions to establish a unified data archiving and metadata storage standard, similar to that of meteorological data, for subsequent cross-regional and long-term research tracking.
+}
+
+% However, 
+%    rather than plants, particularly under natural field conditions. 
+%   The complex combination of lighting, temperature, and humidity in the field, along with the presence of weeds, wind turbulence, and occlusions, present significant challenges for image-based 3D reconstruction.
+%   Hence, 
+
+% Nonetheless, it should be noted that this algorithm assumes the reconstructed object to be rigid and may not be universally applicable to all agricultural crops. To evaluate its feasibility, we selected broccoli, which closely resembles a rigid body, as the subject for our case study. Even so, attaining optimal data quality while controlling expenses still requires a substantial amount of effort.
+
+\added{
+  The second point concerns the processing algorithm of 3D reconstruction.
+  It should be noted that this algorithm assumes the object to be rigid and consistent throughout all points of view (photos). 
+  This assumption is commonly valid for urban buildings, mine shafts, and cultural relics,
+  rather than capturing dynamic objects (such as those affected by wind-induced movement), 
+  repeatable structures (such as similar plants in a field), 
+  and reflective objects (for instance, paddy fields). 
+  These cases commonly arise in agricultural applications, and additionally along with complex combinations of lighting, humidity (cloud and fog),  presence of weeds, and occlusions.
+  Several studies have been conducted to address the challenges posed by complex situations in algorithm adaptation. 
+  For instance, \mbox{\citet{zheng_sparse_2015}} focused on enhancing the reconstruction effect of dynamic components through algorithmic improvements. 
+  However, it is not feasible to manually develop special algorithms for all different kinds of natural conditions, a more efficient and robust approach should be found.
+}
+
+\added{
+  The potential application of deep learning technology to partially or entirely replace the SfM-MVS algorithm has also raised many research interests \mbox{\citep{li_dl-based_2022}}. 
+  This includes the substitution of camera pose estimation, also known as bundle adjustment \mbox{\citep{vedaldi_deepsfm_2020}}, and point cloud densitification \mbox{\citep{ferrari_mvsnet_2018}}. Furthermore, the \gls{nerf} builds upon the outcomes of the \gls{sfm} algorithm and employs deep learning networks to supplant subsequent \gls{mvs} and 3D object generation processes \mbox{\citep{mildenhall_nerf_2022}}. For example, \mbox{\citet{jignasu_plant_2023}} successfully achieved excellent reconstruction outcomes for maize, underscoring the effectiveness of this approach.
+}% nerf app
+\deleted{In addition, besides image-based photogrammetry, the latest \gls{nerf} technology is also worth exploring.} There is now an application of \gls{nerf} based on the latest iPad's \gls{lidar} sensor for camera position estimation. In our preliminary experiments in early May 2023, especially for landscape plants with complex structures, better 3D models can be obtained than with photogrammetry. However, currently, the iPad needs to be manually moved to match the path guidance in the software. If this process can be interactively realized with a robotic arm, it also has broad potential applications.
+
+\added{
+  In addition to enhancing the \gls{sfm}-\gls{mvs} workflow, there have been studies exploring the utilization of deep learning for direct 3D structure prediction. 
+  For instance, \mbox{\citet{vicini_differentiable_2022}} employ direct estimation to determine the 3D shape, while \mbox{\citet{magistri_towards_2021}} utilize a single image in conjunction with deep learning to directly render the 3D plant model. 
+  These studies, based on deep learning techniques, aim to overcome the technical limitations associated with conventional 3D reconstruction algorithms. 
+  It is important to verify and implement these approaches in the acquisition of 3D plant structures in the future.
+}
+
+\added{
+  The third point is about multi-sensor integration. 
+  The aforementioned attempts to reconstruct 3D structures from photos and optimize various algorithms are compromised solutions due to equipment costs. 
+  However, if we neglect equipment costs, the use of \gls{lidar} is a more accurate method of obtaining spatial 3D structures. 
+  \gls{lidar} has been extensively applied and tested in both close-range and outdoor studies \mbox{\citep{thapa_novel_2018,lin_segmentation_2022,jin_lidar_2021}}. 
+  With the continuous development of autonomous driving and sensor technology, 
+  the price of \gls{lidar} is continuously decreasing \mbox{\citep{ackerman_lidar_2016}}. 
+  It is expected that within the next 10 years, 
+  the price of \gls{lidar} will approach that of advanced \gls{dslr} cameras, 
+  potentially revolutionizing the acquisition of 3D structural data. 
+  In terms of applications in smart agriculture in the future, 
+  the fusion of \gls{lidar} with other sensors further enhances the performance of high-throughput models \mbox{\citep{li_multi-source_2023,nguyen_uav_2023}}.
+}
+
+\subsection{\added{Probabilistic of digital twin}}
 
 % Virtual plants powered crop data analysis and phenotyping applications.
 In Chapter 4, the data fusion between close-range and aerial surveys showed a good result in the visualization hidden part of the broccoli head, although based on statistical regression for visualization rather than actual status. As discussed in Chapter 4, for different cultivars of broccoli, more broccoli heads should be collected to provide a sufficient template database to meet more detailed transformation needs. However, the proposed method is facing challenges when dealing with crops with complex structures, such as maize or soybean canopies. On one hand, the severity of occlusion makes it very difficult to distinguish individual maize or soybean; on the other hand, due to the multilateral structure of crops, it is difficult to collect enough samples for template transformation. In this condition, the advent of procedural modeling points very different solutions which use several parameters to control the structure of 3D models. For example, The L-system was used to construct virtual crop models that adjusted the parameters to approximate the real crop by three-view photos \citep{cieslak_l-system_2021}. Although the model obtained using the above method is only structural, it is not realistic enough in terms of detail and appearance. \citet{mikami_hidden_2022} used photo-quality texture mapping on the plant 3D models with relatively simple geometries and finally obtained a very realistic 3D models in texture. In our preliminary experiment, a similar corn model using parameter controls has already been achieved in Blender, but due to the complexity of the research, the ability to repair the corn canopy has not yet been realized. In subsequent studies, we hope to develop a parameter-controlled broccoli model and complete the repair of the corn canopy.
@@ -181,3 +260,8 @@ In Chapter 4, the data fusion between close-range and aerial surveys showed a go
 % Currently, there are three main methods of acquiring virtual plant that can be architecture fine-tuned. 1) By template stitching. chang_3dcap_2022 obtained the database of wheat organ 3D models at different growth stages by destructive sampling and manual measurement of parameters. Then combine those organed to one wheat by random picking and placing with random position angles within the range obtained by real measurements. wen_3d_2021 applied the similar idea for maize. 2) By static deformation. The 3D static model of whole maize (in point cloud format) was obtained by 3D reconstruction. The maize model was then automatically segmented to organs, and these segmented parts were transformed by applying geometric transformations to implement changes in architecture liu_canopy_2021. 3) By parametric approximation. The L-system was used to construct a parameter adjustable virtual crop model and then adjusted the parameters to approximate the real crop by three-view photos cieslak_l-system_2021. This process was also reflected in the implementation of CG modelling. For example, the general shape of the plant was obtained through relatively simple geometries, and then photo-quality texture mapping was used to obtain a very realistic CG model mikami_hidden_2022.
 
 Furthermore, several advanced phenotyping applications can be simulated on the abovementioned virtual 3D plant models. 1) The ray-tracing technologies can be applied to simulate lights within the canopy. 2) The point cloud simulation technology can be used to simulate point clouds from the virtual canopy. For the canopy traits which are easy to get from virtual plants but hard from the real field, the corresponding models between features from the simulated point cloud and traits from the virtual canopy can be trained and then applied to the field-scanned point cloud data to inverse the actual data \citep{liu_estimating_2017}. 3) the CG rendering techniques can decrease the workload of data annotating in the phenotyping data processing by deep learning. The rending engine can yield CG photos that are very close to the real world. At the same time, by adjusting the model texture to solid pure color, the corresponding labeled information for both CG photos \citep{mikami_hidden_2022} and point clouds \citep{chaudhury_3d_2020} can be generated in batch from random virtual canopies.
+
+
+\subsection{\added{Probabilistic of large AI models}}
+
+% current AutoML not working
