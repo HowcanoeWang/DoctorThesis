@@ -87,7 +87,7 @@
   Exploring how to deal with such complex and invisible conditions, like maize canopies and potato canopies, is a valuable avenue for future research.
 }
 
-\subsection{\added{Lacking real farmland testing}} \label{sec:lackvlid}
+\subsection{\added{Lacking real farmland practices}} \label{sec:lackvlid}
 
 \added{
   One unavoidable limitation of this study is that it has not been tested in actual farmlands, which are much larger and more complex than the current experimental field. 
@@ -176,7 +176,55 @@ In this section, I will explore the future research prospects that not only bene
 
 \subsection{\added{Probabilistic of this study}}
 
-% easyidp
+\added{
+  Although our current research has some shortcomings and limitations, 
+  a set of tools and pipelines we developed in this study has been helping many subsequent research projects, 
+  not only limited to the agricultural field.
+}
+
+\added{
+  Chapter 2 presents the establishment of high-quality close-range crop modeling pipelines.
+  We obtained 189 high-resolution 3D models of broccoli plants through it. 
+  As mentioned previously, this workflow can be readily extended to modeling more similar crops, including potatoes, sweet potatoes, and various other fruits.
+  These high-quality 3D plant organ models can subsequently undergo phenotypic analysis. 
+  Moreover, our 3D database holds potential for application in the \gls{cg} or gaming industry, as it offers high-resolution assets for use in AAA games.
+}
+
+\added{
+  As a dependency tool to Chapter 3, 
+  we first developed an Intermediate Data Processing (IDP) tool, named EasyIDP \mbox{\citep{wang_easyidp_2021}}, 
+  to address the issue of low quality of drone-based 3D reconstruction outputs. 
+  This tool not only found good application in our third chapter but has also been applied and highly praised in other industries that require the use of drone measurement. 
+  For example, Prof. Benjamin Weinstein, from the University of Florida, used our tool for avian ecology surveys; 
+  Prof. Derek Young, from the University of California Davis, used our tool for optimizing forest species research; and
+  Engineer K. Senda, from the Japanese company Yumeni, used our tool for improving urban greening monitoring. 
+  As of September 2023, our GitHub project community (\url{https://github.com/UTokyo-FieldPhenomics-Lab/EasyIDP}) has received 34 stars and 22 discussion threads. 
+  We have established a positive open-source community feedback mechanism,
+  which is a level of achievement that other similar researchers have not reached. 
+  It is important to further improve and promote these types of open-source software and communities in order to ensure the reproducibility and contribution of our work.
+}
+
+\added{
+  In Chapter 3, an improved aerial survey pipeline for broccoli size was established, 
+  which obtained the specific size of each broccoli plant in the time series. 
+  This is difficult to achieve with traditional methods in acceptable labor costs. 
+  Subsequently, other members of the laboratory based on this technology, combined with meteorological data and growing degree models, 
+  successfully developed an individual-based broccoli growth prediction method \mbox{\citep{wang_drone-based_2023}}. 
+  It was also found that the deviation of only 2 days from the optimal date, 
+  The profit difference in one hectare of the experimental field could reach \$2000, 
+  indicating significant implications for reducing food loss and improving farmers' income \mbox{\citep{wang_drone-based_2023}}. 
+  Although it currently cannot be directly applied to densely planted farmlands, 
+  with the subsequent integration of other sensors to solve the broccoli segmentation problem, this process can be smoothly applied.
+}
+
+\added{
+  Chapter 4 uses data fusion to achieve a better visualization effect, 
+  transforming numerical phenotype data (such as broccoli size) into a 3D intuitive model. 
+  This also serves as the technical basis for subsequent digital twins and smart agriculture, which is further discussed in Section~\ref{sec:digitwin}. 
+  If \gls{ar} and \gls{vr} technologies can be combined in the future, 
+  there is hope to transform the laborious field patrol work into indoor activities. 
+}
+
 
 \subsection{\added{Probabilistic of 3D reconstruction}}
 
@@ -250,17 +298,65 @@ In this section, I will explore the future research prospects that not only bene
   the fusion of \gls{lidar} with other sensors further enhances the performance of high-throughput models \mbox{\citep{li_multi-source_2023,nguyen_uav_2023}}.
 }
 
-\subsection{\added{Probabilistic of digital twin}}
+\added{
+  The final point is regarding the automation technologies utilized in aerial data collection. 
+  Presently, the quality of aerial image data still greatly depends on the expertise of device operators. 
+  Due to varying weather conditions during different survey times, 
+  there are currently no universal settings that are suitable for all conditions. 
+  Consequently, operators must manually adjust camera settings, 
+  such as exposures and shutter speed, according to the prevailing weather conditions. 
+  However, these adjustments heavily rely on experience, 
+  which encompasses not only drone operation but also a profound understanding of post-data processing. 
+  Often, the data collection work is outsourced to technicians or personnel from other institutions working remotely, 
+  and its quality frequently proves challenging to meet the high-precision analysis requirements.
+  The implementation of this personnel training approach is not feasible. 
+  Instead, it is necessary to establish collaboration with drone companies to develop a camera mode, 
+  which can automatically adjust based on the surrounding environment for effective agricultural data collection. 
+  This approach will diminish the requirement for personnel expertise. 
+  This has already been demonstrated in previous technological advancements. 
+  Initially, manual control the drone flight and camera photography was essential during aerial surveys around the 2010s. 
+  However, the acquired images often failed to meet the required level of overlap, resulting in reconstruction failure. 
+  Consequently, when I attended the internship at the Chinese Academy of Forestry, 
+  we developed the software for flight route control with required overlaps \mbox{\citep[\url{www.uav-hirap.org}]{wang_uav-hirap_2017}}. 
+  These features allow for automatic flight route planning on a computer and transmitting to the drone. 
+  This technology has since been completely superseded by the built-in flight planning function of drones within three years. 
+  Hence, it can be predicted that this issue of camera parameter settings will also be integrated into drones shortly to ensure the stability of data quality obtained by different operators.
+}
+
+\subsection{\added{Probabilistic of digital twin}}\label{sec:digitwin}
+
+\added{
+  The advent of digital twin technology points to a very different future for smart agriculture and plant phenotyping, 
+  the researchers can operate directly on the virtual plants and preview its impact on the plant immediately \mbox{\citep{verdouw_digital_2021}}. 
+  The fundamental in implementing such technology is to present the 3D crop model (virtual plant) accurately in the computer first, and then implement architecture fine-tuning and phenotyping applications on them.
+  This study is the first to explore the possibility of presenting the virtual plants from actual fields accurately.
+}
 
 % Virtual plants powered crop data analysis and phenotyping applications.
-In Chapter 4, the data fusion between close-range and aerial surveys showed a good result in the visualization hidden part of the broccoli head, although based on statistical regression for visualization rather than actual status. As discussed in Chapter 4, for different cultivars of broccoli, more broccoli heads should be collected to provide a sufficient template database to meet more detailed transformation needs. However, the proposed method is facing challenges when dealing with crops with complex structures, such as maize or soybean canopies. On one hand, the severity of occlusion makes it very difficult to distinguish individual maize or soybean; on the other hand, due to the multilateral structure of crops, it is difficult to collect enough samples for template transformation. In this condition, the advent of procedural modeling points very different solutions which use several parameters to control the structure of 3D models. For example, The L-system was used to construct virtual crop models that adjusted the parameters to approximate the real crop by three-view photos \citep{cieslak_l-system_2021}. Although the model obtained using the above method is only structural, it is not realistic enough in terms of detail and appearance. \citet{mikami_hidden_2022} used photo-quality texture mapping on the plant 3D models with relatively simple geometries and finally obtained a very realistic 3D models in texture. In our preliminary experiment, a similar corn model using parameter controls has already been achieved in Blender, but due to the complexity of the research, the ability to repair the corn canopy has not yet been realized. In subsequent studies, we hope to develop a parameter-controlled broccoli model and complete the repair of the corn canopy.
+In Chapter 4, the data fusion between close-range and aerial surveys showed a good result in the visualization hidden part of the broccoli head, although based on statistical regression for visualization rather than actual status. As discussed in Chapter 4, for different cultivars of broccoli, more broccoli heads should be collected to provide a sufficient template database to meet more detailed transformation needs. However, the proposed method is facing challenges when dealing with crops with complex structures, such as maize or soybean canopies. On one hand, the severity of occlusion makes it very difficult to distinguish individual maize or soybean; on the other hand, due to the multilateral structure of crops, it is difficult to collect enough samples for template transformation. \added{Thus, there is a demand to change the virtual plant architecture with lower cost} 
 
-% The plant and its canopy architecture influence the responses and interactions with various environmental factors, which ultimately affects the yield. The conventional analysis methods rely on heavy and repetitive field measured geometry traits along with statistical analysis through whole growing seasons. While the advent of digital twin technology points a very different future, the researchers can operate directly on the virtual plants and preview its impact on the plant immediately \citet{verdouw_digital_2021}. The fundamental in implementing such technology is to present the 3D crop model (virtual plant) accurately in the computer first, and then implement architecture fine-tuning and phenotyping applications on them. This seminar will summarize recent published papers on how this has been achieved.
+\added{
+  Currently, there are three main methods of acquiring virtual plant that can be architecture fine-tuned. 
+  1) By template stitching. 
+  \mbox{\citet{chang_3dcap_2022}} obtained the database of wheat organ 3D models at different growth stages by destructive sampling and manual measurement of parameters. 
+  Then combine those organs to one wheat by random picking and placing with random position angles within the range obtained by real measurements. 
+  \mbox{\citet{wen_3d_2021}} applied the similar idea for maize. 
+  2) By static deformation. 
+  The 3D static model of whole maize (in point cloud format) was obtained by 3D reconstruction. 
+  The maize model was then automatically segmented into organs, 
+  and these segmented parts were transformed by applying geometric transformations to implement changes in architecture \mbox{\citet{liu_canopy_2021}}. 
+  3) By parametric approximation. 
+  The L-system was used to construct a parameter-adjustable virtual crop model and then adjusted the parameters to approximate the real crop by three-view photos \mbox{\citet{cieslak_l-system_2021}}. 
+  % This process was also reflected in the implementation of \gls{cg} modeling. 
+  % For example, the general shape of the plant was obtained through relatively simple geometries, 
+  % and then photo-quality texture mapping was used to obtain a very realistic \gls{cg} model \mbox{\citet{mikami_hidden_2022}}.
+}
 
-% Currently, there are three main methods of acquiring virtual plant that can be architecture fine-tuned. 1) By template stitching. chang_3dcap_2022 obtained the database of wheat organ 3D models at different growth stages by destructive sampling and manual measurement of parameters. Then combine those organed to one wheat by random picking and placing with random position angles within the range obtained by real measurements. wen_3d_2021 applied the similar idea for maize. 2) By static deformation. The 3D static model of whole maize (in point cloud format) was obtained by 3D reconstruction. The maize model was then automatically segmented to organs, and these segmented parts were transformed by applying geometric transformations to implement changes in architecture liu_canopy_2021. 3) By parametric approximation. The L-system was used to construct a parameter adjustable virtual crop model and then adjusted the parameters to approximate the real crop by three-view photos cieslak_l-system_2021. This process was also reflected in the implementation of CG modelling. For example, the general shape of the plant was obtained through relatively simple geometries, and then photo-quality texture mapping was used to obtain a very realistic CG model mikami_hidden_2022.
+\deleted{
+In this condition, the advent of procedural modeling points to very different solutions which use several parameters to control the structure of 3D models. For example, The L-system was used to construct virtual crop models that adjusted the parameters to approximate the real crop by three-view photos \mbox{\citep{cieslak_l-system_2021}}.}
+Although the model obtained using the above method is only structural, it is not realistic enough in terms of detail and appearance. \citet{mikami_hidden_2022} used photo-quality texture mapping on the plant 3D models with relatively simple geometries and finally obtained very realistic 3D models in texture. In our preliminary experiment, a similar corn model using parameter controls has already been achieved in Blender, but due to the complexity of the research, the ability to repair the corn canopy has not yet been realized. In subsequent studies, we hope to develop a parameter-controlled broccoli model and complete the repair of the corn canopy.
 
-Furthermore, several advanced phenotyping applications can be simulated on the abovementioned virtual 3D plant models. 1) The ray-tracing technologies can be applied to simulate lights within the canopy. 2) The point cloud simulation technology can be used to simulate point clouds from the virtual canopy. For the canopy traits which are easy to get from virtual plants but hard from the real field, the corresponding models between features from the simulated point cloud and traits from the virtual canopy can be trained and then applied to the field-scanned point cloud data to inverse the actual data \citep{liu_estimating_2017}. 3) the CG rendering techniques can decrease the workload of data annotating in the phenotyping data processing by deep learning. The rending engine can yield CG photos that are very close to the real world. At the same time, by adjusting the model texture to solid pure color, the corresponding labeled information for both CG photos \citep{mikami_hidden_2022} and point clouds \citep{chaudhury_3d_2020} can be generated in batch from random virtual canopies.
-
+Furthermore, several advanced \replaced{techniques}{phenotyping applications} can be \replaced{applied to}{simulated on} the abovementioned virtual 3D plant models. 1) The ray-tracing technologies can be applied to simulate lights within the canopy. 2) The point cloud simulation technology can be used to simulate point clouds from the virtual canopy. For the canopy traits which are easy to get from virtual plants but hard from the real field, the corresponding models between features from the simulated point cloud and traits from the virtual canopy can be trained and then applied to the field-scanned point cloud data to inverse the actual data \citep{liu_estimating_2017}. 3) The \gls{cg} rendering techniques can decrease the workload of data annotating in the phenotyping data processing by deep learning. The rending engine can yield \gls{cg} photos that are very close to the real world. At the same time, by adjusting the model texture to solid pure color, the corresponding labeled information for both \gls{cg} photos \citep{mikami_hidden_2022} and point clouds \citep{chaudhury_3d_2020} can be generated in batch from random virtual canopies.
 
 \subsection{\added{Probabilistic of large AI models}}
 
