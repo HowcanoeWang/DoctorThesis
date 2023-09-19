@@ -3,3 +3,4 @@ thesis.pdf
 *.log
 *.pptx
 out/
+*.old.tex

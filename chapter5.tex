@@ -1,56 +1,34 @@
-\chapter{\added{General discussion}}
+\chapter{General discussion}
 
-\added{
-  The general discussion begins by summarizing the limitations of this doctoral study (Section~\ref{sec:reslim}). Following that, discussing the potential solutions for future research opportunities are outlined (Section~\ref{sec:respros}).
-}
+The general discussion begins by summarizing the limitations of this doctoral study (Section~\ref{sec:reslim}). Following that, discussing the potential solutions for future research opportunities are outlined (Section~\ref{sec:respros}).
 
-% \section{\replaced{Reseach limitations}{ Conclusions and reflections}} \label{sec:reslim}
-\section{\added{Reseach limitations}} \label{sec:reslim}
+% \section{Reseach limitations} \label{sec:reslim}
+\section{Reseach limitations} \label{sec:reslim}
 
-% \deleted{This is the first study that combined the advances of aerial (high throughput) and close-range (high quality) surveys in plant phenotyping applications to field-grown crops. This Ph.D. thesis aimed to improve the performance of 3D-based plant phenotyping on field-grown broccoli as a representative of row-planted crops having harvestable organs on the top of canopy, using only low-cost \gls{rgb} cameras. Using \gls{uav} for aerial surveys and photogrammetry allows for the efficient acquisition of 2D field maps and 3D models of the crop canopy for the entire farmland. However, due to limitations in survey efficiency and wind blurring caused by propellers, the \gls{uav} cannot fly too close to plants, resulting in inadequate resolution and quality for directly analyzing the broccoli heads at the organ level. This thesis attempted to fuse the close-range and aerial 3D phenotype data, as well as some latest machine learning and deep learning techniques, to accurately and efficiently obtain the position and size of broccoli heads in the field. Furthermore, this thesis also provided a better 3D virtual visualization for those broccoli heads in the field and builds a foundation for digital twins and virtual farmland for smart agriculture.}
 
-% cp 2-4
-% \deleted{We first developed an almost automated close-range pipeline to obtain the high-quality 3D models of destructively sampled broccoli heads, as a template database. By using the dual-rotation methods and the automated rotation platform, images from different perspectives of broccoli heads for 3D reconstruction were collected without heavy labor. Two pre-trained deep learning networks were used to preprocess these images without paying too much attention to algorithm developing and training data annotation. Afterward, we developed an automated workflow to calculate the 3D-based morphological traits and correct the top direction, which ensured the 3D models of the broccoli head can be used directly for the next step.}
-
-% \deleted{Parallel to the close-range pipeline, we also developed the aerial pipeline to obtain the 3D models of the entire field by \gls{uav} photogrammetry. The key idea is to obtain the shape and position of each broccoli head in the field. But the resolution of photogrammetry-produced field maps or 3D models is not enough for accurate head segmentation. To improve the quality and labor for head segmentation, we first fused the raw \gls{uav} images, which have better resolution and quality, and the field map, which has unique geographical coordinates. Then, we fused the time-series data from different growing stages; the seedling stage was used to obtain the position and IDs of each broccoli, which is a very simple detection task; and these positions were used to narrow the image processing area for head segmentation. Lastly, labor-saving active learning was used to interactively annotate the training data for the segmentation deep learning model. The morphological traits of segmented broccoli heads were also calculated, which is fundamental for the final step.}
-
-% \deleted{Finally, we fused the close-range and aerial pipelines. By using the paired morphological traits data from those destructively sampled broccoli heads, we trained an \gls{automl} calibration model to further improve the accuracy of aerial head segmentation. Then, the accuracy of head center positions was also calibrated by the piecewise affine transformation. Finally, for each broccoli head from the aerial survey, the closest 3D model was matched and transformed from the close-range high-quality database. After placing those transformed 3D models back into the aerial model, a script was developed for 3D virtual visualization and a better understanding of the head growth status in the field.}
-
-% \deleted{Overall, the results of these three research chapters showed that the proposed pipelines including active learning, deep learning, backward projection, auto machine learning, template matching, and data fusion, led to improved performance in the tested broccoli fields from 2020 to 2022. The results and statistical analysis concluded that the research objectives have been achieved and all the source codes are published on GitHub for replication and any usage purposes, we can conclude that the research has made a positive contribution to the 3D-based plant phenotyping and precision agriculture for broccoli farmlands.}
-
-% limitations -> combine all chapters, and new points can be found?
-% \deleted{Despite the promising results of the experiment in the broccoli field over three years, there is currently no strong evidence that the proposed methods can achieve similar performance in different farmland or vegetables. Since several assumptions of the methods were based on the characteristics of broccoli heads, such as the solid shape of broccoli head when vertically rotating on the rotation platform, small position variation from seeding to heading, the circular shape of the broccoli head, the clear color differences between the crown and stem for broccoli heads, and the flatten mushroom-shaped broccoli crown shape. Hence, the proposed full pipelines cannot be applied directly to vegetables with variate shapes. The full pipelines may still work on the cauliflowers (just change the color from greenish to whitish); For vegetables like sweet potatoes and cabbages with very different shapes, some modules like close-range reconstruction or 3D-based morphological traits calculation may still work, but some kinds of modifications for other parts are expected. Another limitation of the proposed close-range and aerial data fusion is the visibility of targets in both pipelines, at least for the current stage, not directly applicable for sweet potatoes and potatoes whose targets are beneath the soil, which deserve further studies.}
-
-\added{
   Although the three-year experiment conducted in the broccoli field yielded promising outcomes, the study was also subject to certain limitations.
   This section provides a summary of three specific limitations encountered: 
   the overreliance on broccoli-specific algorithms (Subsection~\ref{sec:lackuni}), 
   the lack of real farmland testing (Subsection~\ref{sec:lackvlid}), 
   and inadequate contributions in fieldwork and data collection (Subsection~\ref{sec:lackdata}).
-}
 
-\subsection{\added{Lacking universality}} \label{sec:lackuni}
 
-\added{
+\subsection{Lacking universality} \label{sec:lackuni}
+
+
   This study relied on certain assumptions about the characteristics of broccoli heads when developing the methods and algorithms.
   However, at present, there is insufficient evidence to support the claim that the proposed methods can achieve comparable results across various farmland or plant species.
-}
 
-\added{
   In Chapter 2, an important assumption for the high-quality 3D reconstruction pipeline is that the broccoli head remains rigid and does not change when vertically rotated on the rotation platform. 
   This assumption allows for the alignment and production of good quality 3D models through \gls{sfm}-\gls{mvs} algorithms using images captured from different view angles. 
   While this assumption holds for cauliflowers, sweet potatoes, and fruits like apples and oranges, whose bodies are almost rigid, it does not hold for plants with soft stems, leaves, and even roots.
   In such cases, the study proposed pipeline is not suitable, and a better solution is to utilize fixed-object methods (Figures \ref{fig:des1}a and \ref{fig:des1}b) to achieve improved results.
-}
 
-\added{
   The postprocessing algorithms for broccoli crown segmentation and rotation in this study were also developed based on the characteristics of the broccoli head.
   Specifically, the algorithm combines the distinct color differences between the crown (dark green) and stem (light green) with a 2-class clustering algorithm to separate the two parts.
   Additionally, the flattened, mushroom-shaped form of the broccoli crown is utilized to determine the normal vector in the upward direction.
   These algorithms are specifically designed for broccoli head cases and may not apply to other vegetables and fruits.
-}
 
-\added{
   In Chapter 3, the assumption of minimal positional variation in broccoli from seeding to heading is crucial. 
   In our study, we employed the results of seeding position detection to refine the image processing region during the challenging heading stage. 
   The concept of simplifying complex detection or segmentation tasks by incorporating data collected from an earlier period has also proven effective in other application scenarios. 
@@ -58,17 +36,13 @@
   Similarly, \mbox{\citet{li_multi-source_2023}} accurately located maize positions during the seeding stage, and these positions served as a guide for the challenging segmentation tasks when the maize canopy has severe leaf overlapping. 
   However, this assumption does not apply to targets that frequently change due to wind, such as wheat and sorghum tassels. 
   it is necessary and valuable to develop different processing algorithms to address such cases in the future.
-}
 
-\added{
   We utilized EasyIDP as another valuable tool in this chapter, but it is reported to have a potential performance bottleneck. 
   EasyIDP enables the linking of the same broccoli from low-quality geo-referenced map images to high-quality non-geo-referenced raw images, thereby greatly enhancing the accuracy of head segmentation. 
   In our experiment field, which spanned just one to 0.2 hectares, no significant performance bottlenecks were observed during the data processing. 
   However, Dr. Wei Guo reported that when processing a large forest area of over 58 hectares with file sizes exceeding 23GB using EasyIDP, the process took over 3 hours. 
   This performance bottleneck needs to be solved to facilitate the widespread application of this approach in large farmlands.
-}
 
-\added{
   In Chapter 4, to fuse the high-quality head 3D model with the low-quality aerial canopy model, we assume that all broccoli heads share similar structures for the same cultivar in the same field condition. 
   This allows us to create a representative template database through proper sampling. 
   Each head can then be approximated after a simple template transformation, which involves scaling along the short and long axes and rotating to overlap. 
@@ -85,29 +59,25 @@
   Furthermore, this approach is only applicable to visible broccoli heads in the aerial images and does not work for heavily occluded or completely invisible heads. 
   Especially, this method is not suitable for other challenging crops, such as potato and sweet potato, where the harvestable parts are underground. 
   Exploring how to deal with such complex and invisible conditions, like maize canopies and potato canopies, is a valuable avenue for future research.
-}
 
-\subsection{\added{Lacking real farmland practices}} \label{sec:lackvlid}
+\subsection{Lacking real farmland practices} \label{sec:lackvlid}
 
-\added{
   One unavoidable limitation of this study is that it has not been tested in actual farmlands, which are much larger and more complex than the current experimental field. 
   One noticeable difference is the variation in canopy patterns caused by different plant densities.
   For instance, our experimental field strictly maintained a spacing of 35 cm in rows and 70 cm apart, with a smaller deviation of less than 3 cm (Fig.~\ref{fig:dis_pattern}.a).
   In contrast, in the broccoli farmland we collaborated with in another project in Fukushima, the plants were spaced approximately 35 cm apart in rows, with a considerable variation greater than 7 cm (Fig.~\ref{fig:dis_pattern}.b). 
   This difference in density and deviation not only leads to distinct canopy patterns but also affects the direction and straightness of the ridges.
   The challenges posed by this difference in our proposed pipeline can be summarized in the following three points.
-}
+
 
 \input{figures/dis.fig.1.tex}
 
-\added{
+
   Firstly, in Fukushima, the broccoli tends to have smaller leaf angles compared to the experimental fields. 
   This leads to the broccoli heads being heavily covered by the shadows of leaves. 
   These shadows create dark areas, making it challenging to visually identify the flower heads or leaves in the aerial images and also complicating the segmentation process. 
   To effectively address this issue, the utilization of advanced sensors such as multispectral or \gls{lidar} is warranted, but at a much higher cost as compared to the conventional RGB camera. Therefore, there is a need to develop a more cost-effective \gls{lidar} solution to cater to the future demands of farmland applications.
-}
 
-\added{
   Secondly, the closer row spacing and higher deviation make it infeasible to use our previous linear-based ridge detection algorithm. 
   Without it, assigning regular ID numbers to individual broccoli based on the order of the ridge becomes impractical.
   One potential approach is to abandon the use of sequential numbers for identification purposes along the ridges. 
@@ -116,9 +86,7 @@
   it becomes challenging to conveniently associate the numbers with the plants in the field. 
   Given that the actual measurements typically occur along the ridges, during recording, it becomes necessary to repeatedly verify the ID instead of simply incrementing it by 1 as in the previous solution.
   However, it is important to note that in the Fukushima farmland, conducting field measurements along ridges is not feasible. This issue will be discussed further in the upcoming point.
-}
 
-\added{
   Thirdly, the high planting density poses difficulties in sampling and field measurement.
   In Figure~\ref{fig:dis_pattern}.b, it is evident that the density of the actual farmland makes it difficult for people to enter without causing damage to the broccoli and soil. 
   However, the farmland owner does not allow such damage, leaving only the broccolis along the plot boundaries available for measuring and sampling. 
@@ -129,11 +97,9 @@
   For another, we can enlarge our broccoli database through such collaborations.
   We can potentially provide prediction services for farmlands where ground truth data is unavailable. 
   This can be achieved by identifying similar environmental and cultivar patterns already present in our database.
-}
 
-\subsection{\added{Lacking full participation}} \label{sec:lackdata}
+\subsection{Lacking full participation} \label{sec:lackdata}
 
-\added{
   This is a personal limitation rather than the study itself.
   One thing that needs to be pointed out is I did not contribute entirely to the full process of the broccoli project. 
   The main focus of my doctoral research lies in the development of algorithms and engineering aspects. 
@@ -147,9 +113,7 @@
   the batch processing workflow of aerial data, and the accuracy improvement of spatiotemporal scale fusion (Chapter 3), 
   as well as the calibration, transformation, and matching of the broccoli model across different scales (Chapter 4).
   Such research experience has provided me with the opportunity to engage in interdisciplinary collaboration and have successfully achieved breakthroughs in my area of study. 
-}
 
-\added{
   However, this may not be beneficial to my overall academic development in some content. 
   Due to not being involved throughout the experimental process and data collection, it limits my understanding of the physiological and structural aspects of broccoli in the study. 
   It has made me aware of my shortcomings in research and motivated me to address them. 
@@ -157,40 +121,36 @@
   When Nishida conducted field measurements and destructive sampling, I assisted with some measurements and destructive sampling work to gain insight into the details of field measurements. 
   Furthermore, when Dr. Wei Guo carried out drone data collection, I took the opportunity to learn the basic procedures of operating a drone and understood the effects of setting overlap, shutter speed, and exposure on the quality of photographs. 
   After this collaboration experience of my doctoral study, I have come to recognize the importance of actively participating in experiments and data collection for future research.
-}
 
-% \section{\added{Industry–Academia collaboration challenges}} \label{sec:appclg}
 
-% \added{
+% \section{Industry–Academia collaboration challenges} \label{sec:appclg}
+
+% 
 %   In addition to the challenges and limitations inherent in this study, the practical application of similar smart agriculture research also presents its own set of limitations and challenges. 
 % }
 
 
 \section{Future research prospects} \label{sec:respros}
 
-In this thesis, several new approaches or pipelines were proposed to \replaced{enhance the performance of 3D-based plant phenotyping. 
+In this thesis, several new approaches or pipelines were proposed to enhance the performance of 3D-based plant phenotyping. 
 While our experimental field exhibits promising results, as discussed previously, this study still faces unresolved limitations at its current stage. 
-In this section, I will explore the future research prospects that not only benefit this study but also inspire further advancements in smart agriculture.}
-{improve the performance of 3D-based plant phenotyping. It was suggested to extend each of them in the future. As mentioned in Chapter 2, the dual-rotation approach for data collection still needs to manually change and vertically flip plants, and only applicable to solid plants. A more automated instrument should be developed to further reduce manual operations. For example, by using a track controlled by a stepper motor or robotic arms to achieve automated plant replacement and rotation. For softer plant organs like leaves and flowers, the dual-rotation method may not work due to the structure changing, so the approach needs to be changed by setting up camera arrays at different angles to achieve similar results.
-}
+In this section, I will explore the future research prospects that not only benefit this study but also inspire further advancements in smart agriculture.
 
-\subsection{\added{Probabilistic of this study}}\label{sec:thistudy}
+\subsection{Probabilistic of this study}\label{sec:thistudy}
 
-\added{
+
   Although our current research has some shortcomings and limitations, 
   a set of tools and pipelines we developed in this study has been helping many subsequent research projects, 
   not only limited to the agricultural field.
-}
 
-\added{
   Chapter 2 presents the establishment of high-quality close-range crop modeling pipelines.
   We obtained 189 high-resolution 3D models of broccoli plants through it. 
   As mentioned previously, this workflow can be readily extended to modeling more similar crops, including potatoes, sweet potatoes, and various other fruits.
   These high-quality 3D plant organ models can subsequently undergo phenotypic analysis. 
   Moreover, our 3D database holds potential for application in the \gls{cg} or gaming industry, as it offers high-resolution assets for use in AAA games.
-}
 
-\added{
+
+
   As a dependency tool to Chapter 3, 
   we first developed an Intermediate Data Processing (IDP) tool, named EasyIDP \mbox{\citep{wang_easyidp_2021}}, 
   to address the issue of low quality of drone-based 3D reconstruction outputs. 
@@ -202,9 +162,9 @@ In this section, I will explore the future research prospects that not only bene
   We have established a positive open-source community feedback mechanism,
   which is a level of achievement that other similar researchers have not reached. 
   It is important to further improve and promote these types of open-source software and communities in order to ensure the reproducibility and contribution of our work.
-}
 
-\added{
+
+
   In Chapter 3, an improved aerial survey pipeline for broccoli size was established, 
   which obtained the specific size of each broccoli plant in the time series. 
   This is difficult to achieve with traditional methods in acceptable labor costs. 
@@ -214,27 +174,27 @@ In this section, I will explore the future research prospects that not only bene
   The profit difference in 0.2 hectares of the experimental field could reach \$2000, 
   indicating significant implications for reducing food loss and improving farmers' income \mbox{\citep{wang_drone-based_2023}}. 
   Although it currently cannot be directly applied to densely planted farmlands, with the subsequent integration of other sensors to solve the broccoli segmentation problem, this process can be smoothly applied.
-}
 
-\added{
+
+
   Chapter 4 uses data fusion to achieve a better visualization effect, 
   transforming numerical phenotype data (such as broccoli size) into a 3D intuitive model. 
   This also serves as the technical basis for subsequent digital twins and smart agriculture, which is further discussed in Section~\ref{sec:digitwin}. 
   If \gls{ar} and \gls{vr} technologies can be combined in the future, 
   there is hope to transform the laborious field patrol work into indoor activities. 
-}
 
 
-\subsection{\added{Probabilistic of 3D reconstruction}}
 
-\added{
+\subsection{Probabilistic of 3D reconstruction}
+
+
   The study primarily utilizes photo-based 3D reconstruction (\mbox{\gls{sfm}-\gls{mvs}}) to acquire 3D data for both close-range and aerial plants. 
   In comparison to other reconstruction methods (Figure~\ref{fig:int2}), \mbox{\gls{sfm}-\gls{mvs}} offers the key advantage of relatively low sensor costs. 
   Only common RGB cameras are necessary to yield satisfactory results for close-range or aerial reconstructions.
   However, the workflow of photo-based 3D reconstruction also presents several challenges for data management and processing algorithms that deserve to be considered for future research.
-}
 
-\added{
+
+
   The first point is about data storage and management. 
   Typically, modeling a scene requires a large number of images, which can occupy a minimum of 1GB of storage space. 
   In our 3-year study, for both close-range broccoli head modeling (Chapter 2) and aerial survey (Chapter 3), the raw image data reached over 350GB 
@@ -248,7 +208,7 @@ In this section, I will explore the future research prospects that not only bene
   Therefore, compared to using local hard drives for data storage and archiving, the use of centralized cloud storage not only ensures better data security but also enables fast data sharing across institutions. 
   This is a crucial aspect that smart agriculture must consider for future data storage and management \mbox{\citep{guo_uas_2021}}. 
   Simultaneously, it is imperative to collaborate with various research institutions to establish a unified data archiving and metadata storage standard, similar to that of meteorological data, for subsequent cross-regional and long-term research tracking.
-}
+
 
 % However, 
 %    rather than plants, particularly under natural field conditions. 
@@ -257,7 +217,7 @@ In this section, I will explore the future research prospects that not only bene
 
 % Nonetheless, it should be noted that this algorithm assumes the reconstructed object to be rigid and may not be universally applicable to all agricultural crops. To evaluate its feasibility, we selected broccoli, which closely resembles a rigid body, as the subject for our case study. Even so, attaining optimal data quality while controlling expenses still requires a substantial amount of effort.
 
-\added{
+
   The second point concerns the processing algorithm of 3D reconstruction.
   It should be noted that this algorithm assumes the object to be rigid and consistent throughout all points of view (photos). 
   This assumption is commonly valid for urban buildings, mine shafts, and cultural relics,
@@ -268,22 +228,22 @@ In this section, I will explore the future research prospects that not only bene
   Several studies have been conducted to address the challenges posed by complex situations in algorithm adaptation. 
   For instance, \mbox{\citet{zheng_sparse_2015}} focused on enhancing the reconstruction effect of dynamic components through algorithmic improvements. 
   However, it is not feasible to manually develop special algorithms for all different kinds of natural conditions, a more efficient and robust approach should be found.
-}
 
-\added{
+
+
   The potential application of deep learning technology to partially or entirely replace the SfM-MVS algorithm has also raised many research interests \mbox{\citep{li_dl-based_2022}}. 
   This includes the substitution of camera pose estimation, also known as bundle adjustment \mbox{\citep{vedaldi_deepsfm_2020}}, and point cloud densitification \mbox{\citep{ferrari_mvsnet_2018}}. Furthermore, the \gls{nerf} builds upon the outcomes of the \gls{sfm} algorithm and employs deep learning networks to supplant subsequent \gls{mvs} and 3D object generation processes \mbox{\citep{mildenhall_nerf_2022}}. For example, \mbox{\citet{jignasu_plant_2023}} successfully achieved excellent reconstruction outcomes for maize, underscoring the effectiveness of this approach.
-}
-\deleted{In addition, besides image-based photogrammetry, the latest \gls{nerf} technology is also worth exploring.} There is now an application of \gls{nerf} based on the latest iPad's \gls{lidar} sensor for camera position estimation. In our preliminary experiments in early May 2023, especially for landscape plants with complex structures, better 3D models can be obtained than with photogrammetry. However, currently, the iPad needs to be manually moved to match the path guidance in the software. If this process can be interactively realized with a robotic arm, it also has broad potential applications.
 
-\added{
+ There is now an application of \gls{nerf} based on the latest iPad's \gls{lidar} sensor for camera position estimation. In our preliminary experiments in early May 2023, especially for landscape plants with complex structures, better 3D models can be obtained than with photogrammetry. However, currently, the iPad needs to be manually moved to match the path guidance in the software. If this process can be interactively realized with a robotic arm, it also has broad potential applications.
+
+
   In addition to enhancing the \gls{sfm}-\gls{mvs} workflow, there have been studies exploring the utilization of deep learning for direct 3D structure prediction. 
   For instance, \mbox{\citet{vicini_differentiable_2022}} employ direct estimation to determine the 3D shape, while \mbox{\citet{magistri_towards_2021}} utilize a single image in conjunction with deep learning to directly render the 3D plant model. 
   These studies, based on deep learning techniques, aim to overcome the technical limitations associated with conventional 3D reconstruction algorithms. 
   It is important to verify and implement these approaches in the acquisition of 3D plant structures in the future.
-}
 
-\added{
+
+
   The third point is about multi-sensor integration. 
   The aforementioned attempts to reconstruct 3D structures from photos and optimize various algorithms are compromised solutions due to equipment costs. 
   However, if we neglect equipment costs, the use of \gls{lidar} is a more accurate method of obtaining spatial 3D structures. 
@@ -295,9 +255,9 @@ In this section, I will explore the future research prospects that not only bene
   potentially revolutionizing the acquisition of 3D structural data. 
   In terms of applications in smart agriculture in the future, 
   the fusion of \gls{lidar} with other sensors further enhances the performance of high-throughput models \mbox{\citep{li_multi-source_2023,nguyen_uav_2023}}.
-}
 
-\added{
+
+
   The final point is regarding the automation technologies utilized in aerial data collection. 
   Presently, the quality of aerial image data still greatly depends on the expertise of device operators. 
   Due to varying weather conditions during different survey times, 
@@ -320,21 +280,21 @@ In this section, I will explore the future research prospects that not only bene
   These features allow for automatic flight route planning on a computer and transmitting to the drone. 
   This technology has since been completely superseded by the built-in flight planning function of drones within three years. 
   Hence, it can be predicted that this issue of camera parameter settings will also be integrated into drones shortly to ensure the stability of data quality obtained by different operators.
-}
 
-\subsection{\added{Probabilistic of digital twin}}\label{sec:digitwin}
 
-\added{
+\subsection{Probabilistic of digital twin}\label{sec:digitwin}
+
+
   The advent of digital twin technology points to a very different future for smart agriculture and plant phenotyping, 
   the researchers can operate directly on the virtual plants and preview its impact on the plant immediately \mbox{\citep{verdouw_digital_2021}}. 
   The fundamental in implementing such technology is to present the 3D crop model (virtual plant) accurately in the computer first, and then implement architecture fine-tuning and phenotyping applications on them.
   This study is the first to explore the possibility of presenting the virtual plants from actual fields accurately.
-}
+
 
 % Virtual plants powered crop data analysis and phenotyping applications.
-In Chapter 4, the data fusion between close-range and aerial surveys showed a good result in the visualization hidden part of the broccoli head, although based on statistical regression for visualization rather than actual status. As discussed in Chapter 4, for different cultivars of broccoli, more broccoli heads should be collected to provide a sufficient template database to meet more detailed transformation needs. However, the proposed method is facing challenges when dealing with crops with complex structures, such as maize or soybean canopies. On one hand, the severity of occlusion makes it very difficult to distinguish individual maize or soybean; on the other hand, due to the multilateral structure of crops, it is difficult to collect enough samples for template transformation. \added{Thus, there is a demand to change the virtual plant architecture with lower cost} 
+In Chapter 4, the data fusion between close-range and aerial surveys showed a good result in the visualization hidden part of the broccoli head, although based on statistical regression for visualization rather than actual status. As discussed in Chapter 4, for different cultivars of broccoli, more broccoli heads should be collected to provide a sufficient template database to meet more detailed transformation needs. However, the proposed method is facing challenges when dealing with crops with complex structures, such as maize or soybean canopies. On one hand, the severity of occlusion makes it very difficult to distinguish individual maize or soybean; on the other hand, due to the multilateral structure of crops, it is difficult to collect enough samples for template transformation. Thus, there is a demand to change the virtual plant architecture with lower cost 
 
-\added{
+
   Currently, there are three main methods of acquiring virtual plants that can be architecture fine-tuned. 
   1) By template stitching. 
   \mbox{\citet{chang_3dcap_2022}} obtained the database of wheat organ 3D models at different growth stages by destructive sampling and manual measurement of parameters. 
@@ -349,34 +309,30 @@ In Chapter 4, the data fusion between close-range and aerial surveys showed a go
   % This process was also reflected in the implementation of \gls{cg} modeling. 
   % For example, the general shape of the plant was obtained through relatively simple geometries, 
   % and then photo-quality texture mapping was used to obtain a very realistic \gls{cg} model \mbox{\citet{mikami_hidden_2022}}.
-}
 
-\deleted{
-In this condition, the advent of procedural modeling points to very different solutions that use several parameters to control the structure of 3D models. For example, The L-system was used to construct virtual crop models that adjusted the parameters to approximate the real crop by three-view photos \mbox{\citep{cieslak_l-system_2021}}.}
+
+In this condition, the advent of procedural modeling points to very different solutions that use several parameters to control the structure of 3D models. For example, The L-system was used to construct virtual crop models that adjusted the parameters to approximate the real crop by three-view photos \mbox{\citep{cieslak_l-system_2021}}.
 Although the model obtained using the above method is only structural, it is not realistic enough in terms of detail and appearance. \citet{mikami_hidden_2022} used photo-quality texture mapping on the plant 3D models with relatively simple geometries and finally obtained very realistic 3D models in texture. In our preliminary experiment, a similar corn model using parameter controls has already been achieved in Blender, but due to the complexity of the research, the ability to repair the corn canopy has not yet been realized. In subsequent studies, we hope to develop a parameter-controlled broccoli model and complete the repair of the corn canopy.
 
-Furthermore, several advanced \replaced{techniques}{phenotyping applications} can be \replaced{applied to}{simulated on} the abovementioned virtual 3D plant models. 1) The ray-tracing technologies can be applied to simulate lights within the canopy. 
-\added{
-  For example, analyzing the contribution of foliar and non-foliar tissues to canopy photosynthesis under different canopy structures \mbox{\citep{chang_3dcap_2022}}, or the effects of different spacing \mbox{\citep{he_modeling_2021}} and leaf angles \mbox{\citep{liu_canopy_2021}} on the light use efficiency.
-}2) The point cloud simulation technology can be used to simulate point clouds from the virtual canopy. For the canopy traits which are easy to get from virtual plants but hard from the real field, the corresponding models between features from the simulated point cloud and traits from the virtual canopy can be trained and then applied to the field-scanned point cloud data to inverse the actual data \citep{liu_estimating_2017}. 3) The \gls{cg} rendering techniques can decrease the workload of data annotating in the phenotyping data processing by deep learning. The rending engine can yield \gls{cg} photos that are very close to the real world. At the same time, by adjusting the model texture to solid pure color, the corresponding labeled information for both \gls{cg} photos \citep{mikami_hidden_2022} and point clouds \citep{chaudhury_3d_2020} can be generated in batch from random virtual canopies.
+Furthermore, several advanced techniques can be applied to the abovementioned virtual 3D plant models. 1) The ray-tracing technologies can be applied to simulate lights within the canopy. For example, analyzing the contribution of foliar and non-foliar tissues to canopy photosynthesis under different canopy structures \mbox{\citep{chang_3dcap_2022}}, or the effects of different spacing \mbox{\citep{he_modeling_2021}} and leaf angles \mbox{\citep{liu_canopy_2021}} on the light use efficiency. 2) The point cloud simulation technology can be used to simulate point clouds from the virtual canopy. For the canopy traits which are easy to get from virtual plants but hard from the real field, the corresponding models between features from the simulated point cloud and traits from the virtual canopy can be trained and then applied to the field-scanned point cloud data to inverse the actual data \citep{liu_estimating_2017}. 3) The \gls{cg} rendering techniques can decrease the workload of data annotating in the phenotyping data processing by deep learning. The rending engine can yield \gls{cg} photos that are very close to the real world. At the same time, by adjusting the model texture to solid pure color, the corresponding labeled information for both \gls{cg} photos \citep{mikami_hidden_2022} and point clouds \citep{chaudhury_3d_2020} can be generated in batch from random virtual canopies.
 
-\subsection{\added{Probabilistic of Foundation AI models}}
+\subsection{Probabilistic of Foundation AI models}
 
-\added{
+
   This study incorporated machine learning (AutoML) and deep learning (Yolo, BiseNet) techniques to effectively reduce labor costs associated with occlusion calibration and broccoli head segmentation. 
   However, it is important to note that the robustness and universality of this study are confined to broccoli heads within the experimental field, as discussed in Section~\ref{sec:reslim}. 
   To make further advancements, the emergence of Foundation (large) AI models presents an inspiring opportunity for future research in the field of smart agriculture.
-}
 
-\added{
+
+
   In the field of \gls{nlp} tasks, such as translation, 
   researchers initially focused on developing algorithms that followed grammar rules for translating between languages \mbox{\citep{strzalkowski_reversible_1994}}. 
   This approach bears resemblance to the manual rule-writing in smart agriculture a few years ago, where image-processing rules 
   (e.g., color space threshold) were written to detect and segment \gls{roi} from images \mbox{\citep{kapur_new_1985, nobis_automatic_2005, zhou_broccoli_2019, wang_estimating_2019}}. 
   However, this method is time-consuming and only applicable under specific and limited conditions, with limited ability to be readily applied to other conditions.
-}
 
-\added{
+
+
   Then, machine learning algorithms shifted their focus from developing rules to collecting as much data as possible. 
   By inputting paired translations of the same book or article, 
   The machine itself could identify patterns between different languages. 
@@ -387,9 +343,9 @@ Furthermore, several advanced \replaced{techniques}{phenotyping applications} ca
   where the emphasis has shifted from developing image-processing algorithms to maximizing the amount of annotated training data \mbox{\citep{zhou_monitoring_2020,blok_image_2021,bauer_combining_2019}}. 
   Chapter 3 contributed to integrating the characteristics of agriculture to reduce the workload of data annotation. 
   This is now at the cutting edge of research in smart agriculture, but not necessarily in \gls{nlp}.
-}
 
-\added{
+
+
   The continuous development of deep learning, 
   particularly the introduction of transformer architecture in 2017, 
   has led to a significant increase in the parameter count of deep learning models. 
@@ -406,9 +362,9 @@ Furthermore, several advanced \replaced{techniques}{phenotyping applications} ca
   Moreover, Huawei's Pangu-Weather foundation model has achieved a speed improvement of over 10,000 times compared to traditional forecast methods, 
   enabling a single graphics card to complete a 24-hour global weather forecast within a few minutes, 
   with greater accuracy in predicting typhoons \citep{bi_accurate_2023}. The outstanding performance of these large models in these fields has paved the way for further research in smart agriculture.
-}
 
-\added{
+
+
   Agriculture is also a highly complex system, and it may be possible to obtain a general model similar to Pangu-Weather by collecting a sufficient amount of data and conducting training. 
   However, there is still a long way to go for large-scale agricultural models. 
   The most critical issue is the lack of high-quality agricultural datasets, 
@@ -419,4 +375,3 @@ Furthermore, several advanced \replaced{techniques}{phenotyping applications} ca
   Furthermore, different datasets vary greatly in terms of recorded phenotypic data types and formats, 
   making it very difficult to merge and analyze the data. 
   Therefore, for the future development of large-scale agricultural models, as emphasized in Section~\ref{sec:thistudy}, strengthening cooperation between institutions and improving dataset management are urgent issues to be addressed.
-}
