@@ -19,3 +19,22 @@ Please ensure to use the following build command:
 # Reference management
 
 The BibTex reference `styles/bibtex.bib` is produced by Zotero and [Better BibTex](https://retorque.re/zotero-better-bibtex/) zotero plugin
+
+# Editing track
+
+The editing tracking is made by `changes` latex package, by manually editing the latex source code `\added{...}`, `\replace{new}{old}`, `\deleted{...}` to produce changing trace marks. After finishing all editing, using the `pyBatchMerge.ipynb` to accept all changes.
+
+> Please note, the tool only can remove the `\added{}`, `\replace`, and `\deleted{}` in **one** line. Please search and edit manually others in multiple lines before compiling.
+>
+> e.g. The following is in one line, it works
+> ```latex
+> \added{The purple monkey danced on top of the flying toaster while juggling three rubber ducks and reciting the alphabet backwards}.
+> ```
+>
+> But this is not in one line, does not work
+> ```latex
+> \added{
+>    The purple monkey danced on top of the flying toaster while
+>    juggling three rubber ducks and reciting the alphabet backwards
+> }.
+> ```
